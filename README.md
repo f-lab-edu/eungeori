@@ -23,16 +23,21 @@
 ### 프론트엔드
 - **Next.js 14**: 서버 사이드 렌더링(SSR)과 정적 사이트 생성(SSG)을 지원하는 React 기반 프레임워크
 - **TypeScript**: 정적 타입을 지원하는 JavaScript의 슈퍼셋으로, 안정성과 가독성을 향상
-- **Vanilla Extract:**: CSS의 타입 안전성을 제공하는 스타일링 라이브러리
+- **Vanilla Extract**: CSS의 타입 안전성을 제공하는 스타일링 라이브러리
 - **Zustand**: 간단하고 직관적인 상태 관리 라이브러리
 
 ### 백엔드
 - **Supabase**: 실시간 데이터베이스 및 인증 기능을 제공하는 오픈 소스 백엔드 서비스
+- **Next.js API Routes**: Next.js의 서버리스 API 라우트를 활용하여, 간단한 서버 기능과 API를 구현
 
-### CI/CD
+
+### AWS
 - **GitHub Actions**: 자동화된 워크플로우 관리 및 CI/CD 파이프라인을 구축하여, 개발 및 배포 프로세스를 최적화
 - **ECR (Elastic Container Registry)**: 컨테이너 이미지를 저장하고 관리하는 AWS 서비스. 애플리케이션의 Docker 이미지를 이곳에 저장
 - **ECS (Elastic Container Service) - Fargate**: AWS에서 제공하는 서버리스 컨테이너 오케스트레이션 서비스
+
+### 패키지매니저
+- **PNPM**: 빠르고 효율적인 패키지 매니저로, 중복된 패키지를 링크 방식으로 관리하여 설치 속도가 빠르고 디스크 사용량을 줄여줌
   
 ## 🚀 설치 및 실행
 
@@ -48,13 +53,13 @@
 
     ```bash
     cd eungeori
-    npm install
+    pnpm install
     ```
 
 3. 개발 서버를 시작합니다:
 
     ```bash
-    npm run dev
+    pnpm run dev
     ```
 
 4. 브라우저에서 `http://localhost:3000`을 열어 애플리케이션을 확인합니다.
