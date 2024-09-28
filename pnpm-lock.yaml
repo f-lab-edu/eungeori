@@ -11,6 +11,9 @@ importers:
       '@vanilla-extract/css':
         specifier: ^1.15.3
         version: 1.15.5
+      '@vanilla-extract/sprinkles':
+        specifier: ^1.6.3
+        version: 1.6.3(@vanilla-extract/css@1.15.5)
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -724,6 +727,11 @@ packages:
 
   '@vanilla-extract/private@1.0.6':
     resolution: {integrity: sha512-ytsG/JLweEjw7DBuZ/0JCN4WAQgM9erfSTdS1NQY778hFQSZ6cfCDEZZ0sgVm4k54uNz6ImKB33AYvSR//fjxw==}
+
+  '@vanilla-extract/sprinkles@1.6.3':
+    resolution: {integrity: sha512-oCHlQeYOBIJIA2yWy2GnY5wE2A7hGHDyJplJo4lb+KEIBcJWRnDJDg8ywDwQS5VfWJrBBO3drzYZPFpWQjAMiQ==}
+    peerDependencies:
+      '@vanilla-extract/css': ^1.0.0
 
   '@vanilla-extract/webpack-plugin@2.3.13':
     resolution: {integrity: sha512-9T3X87OFZYCfYqXVpzwycVIo2Bf3c+5wxFzA2KT0i4clc9dxDNL9ru2V6SyPJAul6BsQfjn0G9C4qva8hOEv8Q==}
@@ -2851,6 +2859,10 @@ snapshots:
       - webpack
 
   '@vanilla-extract/private@1.0.6': {}
+
+  '@vanilla-extract/sprinkles@1.6.3(@vanilla-extract/css@1.15.5)':
+    dependencies:
+      '@vanilla-extract/css': 1.15.5
 
   '@vanilla-extract/webpack-plugin@2.3.13(@types/node@20.16.3)(terser@5.33.0)(webpack@5.95.0)':
     dependencies:
