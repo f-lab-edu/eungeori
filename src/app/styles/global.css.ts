@@ -9,10 +9,15 @@ globalStyle("body", {
 });
 
 export const contentContainer = style({
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
   maxWidth: "430px",
   minWidth: "320px",
   minHeight: "100vh",
   margin: "0 auto",
-  position: "relative",
+  padding: "0 28px",
   background: colors.white,
 });

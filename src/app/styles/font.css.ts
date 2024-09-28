@@ -26,3 +26,19 @@ export const semiBold = style({
   fontFamily: contentFont,
   fontWeight: 600,
 });
+
+export const heading = style({
+  fontSize: "30px",
+});
+
+export const heading2 = style({
+  fontSize: "28px",
+});
+
+export const caption = style({
+  fontSize: "12px",
+});
+
+export const caption2 = style({
+  fontSize: "10px",
+});
