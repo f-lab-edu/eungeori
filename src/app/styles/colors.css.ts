@@ -3,10 +3,12 @@ import { style } from "@vanilla-extract/css";
 export const colors = {
   point: "#4FE786",
   primary: "#141313",
+  white: "#ffffff",
   white30: "#F5F5F5",
   gray200: "#D9D9D9",
   gray300: "#AEB0B2",
   gray500: "#9B9B9B",
+  background: "#F5F5F5",
 };
 
 export const point = style({
@@ -15,6 +17,10 @@ export const point = style({
 
 export const primary = style({
   color: colors.primary,
+});
+
+export const white = style({
+  color: colors.white,
 });
 
 export const white30 = style({
@@ -31,4 +37,8 @@ export const gray300 = style({
 
 export const gray500 = style({
   color: colors.gray500,
+});
+
+export const background = style({
+  color: colors.background,
 });
