@@ -19,4 +19,4 @@ const flexProperties = defineProperties({
   },
 });
 
-export const sprinkles = createSprinkles(flexProperties);
+export const flexSprinkles = createSprinkles(flexProperties);

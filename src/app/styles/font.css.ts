@@ -10,6 +10,12 @@ globalFontFace(contentFont, [
     fontDisplay: "swap",
   },
   {
+    src: "url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');",
+    fontStyle: "normal",
+    fontWeight: 400,
+    fontDisplay: "swap",
+  },
+  {
     src: "url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');",
     fontStyle: "normal",
     fontWeight: 600,
@@ -20,6 +26,11 @@ globalFontFace(contentFont, [
 export const light = style({
   fontFamily: contentFont,
   fontWeight: 200,
+});
+
+export const regular = style({
+  fontFamily: contentFont,
+  fontWeight: 400,
 });
 
 export const semiBold = style({
