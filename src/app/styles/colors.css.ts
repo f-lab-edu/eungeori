@@ -3,6 +3,7 @@ import { style } from "@vanilla-extract/css";
 export const colors = {
   point: "#4FE786",
   primary: "#141313",
+  line: "#F3F3F3",
   white: "#ffffff",
   white30: "#F5F5F5",
   gray200: "#D9D9D9",
@@ -17,6 +18,10 @@ export const point = style({
 
 export const primary = style({
   color: colors.primary,
+});
+
+export const line = style({
+  color: colors.line,
 });
 
 export const white = style({

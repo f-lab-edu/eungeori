@@ -11,7 +11,6 @@ globalStyle("body", {
 
 export const contentContainer = style({
   minHeight: "100vh",
-
   minWidth: "320px",
   maxWidth: "500px",
   margin: " 0px auto",

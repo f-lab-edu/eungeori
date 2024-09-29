@@ -53,3 +53,7 @@ export const caption = style({
 export const caption2 = style({
   fontSize: "10px",
 });
+
+export const caption3 = style({
+  fontSize: "8px",
+});
