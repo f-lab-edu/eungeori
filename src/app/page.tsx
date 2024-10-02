@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Logo from "@svgs/logo.svg";
 
@@ -13,6 +15,8 @@ import {
 } from "@styles/login/login.css";
 import { flexSprinklesFc } from "./components/common/utils/flex";
 import { regular } from "./styles/font.css";
+import { MouseEventHandler } from "react";
+import { useRouter } from "next/navigation";
 
 type LoginBoxProps = {
   image: string;
@@ -20,9 +24,17 @@ type LoginBoxProps = {
   bg: string;
   textColor: string;
   border?: boolean;
+  onClick: MouseEventHandler<HTMLDivElement>;
 };
 
-const LoginBox = ({ image, text, bg, textColor, border }: LoginBoxProps) => {
+const LoginBox = ({
+  image,
+  text,
+  bg,
+  textColor,
+  border,
+  onClick,
+}: LoginBoxProps) => {
   return (
     <div
       className={loginBox}
@@ -32,7 +44,7 @@ const LoginBox = ({ image, text, bg, textColor, border }: LoginBoxProps) => {
         border: border ? "1px solid #d2d5d6" : "none",
       }}
     >
-      <div className={loginBoxContents}>
+      <div className={loginBoxContents} onClick={onClick}>
         <Image src={image} alt={text} width={24} height={24} />
         <p className={regular}>{text}</p>
       </div>
@@ -41,6 +53,8 @@ const LoginBox = ({ image, text, bg, textColor, border }: LoginBoxProps) => {
 };
 
 export default function Login() {
+  const router = useRouter();
+
   const logoClassName = flexSprinklesFc({
     flexDirection: "column",
     justifyContent: "center",
@@ -73,18 +87,21 @@ export default function Login() {
           text="카카오톡으로 계속하기"
           bg="#FEE500"
           textColor="#242729"
+          onClick={() => router.push("/record")}
         />
         <LoginBox
           image="/svgs/naver.svg"
           text="네이버로 계속하기"
           bg="#00C53A"
           textColor="#ffffff"
+          onClick={() => router.push("/record")}
         />
         <LoginBox
           image="/svgs/google.svg"
           text="Google로 계속하기"
           bg="#ffffff"
           textColor="#242729"
+          onClick={() => router.push("/record")}
           border
         />
       </article>

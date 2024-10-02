@@ -46,6 +46,14 @@ export const heading2 = style({
   fontSize: "28px",
 });
 
+export const paragraph = style({
+  fontSize: "20px",
+});
+
+export const paragraph2 = style({
+  fontSize: "14px",
+});
+
 export const caption = style({
   fontSize: "12px",
 });

@@ -6,8 +6,10 @@ export const colors = {
   line: "#F3F3F3",
   white: "#ffffff",
   white30: "#F5F5F5",
+  gray150: "#E3E3E3",
   gray200: "#D9D9D9",
   gray300: "#AEB0B2",
+  gray400: "#B8B8B8",
   gray500: "#9B9B9B",
   background: "#F5F5F5",
 };
@@ -32,12 +34,20 @@ export const white30 = style({
   color: colors.white30,
 });
 
+export const gray150 = style({
+  color: colors.gray200,
+});
+
 export const gray200 = style({
   color: colors.gray200,
 });
 
 export const gray300 = style({
   color: colors.gray300,
+});
+
+export const gray400 = style({
+  color: colors.gray400,
 });
 
 export const gray500 = style({
