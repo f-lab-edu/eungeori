@@ -3,6 +3,7 @@ import { memoBox } from "@/app/styles/memo.css";
 import Image from "next/image";
 import { flexSprinklesFc } from "./utils/flex";
 import { gray300 } from "@/app/styles/colors.css";
+import { pointer } from "@/app/styles/global.css";
 
 type MemoPorps = {
   date: string;
@@ -23,7 +24,10 @@ const Memo = ({ date, text }: MemoPorps) => {
           마셔야겠다 😥
         </p>
       </div>
-      <p className={`${caption2} ${gray300}`}>수정 | 삭제</p>
+      <p className={`${caption2} ${gray300}`}>
+        <span className={pointer}>수정</span> <span>|</span>{" "}
+        <span className={pointer}>삭제</span>
+      </p>
     </div>
   );
 };

@@ -17,3 +17,7 @@ export const contentContainer = style({
   position: "relative",
   background: colors.white,
 });
+
+export const pointer = style({
+  cursor: "pointer",
+});

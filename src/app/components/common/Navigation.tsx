@@ -10,6 +10,7 @@ import { flexSprinklesFc } from "./utils/flex";
 import { gray500, primary } from "@/app/styles/colors.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { pointer } from "@/app/styles/global.css";
 
 const Navigation = () => {
   const router = useRouter();
@@ -25,13 +26,12 @@ const Navigation = () => {
     <nav className={navWrapper}>
       <div className={navContainer}>
         <div
-          className={flexSprinklesFc({
+          className={`${flexSprinklesFc({
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             gap: "4px",
-          })}
-          style={{ cursor: "pointer" }}
+          })} ${pointer}`}
           onClick={() => {
             handleClick("graph");
           }}
@@ -50,13 +50,12 @@ const Navigation = () => {
           </p>
         </div>
         <div
-          className={flexSprinklesFc({
+          className={`${flexSprinklesFc({
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             gap: "4px",
-          })}
-          style={{ cursor: "pointer" }}
+          })} ${pointer}`}
           onClick={() => {
             handleClick("record");
           }}
@@ -77,13 +76,12 @@ const Navigation = () => {
           </p>
         </div>
         <div
-          className={flexSprinklesFc({
+          className={`${flexSprinklesFc({
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             gap: "4px",
-          })}
-          style={{ cursor: "pointer" }}
+          })} ${pointer}`}
           onClick={() => {
             handleClick("my");
           }}
