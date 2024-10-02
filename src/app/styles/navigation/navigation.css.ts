@@ -10,6 +10,8 @@ export const navWrapper = style({
   maxWidth: "500px",
   margin: "0 auto",
   borderTop: `1px solid  ${colors.line}`,
+  background: colors.white,
+  zIndex: "10",
 });
 
 export const navContainer = style({

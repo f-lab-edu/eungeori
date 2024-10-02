@@ -1,6 +1,7 @@
 import { globalFontFace, style } from "@vanilla-extract/css";
 
 const contentFont = "pretendard";
+const subFont = "ladywatermelon";
 
 globalFontFace(contentFont, [
   {
@@ -22,6 +23,19 @@ globalFontFace(contentFont, [
     fontDisplay: "swap",
   },
 ]);
+
+globalFontFace(subFont, [
+  {
+    src: "url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2')",
+    fontWeight: "normal",
+    fontStyle: "normal",
+    fontDisplay: "swap",
+  },
+]);
+
+export const subFontStyle = style({
+  fontFamily: subFont,
+});
 
 export const light = style({
   fontFamily: contentFont,
