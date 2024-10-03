@@ -1,17 +1,14 @@
 import { globalStyle } from "@vanilla-extract/css";
 import * as layers from "./layers.css";
 
-globalStyle(
-  "*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *))",
-  {
-    "@layer": {
-      [layers.reset]: {
-        all: "unset",
-        display: "revert",
-      },
+globalStyle("*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *))", {
+  "@layer": {
+    [layers.reset]: {
+      all: "unset",
+      display: "revert",
     },
-  }
-);
+  },
+});
 
 globalStyle("*, *::before, *::after", {
   "@layer": {

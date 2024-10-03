@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { colors } from "./colors.css";
+import { colors } from "../colors.css";
 
 export const memoBox = style({
   display: "grid",

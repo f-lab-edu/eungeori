@@ -22,11 +22,7 @@ export const loginTextBox = style({
   textAlign: "center",
 });
 
-export const loginHeading = style([
-  semiBold,
-  heading,
-  paddingSprinkles({ paddingBottom: "s12" }),
-]);
+export const loginHeading = style([semiBold, heading, paddingSprinkles({ paddingBottom: "s12" })]);
 
 export const loginCaption = style([
   caption,

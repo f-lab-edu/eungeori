@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { paddingSprinkles } from "../padding.css";
 import { colors } from "../colors.css";
-import { paragraph2, semiBold } from "../font.css";
+import { paragraph3, semiBold } from "../font.css";
 
 export const circle = style([
   semiBold,
@@ -11,7 +11,7 @@ export const circle = style([
     justifyContent: "center",
     width: "42px",
     height: "42px",
-    fontSize: paragraph2,
+    fontSize: paragraph3,
     backgroundColor: colors.white30,
     borderRadius: "50%",
   },

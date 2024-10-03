@@ -65,6 +65,10 @@ export const paragraph = style({
 });
 
 export const paragraph2 = style({
+  fontSize: "18px",
+});
+
+export const paragraph3 = style({
   fontSize: "14px",
 });
 
