@@ -1,10 +1,7 @@
 "use client";
 
 import { caption3 } from "@/app/styles/font.css";
-import {
-  navContainer,
-  navWrapper,
-} from "@/app/styles/navigation/navigation.css";
+import { navContainer, navWrapper } from "@/app/styles/navigation/navigation.css";
 import Image from "next/image";
 import { flexSprinklesFc } from "./utils/flex";
 import { gray500, primary } from "@/app/styles/colors.css";
@@ -37,17 +34,13 @@ const Navigation = () => {
           }}
         >
           <Image
-            src={
-              path === "graph" ? "/svgs/active_graph.svg" : "/svgs/graph.svg"
-            }
+            src={path === "graph" ? "/svgs/active_graph.svg" : "/svgs/graph.svg"}
             alt="icon"
             width={25}
             height={20}
             priority
           />
-          <p className={`${caption3} ${path === "graph" ? primary : gray500}`}>
-            분석
-          </p>
+          <p className={`${caption3} ${path === "graph" ? primary : gray500}`}>분석</p>
         </div>
         <div
           className={`${flexSprinklesFc({
@@ -61,19 +54,13 @@ const Navigation = () => {
           }}
         >
           <Image
-            src={
-              path === "record"
-                ? "/svgs/active_calender.svg"
-                : "/svgs/calender.svg"
-            }
+            src={path === "record" ? "/svgs/active_calender.svg" : "/svgs/calender.svg"}
             alt="icon"
             width={20}
             height={20}
             priority
           />
-          <p className={`${caption3} ${path === "record" ? primary : gray500}`}>
-            캘린더
-          </p>
+          <p className={`${caption3} ${path === "record" ? primary : gray500}`}>캘린더</p>
         </div>
         <div
           className={`${flexSprinklesFc({
@@ -93,9 +80,7 @@ const Navigation = () => {
             height={20}
             priority
           />
-          <p className={`${caption3} ${path === "my" ? primary : gray500}`}>
-            마이
-          </p>
+          <p className={`${caption3} ${path === "my" ? primary : gray500}`}>마이</p>
         </div>
       </div>
     </nav>
