@@ -27,14 +27,7 @@ type LoginBoxProps = {
   onClick: MouseEventHandler<HTMLDivElement>;
 };
 
-const LoginBox = ({
-  image,
-  text,
-  bg,
-  textColor,
-  border,
-  onClick,
-}: LoginBoxProps) => {
+const LoginBox = ({ image, text, bg, textColor, border, onClick }: LoginBoxProps) => {
   return (
     <div
       className={loginBox}
