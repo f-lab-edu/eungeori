@@ -1,16 +1,11 @@
-import Button from "@/app/components/common/Button";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import { colors, gray300, primary } from "@/app/styles/colors.css";
+import { gray300 } from "@/app/styles/colors.css";
 import { caption, heading2, semiBold } from "@/app/styles/font.css";
 import { paddingSprinkles } from "@/app/styles/padding.css";
 
 const page = () => (
   <article>
-    <div
-      className={`${flexSprinklesFc({ flexDirection: "column", gap: "16px" })} ${paddingSprinkles({
-        paddingTop: "s32",
-      })}`}
-    >
+    <div className={`${flexSprinklesFc({ flexDirection: "column", gap: "16px" })} `}>
       <h3 className={`${semiBold} ${heading2}`}>
         몇 시에
         <br />

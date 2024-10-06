@@ -7,19 +7,16 @@ import { pointer } from "../styles/global.css";
 import { flexSprinklesFc } from "../components/common/utils/flex";
 import { colors } from "../styles/colors.css";
 import Button from "../components/common/Button";
+import { paddingSprinkles } from "../styles/padding.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   return (
     <section className={infoWrapper}>
-      <Image
-        src="/svgs/prev.svg"
-        alt="back"
-        width={17}
-        height={21}
-        className={pointer}
-        onClick={router.back}
-      />
+      <div className={`${paddingSprinkles({ paddingBottom: "s32" })} ${pointer}`}>
+        <Image src="/svgs/prev.svg" alt="back" width={17} height={21} onClick={router.back} />
+      </div>
+
       {children}
 
       <div className={flexSprinklesFc({ gap: "16px", justifyContent: "center" })}>
@@ -31,6 +28,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           background={colors.primary}
           color={colors.white}
           borderRadius="10px"
+          onClick={() => {
+            router.push("/info/shape");
+          }}
         />
       </div>
     </section>
