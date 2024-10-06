@@ -42,3 +42,21 @@ export const recordDate = style({
   columnGap: "13px",
   rowGap: "48px",
 });
+
+export const plusIconBox = style({
+  display: "flex",
+  justifyContent: "flex-end",
+  cursor: "pointer",
+});
+
+export const plusIcon = style({
+  position: "fixed",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  bottom: "75px",
+  width: "25px",
+  height: "25px",
+  borderRadius: "50%",
+  background: colors.primary,
+});
