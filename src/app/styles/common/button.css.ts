@@ -10,6 +10,7 @@ const buttonProperties = defineProperties({
     fontSize: ["12px", "16px", "18px"],
     color: [colors.primary, colors.white],
     background: [colors.primary, colors.white30],
+    borderRadius: ["5px", "10px"],
   },
   shorthands: {
     button: ["width", "height", "background"],
@@ -32,6 +33,5 @@ export const buttonWrapper = style([
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: "5px",
   },
 ]);

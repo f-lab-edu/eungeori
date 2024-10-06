@@ -1,6 +1,5 @@
 import { colors } from "@/app/styles/colors.css";
 import { buttonSprinkles, ButtonSprinkles, buttonWrapper } from "@/app/styles/common/button.css";
-import { pointer } from "@/app/styles/global.css";
 
 interface ButtonProps extends ButtonSprinkles {
   text: string;
@@ -14,6 +13,7 @@ const Button = ({
   color = colors.primary,
   fontSize = "16px",
   background = colors.white30,
+  borderRadius = "5px",
   onClick,
 }: ButtonProps) => {
   const buttonClass = buttonSprinkles({
@@ -22,6 +22,7 @@ const Button = ({
     fontSize,
     color,
     background,
+    borderRadius,
   });
   return (
     <div className={`${buttonClass} ${buttonWrapper}`} onClick={onClick}>
