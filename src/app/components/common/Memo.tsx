@@ -6,11 +6,12 @@ import { memoBox } from "@/app/styles/common/memo.css";
 import { flexSprinklesFc } from "./utils/flex";
 
 type MemoPorps = {
+  onClick?: () => void;
   date: string;
   text: string;
 };
 
-const Memo = ({ date, text }: MemoPorps) => {
+const Memo = ({ onClick, date, text }: MemoPorps) => {
   return (
     <div className={memoBox}>
       <Image src="/svgs/comment.svg" alt="icon" width={20} height={19} />
@@ -22,7 +23,10 @@ const Memo = ({ date, text }: MemoPorps) => {
         </p>
       </div>
       <p className={`${caption2} ${gray300}`}>
-        <span className={pointer}>수정</span> <span>|</span> <span className={pointer}>삭제</span>
+        <span className={pointer}>수정</span> <span>|</span>{" "}
+        <span className={pointer} onClick={onClick}>
+          삭제
+        </span>
       </p>
     </div>
   );

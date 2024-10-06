@@ -3,11 +3,11 @@
 import { caption3 } from "@/app/styles/font.css";
 import { navContainer, navWrapper } from "@/app/styles/navigation/navigation.css";
 import Image from "next/image";
-import { flexSprinklesFc } from "./utils/flex";
 import { gray500, primary } from "@/app/styles/colors.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { pointer } from "@/app/styles/global.css";
+import { flexSprinklesFc } from "./utils/flex";
 
 const Navigation = () => {
   const router = useRouter();

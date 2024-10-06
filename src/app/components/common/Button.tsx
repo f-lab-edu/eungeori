@@ -1,5 +1,6 @@
 import { colors } from "@/app/styles/colors.css";
 import { buttonSprinkles, ButtonSprinkles, buttonWrapper } from "@/app/styles/common/button.css";
+import { pointer } from "@/app/styles/global.css";
 
 interface ButtonProps extends ButtonSprinkles {
   text: string;

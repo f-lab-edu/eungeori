@@ -11,17 +11,27 @@ import Popup from "../components/common/Popup";
 import { useRouter } from "next/navigation";
 import { flexSprinklesFc } from "../components/common/utils/flex";
 import Button from "../components/common/Button";
+import { useState } from "react";
+import { pointer } from "../styles/global.css";
 
 const page = () => {
   const router = useRouter();
+  const [click, setClick] = useState(false);
   return (
     <>
-      <Popup text="내용을 삭제하시겠습니까?">
-        <div className={flexSprinklesFc({ gap: "16px" })}>
-          <Button text="취소" />
-          <Button text="삭제" color={colors.white} background={colors.primary} />
-        </div>
-      </Popup>
+      {click && (
+        <Popup text="내용을 삭제하시겠습니까?">
+          <div className={`${flexSprinklesFc({ gap: "16px" })} ${pointer}`}>
+            <Button
+              text="취소"
+              onClick={() => {
+                setClick(false);
+              }}
+            />
+            <Button text="삭제" color={colors.white} background={colors.primary} />
+          </div>
+        </Popup>
+      )}
       <section>
         <article
           className={`${flexSprinklesFc({
@@ -364,7 +374,11 @@ const page = () => {
             gap: "8px",
           })}`}
         >
-          <Memo />
+          <Memo
+            onClick={() => {
+              setClick(true);
+            }}
+          />
           <Memo />
           <Memo />
         </article>
@@ -372,7 +386,7 @@ const page = () => {
         <div
           className={plusIconBox}
           onClick={() => {
-            router.push("/record/time");
+            router.push("/info/time");
           }}
         >
           <div className={plusIcon}>

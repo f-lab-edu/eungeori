@@ -13,10 +13,10 @@ import {
   loginBoxContents,
   loginBoxContainer,
 } from "@styles/login/login.css";
-import { flexSprinklesFc } from "./components/common/utils/flex";
 import { regular } from "./styles/font.css";
 import { MouseEventHandler } from "react";
 import { useRouter } from "next/navigation";
+import { flexSprinklesFc } from "./components/common/utils/flex";
 
 type LoginBoxProps = {
   image: string;
