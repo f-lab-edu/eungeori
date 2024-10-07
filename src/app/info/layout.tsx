@@ -10,9 +10,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   return (
     <section className={infoWrapper}>
-      <div className={`${paddingSprinkles({ paddingBottom: "s32" })} ${pointer}`}>
+      <article className={`${paddingSprinkles({ paddingBottom: "s32" })} ${pointer}`}>
         <Image src="/svgs/prev.svg" alt="back" width={17} height={21} onClick={router.back} />
-      </div>
+      </article>
 
       {children}
     </section>

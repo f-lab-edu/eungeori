@@ -4,14 +4,16 @@ import { gray300 } from "@/app/styles/colors.css";
 import { pointer } from "@/app/styles/global.css";
 import { memoBox } from "@/app/styles/common/memo.css";
 import { flexSprinklesFc } from "./utils/flex";
+import { CSSProperties } from "@vanilla-extract/css";
 
 type MemoPorps = {
   onClick?: () => void;
   date: string;
   text: string;
+  height: CSSProperties["height"];
 };
 
-const Memo = ({ onClick, date, text }: MemoPorps) => {
+const Memo = ({ onClick, date, text, height }: MemoPorps) => {
   return (
     <div className={memoBox}>
       <Image src="/svgs/comment.svg" alt="icon" width={20} height={19} />

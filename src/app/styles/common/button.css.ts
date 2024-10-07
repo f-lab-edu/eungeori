@@ -5,7 +5,7 @@ import { style } from "@vanilla-extract/css";
 
 const buttonProperties = defineProperties({
   properties: {
-    width: ["115px", "226px"],
+    width: ["115px", "226px", "343px"],
     height: ["38px", "59px"],
     fontSize: ["12px", "16px", "18px"],
     color: [colors.primary, colors.white],
