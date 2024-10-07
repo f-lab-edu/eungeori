@@ -20,7 +20,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {children}
 
       <div className={flexSprinklesFc({ gap: "16px", justifyContent: "center" })}>
-        <Button text="취소" height="59px" borderRadius="10px" onClick={router.back} />
+        <Button
+          text="취소"
+          height="59px"
+          borderRadius="10px"
+          onClick={() => {
+            router.push("/record");
+          }}
+        />
         <Button
           text="다음"
           width="226px"

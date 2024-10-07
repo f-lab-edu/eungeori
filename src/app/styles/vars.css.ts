@@ -9,6 +9,8 @@ export const spacing = {
   s24: "24px",
   s28: "28px",
   s32: "32px",
+  s60: "60px",
+  s68: "68px",
 };
 
 export const vars = createGlobalTheme(":root", {

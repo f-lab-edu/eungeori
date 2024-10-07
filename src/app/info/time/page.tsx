@@ -1,7 +1,6 @@
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { gray300 } from "@/app/styles/colors.css";
 import { caption, heading2, semiBold } from "@/app/styles/font.css";
-import { paddingSprinkles } from "@/app/styles/padding.css";
 
 const page = () => (
   <article>
