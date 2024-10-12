@@ -9,13 +9,13 @@ export const loginWrapper = style([
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-evenly",
-    minHeight: "100%",
+    height: "100vh",
   },
   paddingSprinkles({ paddingX: "s28" }),
 ]);
 
 export const loginLogo = style({
-  minHeight: "calc(730px)",
+  height: "100%",
 });
 
 export const loginTextBox = style({
@@ -33,6 +33,7 @@ export const loginCaption = style([
 
 export const loginBoxContainer = style({
   width: "100%",
+  paddingBottom: "80px",
 });
 
 export const loginBox = style({

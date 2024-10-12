@@ -31,7 +31,7 @@ const page = () => {
           color={colors.white}
           borderRadius="10px"
           onClick={() => {
-            router.push("/info/shape");
+            router.push("/record");
           }}
         />
       </div>
