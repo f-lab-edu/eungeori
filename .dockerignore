@@ -5,3 +5,5 @@ dist
 .env
 .env.development
 .env.production
+
+.next
