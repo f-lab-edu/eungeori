@@ -8,6 +8,10 @@ COPY . /app
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
+# ARG 테스트 
+ARG TEST_VALUE
+RUN echo "The value of TEST_VALUE is: $TEST_VALUE"
+
 FROM base AS prod-deps
 RUN pnpm install --prod --frozen-lockfile
 
