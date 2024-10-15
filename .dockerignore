@@ -5,5 +5,3 @@ node_modules
 dist
 .next
 out
-.env.development
-.env
