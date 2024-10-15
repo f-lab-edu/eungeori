@@ -1,9 +1,9 @@
 node_modules
-dist
 .git
-
-.env
-.env.development
-.env.production
-
+.gitignore
+*.md
+dist
 .next
+out
+.env.development
+.env

@@ -1,29 +1,22 @@
-# 의존성 설치 단계 (node 20)
-FROM node:20-alpine AS deps
+FROM node:20-slim AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN npm install -g pnpm && pnpm --version
+
+COPY . /app
+
 WORKDIR /app
-COPY package.json pnpm-lock.yaml* ./
-RUN npm install -g pnpm && pnpm install
+COPY package.json pnpm-lock.yaml ./
 
-# 빌드 단계
-FROM node:20-alpine AS builder
-WORKDIR /app
-# 👇 프로젝트 전체 복사
-COPY . .
-COPY --from=deps /app/node_modules ./node_modules
-RUN pnpm run build
+FROM base AS prod-deps
+RUN pnpm install --prod --frozen-lockfile
 
-# 런타임 단계
-FROM node:20-alpine AS runner
-WORKDIR /app
+FROM base AS build
+RUN pnpm install --frozen-lockfile
+RUN ls -la /app && pnpm run build
 
-ENV NODE_ENV=production
-
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-
-# 컨테이너에서 사용할 포트 
+FROM base
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/dist /app/dist
 EXPOSE 3000
-
-CMD ["pnpm", "run", "start"]
+CMD [ "pnpm", "start" ]
