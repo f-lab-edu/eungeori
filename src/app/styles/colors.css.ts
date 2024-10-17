@@ -11,6 +11,7 @@ export const colors = {
   gray300: "#AEB0B2",
   gray400: "#B8B8B8",
   gray500: "#9B9B9B",
+  pink80: "#ee6a7b",
   background: "#F5F5F5",
 };
 
@@ -52,6 +53,10 @@ export const gray400 = style({
 
 export const gray500 = style({
   color: colors.gray500,
+});
+
+export const pink80 = style({
+  color: colors.pink80,
 });
 
 export const background = style({
