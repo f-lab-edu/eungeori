@@ -58,6 +58,13 @@ const page = () => {
               </p>
               <input placeholder="비밀번호 확인" className={inputStyle} />
             </div>
+
+            <div>
+              <p className={`${caption} ${regular} ${paddingSprinkles({ paddingBottom: "s4" })}`}>
+                닉네임<span className={`${pink80}`}>*</span>
+              </p>
+              <input placeholder="닉네임" className={inputStyle} />
+            </div>
           </div>
         </div>
       </article>
