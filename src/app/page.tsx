@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Logo from "@svgs/logo.svg";
 
-import { loginTextBox, loginHeading, loginCaption, loginWrapper, loginLogo } from "@styles/login/login.css";
+import { loginTextBox, loginHeading, loginCaption, loginWrapper, loginLogo } from "@/app/login.css";
 import { useRouter } from "next/navigation";
 import { flexSprinklesFc } from "./components/common/utils/flex";
 import { inputStyle } from "./styles/common/input.css";
@@ -68,7 +68,15 @@ export default function Login() {
         </div>
 
         <p className={`${gray300} ${caption2}`}>
-          <span className={pointer}>로그인</span> | <span className={pointer}>회원가입</span>
+          <span className={pointer}>로그인</span> |{" "}
+          <span
+            className={pointer}
+            onClick={() => {
+              router.push("/auth/signup");
+            }}
+          >
+            회원가입
+          </span>
         </p>
       </article>
 
