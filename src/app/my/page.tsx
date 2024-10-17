@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { caption, paragraph, regular, semiBold } from "../styles/font.css";
 import { flexSprinklesFc } from "../components/common/utils/flex";
-import { inputStyle, myTargetContainer } from "../styles/my/my.css";
+import { inputStyle, myTargetContainer } from "./my.css";
 import { paddingSprinkles } from "../styles/padding.css";
 import { gray300 } from "../styles/colors.css";
 import { pointer } from "../styles/global.css";
