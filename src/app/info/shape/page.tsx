@@ -129,11 +129,11 @@ const page = () => {
 
       <div className={flexSprinklesFc({ gap: "16px", justifyContent: "center" })}>
         <Button
-          text="취소"
+          text="이전"
           height="59px"
           borderRadius="10px"
           onClick={() => {
-            router.push("/record");
+            router.push("/info/time");
           }}
         />
         <Button

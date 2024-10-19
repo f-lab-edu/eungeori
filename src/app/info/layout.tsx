@@ -11,7 +11,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <section className={infoWrapper}>
       <article className={`${paddingSprinkles({ paddingBottom: "s32" })} ${pointer}`}>
-        <Image src="/svgs/prev.svg" alt="back" width={17} height={21} onClick={router.back} />
+        <Image
+          src="/svgs/prev.svg"
+          alt="back"
+          width={17}
+          height={21}
+          onClick={() => {
+            router.push("/record");
+          }}
+        />
       </article>
 
       {children}
