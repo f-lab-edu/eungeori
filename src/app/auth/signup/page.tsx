@@ -5,14 +5,26 @@ import { signupContainer, signupWrapper } from "./signup.css";
 import { inputStyle } from "@/app/styles/common/input.css";
 import { caption, heading2, regular, semiBold } from "@/app/styles/font.css";
 import { paddingSprinkles } from "@/app/styles/padding.css";
-import { colors, gray300, pink80 } from "@/app/styles/colors.css";
+import { colors, pink80 } from "@/app/styles/colors.css";
 import Image from "next/image";
 import { pointer } from "@/app/styles/global.css";
 import { useRouter } from "next/navigation";
 import Button from "@/app/components/common/Button";
+import { useForm } from "react-hook-form";
+import { signupSchema } from "@/app/types/signupSchema";
+import { z } from "zod";
 
 const page = () => {
   const router = useRouter();
+
+  const form = useForm<z.infer<typeof signupSchema>>({
+    defaultValues: {
+      id: "",
+      password: "",
+      confirmPassword: "",
+      nickname: "",
+    },
+  });
 
   return (
     <section className={signupWrapper}>
