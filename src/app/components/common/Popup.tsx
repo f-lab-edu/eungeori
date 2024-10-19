@@ -1,6 +1,6 @@
-import { popupContents, popupWrapper } from "@/app/styles/common/popup.css";
 import { paragraph2, semiBold } from "@/app/styles/font.css";
 import { flexSprinklesFc } from "./utils/flex";
+import { popupWrapper, popupContents } from "./popup.css";
 
 const Popup = ({ text, children }: { text: string; children: React.ReactNode }) => {
   return (

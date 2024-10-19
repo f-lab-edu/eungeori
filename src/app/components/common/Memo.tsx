@@ -2,8 +2,8 @@ import { caption2, subFontStyle } from "@/app/styles/font.css";
 import Image from "next/image";
 import { gray300 } from "@/app/styles/colors.css";
 import { pointer } from "@/app/styles/global.css";
-import { memoBox } from "@/app/styles/common/memo.css";
 import { flexSprinklesFc } from "./utils/flex";
+import { memoBox } from "./memo.css";
 
 type MemoPorps = {
   onClick?: () => void;
