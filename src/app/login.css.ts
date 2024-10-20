@@ -51,3 +51,7 @@ export const loginBoxContents = style([
   },
   paddingSprinkles({ paddingLeft: "s24" }),
 ]);
+
+export const formBox = style({
+  width: "100%",
+});

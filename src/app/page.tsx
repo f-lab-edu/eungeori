@@ -3,13 +3,21 @@
 import Image from "next/image";
 import Logo from "@svgs/logo.svg";
 
-import { loginTextBox, loginHeading, loginCaption, loginWrapper, loginLogo } from "@/app/login.css";
+import { loginTextBox, loginHeading, loginCaption, loginWrapper, loginLogo, formBox } from "@/app/login.css";
 import { useRouter } from "next/navigation";
 import { flexSprinklesFc } from "./components/common/utils/flex";
 import { inputStyle } from "./styles/common/input.css";
-import { gray300 } from "./styles/colors.css";
-import { caption2 } from "./styles/font.css";
+import { colors, gray300, pink80 } from "./styles/colors.css";
+import { caption, caption2 } from "./styles/font.css";
 import { pointer } from "./styles/global.css";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { signinSchema } from "./types/signinSchema";
+import { z } from "zod";
+import { paddingSprinkles } from "./styles/padding.css";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Popup from "./components/common/Popup";
+import Button from "./components/common/Button";
 
 // type LoginBoxProps = {
 //   image: string;
@@ -40,6 +48,41 @@ import { pointer } from "./styles/global.css";
 
 export default function Login() {
   const router = useRouter();
+  const [showPopup, setShowPopup] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<z.infer<typeof signinSchema>>({
+    resolver: zodResolver(signinSchema),
+    mode: "onChange",
+    defaultValues: {
+      id: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (data: z.infer<typeof signinSchema>) => {
+    if (data) {
+      const getAuthInfo = localStorage.getItem("auth");
+
+      if (getAuthInfo) {
+        const parseInfo = JSON.parse(getAuthInfo);
+
+        if (parseInfo.id === data.id && parseInfo.password === data.password) {
+          router.push("/record");
+        } else {
+          setMessage("아이디, 비밀번호를 확인해주세요.");
+          setShowPopup(true);
+        }
+      }
+    } else {
+      setMessage("가입된 정보를 확인해주세요.");
+      setShowPopup(true);
+    }
+  };
 
   const logoClassName = flexSprinklesFc({
     flexDirection: "column",
@@ -48,39 +91,74 @@ export default function Login() {
     gap: "24px",
   });
   return (
-    <section
-      className={`${loginWrapper} ${flexSprinklesFc({
-        flexDirection: "column",
-        justifyContent: "space-between",
-      })}`}
-    >
-      <article className={`${logoClassName} ${loginLogo}`} style={{ width: "100%" }}>
-        <Image src={Logo} alt="logo" />
-        <div className={loginTextBox}>
-          <h2 className={loginHeading}>Eungeori</h2>
-          <p className={loginCaption}>건강한 습관을 위한 스마트 앱</p>
-        </div>
-
-        <div className={flexSprinklesFc({ flexDirection: "column", gap: "8px" })} style={{ width: "95%" }}>
-          <input className={inputStyle} placeholder="아이디" />
-
-          <input className={inputStyle} placeholder="비밀번호" />
-        </div>
-
-        <p className={`${gray300} ${caption2}`}>
-          <span className={pointer}>로그인</span> |{" "}
-          <span
-            className={pointer}
+    <>
+      {showPopup && (
+        <Popup text={message}>
+          <Button
+            text="확인"
+            background={colors.primary}
+            color={colors.white}
             onClick={() => {
-              router.push("/auth/signup");
+              setShowPopup(false);
+              setMessage("");
             }}
-          >
-            회원가입
-          </span>
-        </p>
-      </article>
+          />
+        </Popup>
+      )}
+      <section
+        className={`${loginWrapper} ${flexSprinklesFc({
+          flexDirection: "column",
+          justifyContent: "space-between",
+        })}`}
+      >
+        <article className={`${logoClassName} ${loginLogo}`} style={{ width: "100%" }}>
+          <Image src={Logo} alt="logo" priority />
+          <div className={loginTextBox}>
+            <h2 className={loginHeading}>Eungeori</h2>
+            <p className={loginCaption}>건강한 습관을 위한 스마트 앱</p>
+          </div>
 
-      {/* <LoginBox
+          <form className={formBox} onSubmit={handleSubmit(onSubmit)}>
+            <div
+              className={flexSprinklesFc({ flexDirection: "column", gap: "8px" })}
+              style={{ width: "95%" }}
+            >
+              <input className={inputStyle} placeholder="아이디" {...register("id")} maxLength={10} />
+
+              <p className={`${paddingSprinkles({ paddingTop: "s4" })} ${caption} ${pink80}`}>
+                {errors.id?.message}
+              </p>
+
+              <input
+                className={inputStyle}
+                placeholder="비밀번호"
+                {...register("password")}
+                type="password"
+                maxLength={12}
+              />
+              <p className={`${paddingSprinkles({ paddingTop: "s4" })} ${caption} ${pink80}`}>
+                {errors.password?.message}
+              </p>
+            </div>
+          </form>
+
+          <p className={`${gray300} ${caption2}`}>
+            <span className={pointer} onClick={handleSubmit(onSubmit)}>
+              로그인
+            </span>{" "}
+            |{" "}
+            <span
+              className={pointer}
+              onClick={() => {
+                router.push("/auth/signup");
+              }}
+            >
+              회원가입
+            </span>
+          </p>
+        </article>
+
+        {/* <LoginBox
           image="/svgs/kakao.svg"
           text="카카오톡으로 계속하기"
           bg="#FEE500"
@@ -102,6 +180,7 @@ export default function Login() {
           onClick={() => router.push("/record")}
           border
         /> */}
-    </section>
+      </section>
+    </>
   );
 }

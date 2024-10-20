@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const passwordSchema = z
+export const passwordSchema = z
   .string()
   .min(8, { message: "최소 8자 이상 입력해주세요." })
   .max(12, { message: "최대 12자 이하로 입력해주세요." })
