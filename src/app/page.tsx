@@ -73,6 +73,7 @@ export default function Login() {
 
         if (parseInfo.id === data.id && parseInfo.password === data.password) {
           router.push("/record");
+          localStorage.setItem("login", JSON.stringify(data));
         } else {
           setMessage("아이디, 비밀번호를 확인해주세요.");
           setShowPopup(true);
@@ -123,22 +124,26 @@ export default function Login() {
               className={flexSprinklesFc({ flexDirection: "column", gap: "8px" })}
               style={{ width: "95%" }}
             >
-              <input className={inputStyle} placeholder="아이디" {...register("id")} maxLength={10} />
+              <div>
+                <input className={inputStyle} placeholder="아이디" {...register("id")} maxLength={10} />
 
-              <p className={`${paddingSprinkles({ paddingTop: "s4" })} ${caption} ${pink80}`}>
-                {errors.id?.message}
-              </p>
+                <p className={`${paddingSprinkles({ paddingTop: "s4" })} ${caption} ${pink80}`}>
+                  {errors.id?.message}
+                </p>
+              </div>
 
-              <input
-                className={inputStyle}
-                placeholder="비밀번호"
-                {...register("password")}
-                type="password"
-                maxLength={12}
-              />
-              <p className={`${paddingSprinkles({ paddingTop: "s4" })} ${caption} ${pink80}`}>
-                {errors.password?.message}
-              </p>
+              <div>
+                <input
+                  className={inputStyle}
+                  placeholder="비밀번호"
+                  {...register("password")}
+                  type="password"
+                  maxLength={12}
+                />
+                <p className={`${paddingSprinkles({ paddingTop: "s4" })} ${caption} ${pink80}`}>
+                  {errors.password?.message}
+                </p>
+              </div>
             </div>
           </form>
 
