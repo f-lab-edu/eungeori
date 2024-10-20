@@ -9,7 +9,7 @@ const buttonProperties = defineProperties({
     height: ["38px", "59px"],
     fontSize: ["12px", "16px", "18px"],
     color: [colors.primary, colors.white],
-    background: [colors.primary, colors.white30, colors.point],
+    background: [colors.primary, colors.white30, colors.point, colors.gray200],
     borderRadius: ["5px", "10px"],
   },
   shorthands: {
