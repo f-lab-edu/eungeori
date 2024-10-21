@@ -8,7 +8,7 @@ const TimePicker = () => {
   const now = new Date();
 
   const [hour, setHour] = useState(now.getHours());
-  const [minute, setMinute] = useState(now.getMinutes());
+  const [minute, setMinute] = useState(Math.ceil(now.getMinutes() / 10) * 10);
   const [amPm, setAmPm] = useState<string>(hour >= 12 ? "오후" : "오전");
 
   const getHour = (hour: number) => {
