@@ -1,6 +1,6 @@
+import { colors } from "@/app/styles/colors.css";
+import { regular, caption } from "@/app/styles/font.css";
 import { style } from "@vanilla-extract/css";
-import { colors } from "../colors.css";
-import { caption, regular } from "../font.css";
 
 export const shapeContent = style({
   display: "flex",
