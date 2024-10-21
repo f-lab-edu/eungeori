@@ -6,10 +6,10 @@ import Logo from "@svgs/logo.svg";
 import { loginTextBox, loginHeading, loginCaption, loginWrapper, loginLogo } from "@styles/login/login.css";
 import { useRouter } from "next/navigation";
 import { flexSprinklesFc } from "./components/common/utils/flex";
-import { inputStyle } from "./styles/common/input.css";
 import { gray300 } from "./styles/colors.css";
 import { caption2 } from "./styles/font.css";
 import { pointer } from "./styles/global.css";
+import { inputStyle } from "./components/common/input.css";
 
 // type LoginBoxProps = {
 //   image: string;

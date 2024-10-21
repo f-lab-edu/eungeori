@@ -2,6 +2,7 @@
 
 import Button from "@/app/components/common/Button";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
+import TimePicker from "@/app/info/time/TimePicker";
 import { colors, gray300 } from "@/app/styles/colors.css";
 import { caption, heading2, semiBold } from "@/app/styles/font.css";
 import { infoContainer } from "@/app/styles/info/common.css";
@@ -20,11 +21,13 @@ const page = () => {
         </h3>
         <p className={`${gray300} ${caption}`}>배변을 시작한 시간부터 적어주면 좋아요</p>
       </div>
-      <div>08:00 오전</div>
+      <div>
+        <TimePicker />
+      </div>
 
       <div className={flexSprinklesFc({ gap: "16px", justifyContent: "center" })}>
         <Button
-          text="취소"
+          text="이전"
           height="59px"
           borderRadius="10px"
           onClick={() => {

@@ -2,34 +2,37 @@ import { caption2, subFontStyle } from "@/app/styles/font.css";
 import Image from "next/image";
 import { gray300 } from "@/app/styles/colors.css";
 import { pointer } from "@/app/styles/global.css";
-import { memoBox } from "@/app/styles/common/memo.css";
 import { flexSprinklesFc } from "./utils/flex";
-import { CSSProperties } from "@vanilla-extract/css";
+import { memoBox } from "./memo.css";
 
 type MemoPorps = {
   onClick?: () => void;
-  date: string;
-  text: string;
-  height: CSSProperties["height"];
+  date?: string;
+  text?: string;
+  height?: string;
+  edit?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Memo = ({ onClick, date, text, height }: MemoPorps) => {
+const Memo = ({ onClick, date, text, height = "200px", edit = false, onChange }: MemoPorps) => {
   return (
-    <div className={memoBox}>
+    <div className={memoBox} style={{ height }}>
       <Image src="/svgs/comment.svg" alt="icon" width={20} height={19} />
       <div className={flexSprinklesFc({ flexDirection: "column", gap: "24px" })}>
-        <p className={subFontStyle}>24.09.09(화)</p>
-        <p className={subFontStyle}>
-          오늘은 조금 힘들었다. 물을 더 많이 마셔야겠다 😥 오늘은 조금 힘들었다. 물을 더 많이 마셔야겠다 😥
-          오늘은 조금 힘들었다. 물을 더 많이 마셔야겠다 😥
-        </p>
+        {date && <p className={subFontStyle}>{date}</p>}
+        <input className={subFontStyle} onChange={onChange}>
+          {text}
+        </input>
       </div>
-      <p className={`${caption2} ${gray300}`}>
-        <span className={pointer}>수정</span> <span>|</span>{" "}
-        <span className={pointer} onClick={onClick}>
-          삭제
-        </span>
-      </p>
+
+      {edit && (
+        <p className={`${caption2} ${gray300}`}>
+          <span className={pointer}>수정</span> <span>|</span>{" "}
+          <span className={pointer} onClick={onClick}>
+            삭제
+          </span>
+        </p>
+      )}
     </div>
   );
 };
