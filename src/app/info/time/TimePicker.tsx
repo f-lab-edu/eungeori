@@ -16,11 +16,11 @@ const TimePicker = () => {
       return hour % 12;
     }
 
-    return hour;
+    return hour < 10 ? `0${hour}` : hour;
   };
 
   const getMinute = (minute: number) => {
-    return Math.ceil(minute / 10) * 10;
+    return minute < 10 ? `0${minute}` : minute;
   };
 
   const onHourWheel = (e: React.WheelEvent) => {
@@ -50,11 +50,11 @@ const TimePicker = () => {
   return (
     <div className={flexSprinklesFc({ gap: "8px", alignItems: "center", justifyContent: "center" })}>
       <p className={`${semiBold} ${hourText}`} onWheel={onHourWheel}>
-        {getHour(hour) < 10 ? `0${getHour(hour)}` : getHour(hour)}
+        {getHour(hour)}
       </p>
       <p className={`${semiBold} ${hourText}`}>:</p>
       <p className={`${semiBold} ${hourText}`} onWheel={onMinuteWheel}>
-        {minute === 0 ? "00" : getMinute(minute)}
+        {getMinute(minute)}
       </p>
       <div onWheel={onAmPmWheel}>
         <p className={`${gray300} ${amPmText}`}>{amPm}</p>
