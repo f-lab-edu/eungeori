@@ -71,12 +71,14 @@ export default function Login() {
       if (getAuthInfo) {
         const parseInfo = JSON.parse(getAuthInfo);
 
+        if (parseInfo.id !== data.id || parseInfo.password !== data.password) {
+          setMessage("아이디, 비밀번호를 확인해주세요.");
+          setShowPopup(true);
+        }
+
         if (parseInfo.id === data.id && parseInfo.password === data.password) {
           router.push("/record");
           localStorage.setItem("login", JSON.stringify(data));
-        } else {
-          setMessage("아이디, 비밀번호를 확인해주세요.");
-          setShowPopup(true);
         }
       }
     } else {
