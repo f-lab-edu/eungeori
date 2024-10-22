@@ -10,14 +10,14 @@ import Image from "next/image";
 import { pointer } from "@/app/styles/global.css";
 import { useRouter } from "next/navigation";
 import Button from "@/app/components/common/Button";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { signupSchema } from "@/app/types/signupSchema";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Popup from "@/app/components/common/Popup";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [submit, setSubmit] = useState(false);
 
@@ -160,4 +160,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

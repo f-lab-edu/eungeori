@@ -8,7 +8,7 @@ import { semiBold, heading2, caption } from "@/app/styles/font.css";
 import { useRouter } from "next/navigation";
 import { infoContainer } from "../common.css";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   return (
     <article className={infoContainer}>
@@ -39,4 +39,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

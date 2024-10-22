@@ -28,7 +28,7 @@ const ContentBox = ({ src, text, width, height, active }: ContentBoxProps) => {
   );
 };
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   return (
@@ -109,4 +109,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

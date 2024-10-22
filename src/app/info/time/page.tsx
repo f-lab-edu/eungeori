@@ -7,7 +7,7 @@ import { caption, heading2, semiBold } from "@/app/styles/font.css";
 import { useRouter } from "next/navigation";
 import { infoContainer } from "../common.css";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   return (
@@ -47,4 +47,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

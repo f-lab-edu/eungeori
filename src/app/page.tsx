@@ -9,7 +9,7 @@ import { flexSprinklesFc } from "./components/common/utils/flex";
 import { inputStyle } from "./styles/common/input.css";
 import { colors, gray300, pink80 } from "./styles/colors.css";
 import { caption, caption2 } from "./styles/font.css";
-import { pointer } from "./styles/global.css";
+import { buttonOutLine, pointer } from "./styles/global.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { signinSchema } from "./types/signinSchema";
@@ -150,18 +150,18 @@ export default function Login() {
           </form>
 
           <p className={`${gray300} ${caption2}`}>
-            <span className={pointer} onClick={handleSubmit(onSubmit)}>
+            <button className={`${pointer} ${buttonOutLine}`} onClick={handleSubmit(onSubmit)}>
               로그인
-            </span>{" "}
+            </button>{" "}
             |{" "}
-            <span
-              className={pointer}
+            <button
+              className={`${pointer} ${buttonOutLine}`}
               onClick={() => {
                 router.push("/auth/signup");
               }}
             >
               회원가입
-            </span>
+            </button>
           </p>
         </article>
 

@@ -14,7 +14,7 @@ import { pointer } from "../styles/global.css";
 import { recordDateSection, recordDate, plusIconBox, plusIcon } from "./record.css";
 import DateCircle from "../components/record/DateCircle";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [click, setClick] = useState(false);
   return (
@@ -398,4 +398,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -6,12 +6,12 @@ import { flexSprinklesFc } from "../components/common/utils/flex";
 import { myTargetContainer } from "./my.css";
 import { paddingSprinkles } from "../styles/padding.css";
 import { gray300 } from "../styles/colors.css";
-import { pointer } from "../styles/global.css";
+import { buttonOutLine, pointer } from "../styles/global.css";
 import { useRouter } from "next/navigation";
 import { inputStyle } from "../styles/common/input.css";
 import { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [goal, setGoal] = useState<string>("");
   const onClick = () => {
@@ -22,6 +22,12 @@ const page = () => {
   const onGoalSave = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       localStorage.setItem("goal", goal);
+    }
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      onClick();
     }
   };
 
@@ -66,15 +72,15 @@ const page = () => {
 
       <div>
         <p className={`${caption} ${gray300}`} style={{ textAlign: "center" }}>
-          <span className={pointer} onClick={onClick}>
+          <button className={`${pointer} ${buttonOutLine}`} onClick={onClick}>
             로그아웃
-          </span>{" "}
+          </button>{" "}
           | {""}
-          <span className={pointer}>회원탈퇴</span>
+          <button className={`${pointer} ${buttonOutLine}`}>회원탈퇴</button>
         </p>
       </div>
     </>
   );
 };
 
-export default page;
+export default Page;

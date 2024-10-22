@@ -1,6 +1,6 @@
 import { colors } from "@/app/styles/colors.css";
 import { buttonSprinkles, ButtonSprinkles, buttonWrapper } from "@/app/styles/common/button.css";
-import { pointer } from "@/app/styles/global.css";
+import { buttonOutLine, pointer } from "@/app/styles/global.css";
 
 interface ButtonProps extends ButtonSprinkles {
   text: string;
@@ -28,7 +28,11 @@ const Button = ({
     borderRadius,
   });
   return (
-    <button className={`${buttonClass} ${buttonWrapper} ${pointer}`} onClick={onClick} disabled={disabled}>
+    <button
+      className={`${buttonClass} ${buttonWrapper} ${pointer} ${buttonOutLine}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {text}
     </button>
   );
