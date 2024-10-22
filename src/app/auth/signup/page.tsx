@@ -16,6 +16,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Popup from "@/app/components/common/Popup";
+import { localStorageSetItem } from "@/app/types/localStorageSchema";
 
 const Page = () => {
   const router = useRouter();
@@ -39,7 +40,7 @@ const Page = () => {
   const onSubmit = (data: z.infer<typeof signupSchema>) => {
     if (data) {
       setSubmit(true);
-      localStorage.setItem("auth", JSON.stringify(data));
+      localStorageSetItem("signup", data);
     }
   };
 

@@ -10,29 +10,29 @@ import { buttonOutLine, pointer } from "../styles/global.css";
 import { useRouter } from "next/navigation";
 import { inputStyle } from "../styles/common/input.css";
 import { useEffect, useState } from "react";
+import {
+  localStorageGetItem,
+  localStorageRemoveItem,
+  localStorageSetItem,
+} from "../types/localStorageSchema";
 
 const Page = () => {
   const router = useRouter();
   const [goal, setGoal] = useState<string>("");
   const onClick = () => {
-    localStorage.removeItem("login");
+    localStorageRemoveItem("signin");
+
     router.push("/");
   };
 
   const onGoalSave = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      localStorage.setItem("goal", goal);
-    }
-  };
-
-  const onKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
-    if (e.key === "Enter" || e.key === " ") {
-      onClick();
+      localStorageSetItem("goal", goal);
     }
   };
 
   useEffect(() => {
-    const getGoal = localStorage.getItem("goal");
+    const getGoal = localStorageGetItem("goal");
     if (getGoal) {
       setGoal(getGoal);
     }

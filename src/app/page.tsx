@@ -18,6 +18,7 @@ import { paddingSprinkles } from "./styles/padding.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Popup from "./components/common/Popup";
 import Button from "./components/common/Button";
+import { localStorageSetItem } from "./types/localStorageSchema";
 
 // type LoginBoxProps = {
 //   image: string;
@@ -66,7 +67,7 @@ export default function Login() {
 
   const onSubmit = (data: z.infer<typeof signinSchema>) => {
     if (data) {
-      const getAuthInfo = localStorage.getItem("auth");
+      const getAuthInfo = localStorage.getItem("signup");
 
       if (getAuthInfo) {
         const parseInfo = JSON.parse(getAuthInfo);
@@ -78,7 +79,7 @@ export default function Login() {
 
         if (parseInfo.id === data.id && parseInfo.password === data.password) {
           router.push("/record");
-          localStorage.setItem("login", JSON.stringify(data));
+          localStorageSetItem("signin", data);
         }
       }
     } else {
