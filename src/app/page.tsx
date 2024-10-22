@@ -18,7 +18,7 @@ import { paddingSprinkles } from "./styles/padding.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Popup from "./components/common/Popup";
 import Button from "./components/common/Button";
-import { localStorageSetItem } from "./types/localStorageSchema";
+import { localStorageGetItem, localStorageSetItem } from "./types/localStorageSchema";
 
 // type LoginBoxProps = {
 //   image: string;
@@ -67,17 +67,15 @@ export default function Login() {
 
   const onSubmit = (data: z.infer<typeof signinSchema>) => {
     if (data) {
-      const getAuthInfo = localStorage.getItem("signup");
+      const getAuthInfo = localStorageGetItem("signin");
 
       if (getAuthInfo) {
-        const parseInfo = JSON.parse(getAuthInfo);
-
-        if (parseInfo.id !== data.id || parseInfo.password !== data.password) {
+        if (getAuthInfo.id !== data.id || getAuthInfo.password !== data.password) {
           setMessage("아이디, 비밀번호를 확인해주세요.");
           setShowPopup(true);
         }
 
-        if (parseInfo.id === data.id && parseInfo.password === data.password) {
+        if (getAuthInfo.id === data.id && getAuthInfo.password === data.password) {
           router.push("/record");
           localStorageSetItem("signin", data);
         }
