@@ -21,3 +21,10 @@ export const contentContainer = style({
 export const pointer = style({
   cursor: "pointer",
 });
+
+export const buttonOutLine = style({
+  ":focus": {
+    outline: "2px solid #005fcc",
+    outlineOffset: "2px",
+  },
+});

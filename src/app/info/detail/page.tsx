@@ -5,10 +5,10 @@ import Memo from "@/app/components/common/Memo";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { gray300, colors } from "@/app/styles/colors.css";
 import { semiBold, heading2, caption } from "@/app/styles/font.css";
-import { infoContainer } from "@/app/styles/info/common.css";
 import { useRouter } from "next/navigation";
+import { infoContainer } from "../common.css";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   return (
     <article className={infoContainer}>
@@ -39,4 +39,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
