@@ -1,7 +1,7 @@
+import { semiBold, heading, caption } from "@/app/styles/font.css";
+import { paddingSprinkles } from "@/app/styles/padding.css";
+import { vars } from "@/app/styles/vars.css";
 import { style } from "@vanilla-extract/css";
-import { semiBold, heading, caption } from "./styles/font.css";
-import { paddingSprinkles } from "./styles/padding.css";
-import { vars } from "./styles/vars.css";
 
 export const loginWrapper = style([
   {
