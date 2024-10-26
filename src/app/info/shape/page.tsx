@@ -4,11 +4,10 @@ import Button from "@/app/components/common/Button";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { colors, gray300, primary, white } from "@/app/styles/colors.css";
 import { heading2, semiBold } from "@/app/styles/font.css";
-import { infoBox } from "@/app/styles/info/common.css";
-import { shapeContentBox, shapeContentBoxWrapper, shapeContentBoxText } from "@/app/styles/info/shape.css";
 import { paddingSprinkles } from "@/app/styles/padding.css";
 import Image, { ImageProps } from "next/image";
 import { useRouter } from "next/navigation";
+import { shapeContentBoxWrapper, shapeContentBox, shapeContentBoxText } from "./shape.css";
 
 type ContentBoxProps = {
   src: string;
@@ -29,11 +28,11 @@ const ContentBox = ({ src, text, width, height, active }: ContentBoxProps) => {
   );
 };
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   return (
-    <article className={infoBox}>
+    <article>
       <div className={`${flexSprinklesFc({ flexDirection: "column", gap: "16px" })} `}>
         <h3 className={`${semiBold} ${heading2} ${paddingSprinkles({ paddingBottom: "s60" })}`}>
           묽기 및 모양을
@@ -110,4 +109,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

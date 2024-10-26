@@ -1,7 +1,7 @@
+import { semiBold, heading, caption } from "@/app/styles/font.css";
+import { paddingSprinkles } from "@/app/styles/padding.css";
+import { vars } from "@/app/styles/vars.css";
 import { style } from "@vanilla-extract/css";
-import { semiBold, heading, caption } from "../font.css";
-import { paddingSprinkles } from "../padding.css";
-import { vars } from "../vars.css";
 
 export const loginWrapper = style([
   {
@@ -22,7 +22,7 @@ export const loginTextBox = style({
   textAlign: "center",
 });
 
-export const loginHeading = style([semiBold, heading, paddingSprinkles({ paddingBottom: "s12" })]);
+export const loginHeading = style([semiBold, heading, paddingSprinkles({ paddingBottom: "s4" })]);
 
 export const loginCaption = style([
   caption,
@@ -51,3 +51,7 @@ export const loginBoxContents = style([
   },
   paddingSprinkles({ paddingLeft: "s24" }),
 ]);
+
+export const formBox = style({
+  width: "100%",
+});

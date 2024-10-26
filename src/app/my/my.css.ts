@@ -19,11 +19,3 @@ export const myTargetContainer = style({
   width: "100%",
   paddingTop: "46px",
 });
-
-export const inputStyle = style({
-  width: "100%",
-  padding: "5px 8px",
-  fontSize: "12px",
-  border: "1px solid #D9D9D9",
-  borderRadius: "8px",
-});

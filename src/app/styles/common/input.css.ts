@@ -1,11 +1,10 @@
 import { style } from "@vanilla-extract/css";
 import { colors } from "../colors.css";
-import { caption } from "../font.css";
 
 export const inputStyle = style({
   width: "100%",
   padding: "4px 8px",
-  borderRadius: "4px",
+  borderRadius: "8px",
   border: `1px solid ${colors.gray200}`,
   selectors: {
     "&::placeholder": {

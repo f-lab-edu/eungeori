@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { infoWrapper } from "../styles/info/common.css";
 import Image from "next/image";
 import { pointer } from "../styles/global.css";
 import { paddingSprinkles } from "../styles/padding.css";
+import { infoWrapper } from "./common.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
