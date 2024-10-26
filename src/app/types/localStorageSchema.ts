@@ -6,6 +6,7 @@ export type LocalStorageSchema = {
   signup: z.infer<typeof signupSchema>;
   signin: z.infer<typeof signinSchema>;
   goal: string;
+  recordNote: string;
 };
 
 type LocalStorageMapper<T> = {
@@ -35,7 +36,7 @@ export class LocalStorage<T extends keyof LocalStorageSchema> {
   }
 
   set(target: LocalStorageSchema[T]): void {
-    const value = this.mapper.toJson(target);
+    const value = target === "" ? JSON.stringify("") : this.mapper.toJson(target);
     localStorage.setItem(this.key, value);
   }
 
