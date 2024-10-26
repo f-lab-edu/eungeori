@@ -6,7 +6,7 @@ import TimePicker from "@/app/info/time/TimePicker";
 import { colors, gray300 } from "@/app/styles/colors.css";
 import { caption, heading2, semiBold } from "@/app/styles/font.css";
 import { useRouter } from "next/navigation";
-import { infoContainer } from "../common.css";
+import { infoContainer } from "../common/common.css";
 
 const Page = () => {
   const router = useRouter();
