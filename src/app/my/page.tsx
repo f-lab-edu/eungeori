@@ -10,31 +10,31 @@ import { buttonOutLine, pointer } from "../styles/global.css";
 import { useRouter } from "next/navigation";
 import { inputStyle } from "../styles/common/input.css";
 import { useEffect, useState } from "react";
-import {
-  localStorageGetItem,
-  localStorageRemoveItem,
-  localStorageSetItem,
-} from "../types/localStorageSchema";
+import { LocalStorage } from "../types/localStorageSchema";
 
 const Page = () => {
   const router = useRouter();
   const [goal, setGoal] = useState<string>("");
+
+  const goalStorage = new LocalStorage("goal");
+  const signinStorage = new LocalStorage("signin");
+
   const onClick = () => {
-    localStorageRemoveItem("signin");
+    signinStorage.remove();
 
     router.push("/");
   };
 
   const onGoalSave = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      localStorageSetItem("goal", goal);
+      goalStorage.set(goal);
     }
   };
 
   useEffect(() => {
-    const getGoal = localStorageGetItem("goal");
-    if (getGoal) {
-      setGoal(getGoal);
+    const saveGoal = goalStorage.get();
+    if (saveGoal) {
+      setGoal(saveGoal);
     }
   }, []);
   return (

@@ -16,7 +16,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Popup from "@/app/components/common/Popup";
-import { localStorageSetItem } from "@/app/types/localStorageSchema";
+import { LocalStorage } from "@/app/types/localStorageSchema";
 
 const Page = () => {
   const router = useRouter();
@@ -39,8 +39,10 @@ const Page = () => {
 
   const onSubmit = (data: z.infer<typeof signupSchema>) => {
     if (data) {
+      const signupStorage = new LocalStorage("signup");
+
       setSubmit(true);
-      localStorageSetItem("signup", data);
+      signupStorage.set(data);
     }
   };
 

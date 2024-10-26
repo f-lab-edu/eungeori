@@ -8,20 +8,38 @@ export type LocalStorageSchema = {
   goal: string;
 };
 
-export const localStorageSetItem = <K extends keyof LocalStorageSchema>(
-  key: K,
-  value: LocalStorageSchema[K]
-): void => {
-  return localStorage.setItem(key, JSON.stringify(value));
+type LocalStorageMapper<T> = {
+  fromJson: (json: string | null) => T;
+  toJson: (data: T) => string;
 };
 
-export const localStorageGetItem = <K extends keyof LocalStorageSchema>(
-  key: K
-): LocalStorageSchema[K] | null => {
-  const item = localStorage.getItem(key);
-  return item ? (JSON.parse(item) as LocalStorageSchema[K]) : null;
-};
+export class LocalStorage<T extends keyof LocalStorageSchema> {
+  private key: T;
+  private mapper: LocalStorageMapper<LocalStorageSchema[T]>;
 
-export const localStorageRemoveItem = <K extends keyof LocalStorageSchema>(key: K): void => {
-  localStorage.removeItem(key);
-};
+  constructor(key: T, mapper?: LocalStorageMapper<LocalStorageSchema[T]>) {
+    this.key = key;
+    this.mapper = mapper || LocalStorage.defaultMapper();
+  }
+
+  static defaultMapper<T>(): LocalStorageMapper<T> {
+    return {
+      fromJson: (json) => (json ? JSON.parse(json) : null),
+      toJson: (data) => JSON.stringify(data),
+    };
+  }
+
+  get(): LocalStorageSchema[T] | null {
+    const item = localStorage.getItem(this.key);
+    return item ? this.mapper.fromJson(item) : null;
+  }
+
+  set(target: LocalStorageSchema[T]): void {
+    const value = this.mapper.toJson(target);
+    localStorage.setItem(this.key, value);
+  }
+
+  remove(): void {
+    localStorage.removeItem(this.key);
+  }
+}

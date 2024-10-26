@@ -1,5 +1,5 @@
 import { useLoginUiStore } from "@/app/store/login/loginStore";
-import { localStorageGetItem, localStorageSetItem } from "@/app/types/localStorageSchema";
+import { LocalStorage } from "@/app/types/localStorageSchema";
 import { signinSchema } from "@/app/types/signinSchema";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
@@ -15,7 +15,11 @@ export const useAuth = () => {
       setIsLoginPopup(true);
       return;
     }
-    const getAuthInfo = localStorageGetItem("signup");
+
+    const signupStorage = new LocalStorage("signup");
+    const signinStorage = new LocalStorage("signin");
+
+    const getAuthInfo = signupStorage.get();
 
     if (!getAuthInfo) {
       setLoginMessage("회원가입을 진행해주세요.");
@@ -29,7 +33,7 @@ export const useAuth = () => {
       return;
     }
 
-    localStorageSetItem("signin", data);
+    signinStorage.set(data);
     router.push("/record");
   };
 
