@@ -7,27 +7,30 @@ import { z } from "zod";
 export const useAuth = () => {
   const router = useRouter();
 
-  const { setLoginMessage, setLoginPopup } = useLoginStore();
+  const { setLoginMessage, setIsLoginPopup } = useLoginStore();
 
   const onLoginSubmit = (data: z.infer<typeof signinSchema>) => {
-    if (data) {
-      const getAuthInfo = localStorageGetItem("signin");
-
-      if (getAuthInfo) {
-        if (getAuthInfo.id !== data.id || getAuthInfo.password !== data.password) {
-          setLoginMessage("아이디, 비밀번호를 확인해주세요.");
-          setLoginPopup(true);
-        }
-
-        if (getAuthInfo.id === data.id && getAuthInfo.password === data.password) {
-          router.push("/record");
-          localStorageSetItem("signin", data);
-        }
-      }
-    } else {
+    if (!data) {
       setLoginMessage("가입된 정보를 확인해주세요.");
-      setLoginPopup(true);
+      setIsLoginPopup(true);
+      return;
     }
+    const getAuthInfo = localStorageGetItem("signup");
+
+    if (!getAuthInfo) {
+      setLoginMessage("회원가입을 진행해주세요.");
+      setIsLoginPopup(true);
+      return;
+    }
+
+    if (getAuthInfo.id !== data.id || getAuthInfo.password !== data.password) {
+      setLoginMessage("아이디, 비밀번호를 확인해주세요.");
+      setIsLoginPopup(true);
+      return;
+    }
+
+    localStorageSetItem("signin", data);
+    router.push("/record");
   };
 
   return { onLoginSubmit };
