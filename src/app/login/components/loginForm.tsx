@@ -11,12 +11,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { pointer, buttonOutLine } from "@/app/styles/global.css";
 
-import { useAuth } from "../hook";
+import { useLogin } from "../hook";
 import { inputStyle } from "@/app/components/common/input.css";
 
 const LoginForm = () => {
   const router = useRouter();
-  const { onLoginSubmit } = useAuth();
+  const { onLoginSubmit } = useLogin();
 
   const {
     register,
