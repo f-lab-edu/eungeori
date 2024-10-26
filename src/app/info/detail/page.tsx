@@ -6,13 +6,11 @@ import Popup from "@/app/components/common/Popup";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { gray300, colors } from "@/app/styles/colors.css";
 import { semiBold, heading2, caption } from "@/app/styles/font.css";
-import { infoContainer } from "@/app/styles/info/common.css";
-import useInfoStore from "@/store/store";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { infoContainer } from "../common.css";
+import useInfoStore from "@/app/store/info/infoStore";
 
-const page = () => {
-  const [showPopup, setShowPopup] = useState<boolean>(false);
+const Page = () => {
   const router = useRouter();
   const { recordNote, setRecordNote } = useInfoStore();
 
@@ -60,4 +58,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -5,11 +5,11 @@ import { light } from "@/app/styles/font.css";
 
 const buttonProperties = defineProperties({
   properties: {
-    width: ["115px", "226px", "343px"],
+    width: ["115px", "226px", "343px", "100%"],
     height: ["38px", "59px"],
     fontSize: ["12px", "16px", "18px"],
     color: [colors.primary, colors.white],
-    background: [colors.primary, colors.white30],
+    background: [colors.primary, colors.white30, colors.point, colors.gray200],
     borderRadius: ["5px", "10px"],
   },
   shorthands: {

@@ -4,11 +4,11 @@ import Button from "@/app/components/common/Button";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { colors, gray300, primary, white } from "@/app/styles/colors.css";
 import { heading2, semiBold } from "@/app/styles/font.css";
-import { pointer } from "@/app/styles/global.css";
-import { shapeContentBox, shapeContentBoxWrapper, shapeContentBoxText } from "@/app/styles/info/shape.css";
 import { paddingSprinkles } from "@/app/styles/padding.css";
 import Image, { ImageProps } from "next/image";
 import { useRouter } from "next/navigation";
+import { shapeContentBoxWrapper, shapeContentBox, shapeContentBoxText } from "./shape.css";
+import { pointer } from "@/app/styles/global.css";
 import { useState } from "react";
 
 type ContentBoxProps = {
@@ -31,7 +31,7 @@ const ContentBox = ({ src, text, width, height, active, onClick }: ContentBoxPro
   );
 };
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [stoolAttributes, setStoolAttributes] = useState({
     consistency: "thin",
@@ -152,4 +152,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

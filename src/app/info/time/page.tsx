@@ -5,10 +5,10 @@ import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import TimePicker from "@/app/info/time/TimePicker";
 import { colors, gray300 } from "@/app/styles/colors.css";
 import { caption, heading2, semiBold } from "@/app/styles/font.css";
-import { infoContainer } from "@/app/styles/info/common.css";
 import { useRouter } from "next/navigation";
+import { infoContainer } from "../common.css";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   return (
@@ -50,4 +50,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

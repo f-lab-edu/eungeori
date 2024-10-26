@@ -3,9 +3,7 @@
 import Image from "next/image";
 import { caption2, paragraph, paragraph3, semiBold } from "../styles/font.css";
 import { colors, gray150, gray300, gray400 } from "../styles/colors.css";
-import { plusIcon, plusIconBox, recordDate, recordDateSection } from "../styles/record/record.css";
 import { paddingSprinkles } from "../styles/padding.css";
-import DateCircle from "../components/record/DateCircle";
 import Memo from "../components/common/Memo";
 import Popup from "../components/common/Popup";
 import { useRouter } from "next/navigation";
@@ -13,8 +11,10 @@ import { flexSprinklesFc } from "../components/common/utils/flex";
 import Button from "../components/common/Button";
 import { useState } from "react";
 import { pointer } from "../styles/global.css";
+import { recordDateSection, recordDate, plusIconBox, plusIcon } from "./record.css";
+import DateCircle from "../components/record/DateCircle";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [click, setClick] = useState(false);
   return (
@@ -398,4 +398,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
