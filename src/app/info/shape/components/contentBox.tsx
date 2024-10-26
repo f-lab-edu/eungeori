@@ -14,12 +14,12 @@ type ContentBoxProps = {
 
 const ContentBox = ({ src, text, width, height, active, onClick }: ContentBoxProps) => {
   return (
-    <div className={shapeContentBoxWrapper} onClick={() => onClick(text)}>
+    <button className={shapeContentBoxWrapper} onClick={() => onClick(text)}>
       <div className={`${shapeContentBox} ${pointer}`}>
         <Image src={src} alt={text} width={width} height={height} />
       </div>
       <p className={`${shapeContentBoxText} ${active ? primary : gray300}`}>{text}</p>
-    </div>
+    </button>
   );
 };
 

@@ -1,7 +1,6 @@
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import { gray300, pink80 } from "@/app/styles/colors.css";
-import { caption, caption2 } from "@/app/styles/font.css";
-import { paddingSprinkles } from "@/app/styles/padding.css";
+import { gray300 } from "@/app/styles/colors.css";
+import { caption2 } from "@/app/styles/font.css";
 import { formBox } from "../styles/login.css";
 import { useRouter } from "next/navigation";
 

@@ -9,7 +9,7 @@ const ConsistencyBox = () => {
   const setStoolAttributesState = useInfoStore((state) => state.setStoolAttributes);
 
   const onConsistencyChange = (value: StoolAttributes["consistency"]) => {
-    setStoolAttributesState({ consistency: value as StoolAttributes["consistency"] });
+    setStoolAttributesState({ consistency: value });
   };
 
   const consistencyOption: { label: string; consistency: StoolAttributes["consistency"] }[] = [

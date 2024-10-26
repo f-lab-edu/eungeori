@@ -9,7 +9,7 @@ const ShapeTypeBox = () => {
   const setStoolAttributesState = useInfoStore((state) => state.setStoolAttributes);
 
   const onShapeChange = (value: StoolAttributes["shapeType"]) => {
-    setStoolAttributesState({ shapeType: value as StoolAttributes["shapeType"] });
+    setStoolAttributesState({ shapeType: value });
   };
 
   const getShapeTypeImageSrc = (level: number) => {
