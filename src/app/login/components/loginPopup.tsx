@@ -4,17 +4,19 @@ import { useLoginStore } from "@/app/store/login/loginStore";
 import { colors } from "@/app/styles/colors.css";
 
 const LoginPopup = () => {
-  const { loginMessage, loginPopup, setLoginMessage, setLoginPopup } = useLoginStore();
+  const { setLoginMessage, setIsLoginPopup } = useLoginStore();
+  const loginMessageState = useLoginStore((state) => state.loginMessage);
+  const isLoginPopupState = useLoginStore((state) => state.isLoginPopup);
   return (
     <>
-      {loginPopup && (
-        <Popup text={loginMessage}>
+      {isLoginPopupState && (
+        <Popup text={loginMessageState}>
           <Button
             text="확인"
             background={colors.primary}
             color={colors.white}
             onClick={() => {
-              setLoginPopup(false);
+              setIsLoginPopup(false);
               setLoginMessage("");
             }}
           />
