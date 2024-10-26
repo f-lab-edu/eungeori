@@ -12,7 +12,7 @@ import { z } from "zod";
 import { pointer, buttonOutLine } from "@/app/styles/global.css";
 
 import { useLogin } from "../hook";
-import { inputStyle } from "@/app/components/common/input.css";
+import FormInputUI from "../../common/inputUI";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -35,26 +35,20 @@ const LoginForm = () => {
     <>
       <form className={formBox} onSubmit={handleSubmit(onLoginSubmit)}>
         <div className={flexSprinklesFc({ flexDirection: "column", gap: "8px" })} style={{ width: "95%" }}>
-          <div>
-            <input className={inputStyle} placeholder="아이디" {...register("id")} maxLength={10} />
+          <FormInputUI
+            text="아이디"
+            maxLegnth={10}
+            register={register("id")}
+            errorMessage={errors.id?.message}
+          />
 
-            <p className={`${paddingSprinkles({ paddingTop: "s4" })} ${caption} ${pink80}`}>
-              {errors.id?.message}
-            </p>
-          </div>
-
-          <div>
-            <input
-              className={inputStyle}
-              placeholder="비밀번호"
-              {...register("password")}
-              type="password"
-              maxLength={12}
-            />
-            <p className={`${paddingSprinkles({ paddingTop: "s4" })} ${caption} ${pink80}`}>
-              {errors.password?.message}
-            </p>
-          </div>
+          <FormInputUI
+            text="비밀번호"
+            type="password"
+            maxLegnth={12}
+            register={register("password")}
+            errorMessage={errors.password?.message}
+          />
         </div>
       </form>
 
