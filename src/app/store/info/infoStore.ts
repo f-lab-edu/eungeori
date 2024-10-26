@@ -7,8 +7,11 @@ export type StoolAttributes = {
 };
 
 type BowelAttributesState = {
-  bowelTime: string;
-  setBowelTime: (time: string) => void;
+  bowelTime: {
+    hour: number;
+    minute: number;
+  };
+  setBowelTime: (time: Partial<BowelAttributesState["bowelTime"]>) => void;
 
   stoolAttributes: StoolAttributes;
   setStoolAttributes: (attributes: Partial<StoolAttributes>) => void;
@@ -19,10 +22,16 @@ type BowelAttributesState = {
 
 export const useInfoStore = create<BowelAttributesState>()(
   immer((set) => ({
-    bowelTime: "",
+    bowelTime: {
+      hour: 0,
+      minute: 0,
+    },
     setBowelTime: (time) =>
       set((draft) => {
-        draft.bowelTime = time;
+        draft.bowelTime = {
+          ...draft.bowelTime,
+          ...time,
+        };
       }),
 
     stoolAttributes: { consistency: "thin", shapeType: "poop-1" },
