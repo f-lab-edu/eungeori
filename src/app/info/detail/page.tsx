@@ -2,43 +2,25 @@
 
 import Button from "@/app/components/common/Button";
 import Memo from "@/app/components/common/Memo";
-import Popup from "@/app/components/common/Popup";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { gray300, colors } from "@/app/styles/colors.css";
 import { semiBold, heading2, caption } from "@/app/styles/font.css";
-import { useRouter } from "next/navigation";
-import { infoContainer } from "../common.css";
+import { infoContainer } from "../common/common.css";
 import useInfoStore from "@/app/store/info/infoStore";
+import { usePopupStore } from "@/app/store/popup/PopupStore";
+import DetailPopup from "./components/popup";
+import TitleText from "./components/titleText";
 
 const Page = () => {
-  const router = useRouter();
-  const { recordNote, setRecordNote } = useInfoStore();
-
+  const setRecordNoteState = useInfoStore((state) => state.setRecordNote);
+  const setDetailPopupState = usePopupStore((state) => state.setIsPopup);
   return (
     <>
-      {showPopup && (
-        <Popup text="기록 되었습니다">
-          <Button
-            text="닫기"
-            background={colors.primary}
-            color={colors.white}
-            onClick={() => {
-              localStorage.setItem("recordNote", recordNote);
-              router.push("/record");
-            }}
-          />
-        </Popup>
-      )}
+      <DetailPopup />
       <article className={infoContainer}>
-        <div className={`${flexSprinklesFc({ flexDirection: "column", gap: "16px" })} `}>
-          <h3 className={`${semiBold} ${heading2}`}>
-            기록 할
-            <br />
-            내용이 있나요?
-          </h3>
-          <p className={`${gray300} ${caption}`}>(선택) 기록하고 싶은 내용이 있다면 적어보세요</p>
-        </div>
-        <Memo onChange={(e) => setRecordNote(e.target.value)} />
+        <TitleText />
+
+        <Memo onChange={(e) => setRecordNoteState(e.target.value)} />
 
         <div className={flexSprinklesFc({ gap: "16px", justifyContent: "center" })}>
           <Button
@@ -49,7 +31,7 @@ const Page = () => {
             color={colors.white}
             borderRadius="10px"
             onClick={() => {
-              setShowPopup(true);
+              setDetailPopupState(true);
             }}
           />
         </div>
