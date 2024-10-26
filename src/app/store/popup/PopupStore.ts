@@ -1,3 +1,4 @@
+import { MessageType } from "@/app/types/schemas";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -5,8 +6,8 @@ type PopupStore = {
   isPopup: boolean;
   setIsPopup: (state: boolean) => void;
 
-  message: null | string;
-  setMessage: (state: string) => void;
+  message: MessageType;
+  setMessage: (MessageType: string) => void;
 };
 
 export const usePopupStore = create<PopupStore>()(
