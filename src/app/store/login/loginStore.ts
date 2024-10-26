@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-type LoginStore = {
+type LoginUiStore = {
   isLoginPopup: boolean;
   setIsLoginPopup: (state: boolean) => void;
 
@@ -9,7 +9,7 @@ type LoginStore = {
   setLoginMessage: (state: string) => void;
 };
 
-export const useLoginStore = create<LoginStore>()(
+export const useLoginUiStore = create<LoginUiStore>()(
   immer((set) => ({
     isLoginPopup: false,
     setIsLoginPopup: (state) => {

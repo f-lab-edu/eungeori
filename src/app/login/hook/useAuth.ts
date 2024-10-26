@@ -1,4 +1,4 @@
-import { useLoginStore } from "@/app/store/login/loginStore";
+import { useLoginUiStore } from "@/app/store/login/loginStore";
 import { localStorageGetItem, localStorageSetItem } from "@/app/types/localStorageSchema";
 import { signinSchema } from "@/app/types/signinSchema";
 import { useRouter } from "next/navigation";
@@ -7,7 +7,7 @@ import { z } from "zod";
 export const useAuth = () => {
   const router = useRouter();
 
-  const { setLoginMessage, setIsLoginPopup } = useLoginStore();
+  const { setLoginMessage, setIsLoginPopup } = useLoginUiStore();
 
   const onLoginSubmit = (data: z.infer<typeof signinSchema>) => {
     if (!data) {
