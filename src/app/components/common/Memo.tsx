@@ -11,9 +11,10 @@ type MemoPorps = {
   date: string;
   text: string;
   height: CSSProperties["height"];
+  isEdit?: boolean;
 };
 
-const Memo = ({ onClick, date, text, height }: MemoPorps) => {
+const Memo = ({ onClick, date, text, height, isEdit }: MemoPorps) => {
   return (
     <div className={memoBox}>
       <Image src="/svgs/comment.svg" alt="icon" width={20} height={19} />
@@ -24,12 +25,14 @@ const Memo = ({ onClick, date, text, height }: MemoPorps) => {
           오늘은 조금 힘들었다. 물을 더 많이 마셔야겠다 😥
         </p>
       </div>
-      <p className={`${caption2} ${gray300}`}>
-        <span className={pointer}>수정</span> <span>|</span>{" "}
-        <span className={pointer} onClick={onClick}>
-          삭제
-        </span>
-      </p>
+      {isEdit && (
+        <p className={`${caption2} ${gray300}`}>
+          <span className={pointer}>수정</span> <span>|</span>{" "}
+          <span className={pointer} onClick={onClick}>
+            삭제
+          </span>
+        </p>
+      )}
     </div>
   );
 };
