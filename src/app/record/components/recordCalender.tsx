@@ -1,6 +1,5 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
 import { ko } from "date-fns/locale/ko";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { gray300 } from "@/app/styles/colors.css";
@@ -8,10 +7,12 @@ import { caption2 } from "@/app/styles/font.css";
 import { recordDateSection } from "../styles/record.css";
 
 import { datepickerWapper } from "../styles/datepicker.css";
-import CalenderDropDown from "./calenderdropDown";
+import CalenderDropDown from "./calenderDropDown";
+import { useRecordStore } from "@/app/store/record/recordStore";
 
 const RecordCalender = () => {
-  const [startDate, setStartDate] = useState(new Date());
+  const startDateState = useRecordStore((state) => state.startDate);
+  const setStartDateState = useRecordStore((state) => state.setStartDate);
 
   const startOfYear = new Date(new Date().getFullYear(), 0, 1);
   const endOfCurrentMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
@@ -30,8 +31,12 @@ const RecordCalender = () => {
       <DatePicker
         className={datepickerWapper}
         locale={ko}
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
+        selected={startDateState}
+        onChange={(date) => {
+          if (date !== null) {
+            setStartDateState(date);
+          }
+        }}
         inline
         minDate={startOfYear}
         maxDate={endOfCurrentMonth}
