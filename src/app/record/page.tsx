@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { caption2 } from "../styles/font.css";
-import { gray300 } from "../styles/colors.css";
 import { useRouter } from "next/navigation";
 import { flexSprinklesFc } from "../components/common/utils/flex";
-import { recordDateSection, plusIconBox, plusIcon } from "./styles/record.css";
+import { plusIconBox, plusIcon } from "./styles/record.css";
 import "react-datepicker/dist/react-datepicker.css";
 import RecordCalender from "./components/recordCalender";
+import RecordPopup from "./components/popup";
 
 const Page = () => {
   const router = useRouter();

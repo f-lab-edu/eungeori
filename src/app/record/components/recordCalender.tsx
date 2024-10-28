@@ -14,8 +14,7 @@ const RecordCalender = () => {
   const startDateState = useRecordStore((state) => state.startDate);
   const setStartDateState = useRecordStore((state) => state.setStartDate);
 
-  const startOfYear = new Date(new Date().getFullYear(), 0, 1);
-  const endOfCurrentMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+  const startOfYear = new Date(startDateState.getFullYear(), 0, 1);
 
   return (
     <>
@@ -39,7 +38,7 @@ const RecordCalender = () => {
         }}
         inline
         minDate={startOfYear}
-        maxDate={endOfCurrentMonth}
+        maxDate={new Date()}
         renderCustomHeader={() => <></>}
       />
     </>
