@@ -43,6 +43,7 @@ export const dropDownUL = style({
 });
 
 export const dropDownList = style({
+  width: "100%",
   padding: "2px",
   cursor: "pointer",
 });

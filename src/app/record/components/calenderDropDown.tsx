@@ -43,14 +43,15 @@ const CalenderDropDown = () => {
       {isShow && (
         <ul className={dropDownUL}>
           {months.map((month) => (
-            <li
-              key={month.label}
-              className={dropDownList}
-              onClick={() => {
-                onClickDate(month.value);
-              }}
-            >
-              {month.label}
+            <li key={month.label}>
+              <button
+                className={dropDownList}
+                onClick={() => {
+                  onClickDate(month.value);
+                }}
+              >
+                {month.label}
+              </button>
             </li>
           ))}
         </ul>
