@@ -1,7 +1,7 @@
 import { globalFontFace, style } from "@vanilla-extract/css";
 
-const contentFont = "pretendard";
-const subFont = "ladywatermelon";
+export const contentFont = "pretendard";
+export const subFont = "ladywatermelon";
 
 globalFontFace(contentFont, [
   {
