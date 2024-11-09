@@ -99,38 +99,33 @@ const DataGraph = () => {
           const ctx = chart.ctx;
           const chartArea = chart.chartArea;
 
-          if (!chartArea) return '#D9D9D9';
+          const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
 
-          const gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
-          gradient.addColorStop(0.1, '#FEE88B');
-          gradient.addColorStop(0.4, '#FEE88B');
-          gradient.addColorStop(0.7, '#4fe786');
-          gradient.addColorStop(1, '#FC5064');
+          const consistencyType = consistency[dataIndex];
+
+          gradientData(consistencyType, gradient);
 
           return gradient;
         },
-
-        borderWidth: 6,
-
-        // 점에 관한 로직
-        pointRadius: 7,
-        pointHoverRadius: 7,
+        borderWidth: 7,
+        pointRadius: 9,
+        pointHoverRadius: 9,
         pointBorderColor: 'transparent',
-        // pointBackgroundColor: (context: ScriptableContext<'line'>) => {
-        //   const { dataIndex } = context;
-        //   const consistencyType = consistency(bowelDate)[dataIndex];
+        pointBackgroundColor: (context) => {
+          const { dataIndex } = context;
+          const consistencyType = consistency[dataIndex];
 
-        //   switch (consistencyType) {
-        //     case 'thin':
-        //       return '#FEE88B';
-        //     case 'default':
-        //       return '#4FE786';
-        //     case 'hard':
-        //       return '#FC5064';
-        //     default:
-        //       return '#D9D9D9';
-        //   }
-        // },
+          switch (consistencyType) {
+            case 'thin':
+              return '#FEE88B';
+            case 'default':
+              return '#141313';
+            case 'crackle':
+              return '#FC5064';
+            default:
+              return '#D9D9D9';
+          }
+        },
         pointBorderWidth: 0,
         tension: 0.4,
       },
@@ -255,10 +250,24 @@ const DataGraph = () => {
           <Line data={data} options={options} plugins={[chartAreaStyles]} />
         </div>
 
-        <div className={poopInfoText}>
+        <div className={flexSprinklesFc({ alignItems: 'flex-start' })} style={{ width: '90%' }}>
           <p className={`${caption} ${gray300} ${light}`}>
             * 같은 날 변의 묽기가 다를 경우 먼저 적힌 상태로 보여지게됩니다.
           </p>
+        </div>
+        <div className={poopBoxWrapper}>
+          <div className={poopBox}>
+            <Image src="/svgs/poop/thin/active_thin.svg" width={27} height={27} alt="icon" />
+            {consistencyCount(consistency, 'thin').length}
+          </div>
+          <div className={poopBox}>
+            <Image src="/svgs/poop/thin/active_default.svg" width={27} height={27} alt="icon" />
+            {consistencyCount(consistency, 'default').length}
+          </div>
+          <div className={poopBox}>
+            <Image src="/svgs/poop/thin/active_crackle.svg" width={27} height={27} alt="icon" />
+            {consistencyCount(consistency, 'crackle').length}
+          </div>
         </div>
         {/* <div className={poopBoxWrapper}>
           <div className={poopBox}>
