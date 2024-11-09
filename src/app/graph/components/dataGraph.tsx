@@ -19,7 +19,6 @@ import { gray300 } from "@/app/styles/colors.css";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, scales);
 ChartJS.defaults.color = "#D9D9D9";
-
 const bowelInfoDate = [
   {
     bowelTime: {
@@ -34,7 +33,7 @@ const bowelInfoDate = [
       hour: 13,
       minute: 20,
     },
-    stoolAttributes: { consistency: "thin", shapeType: "poop-1" },
+    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
     date: "24.09.10",
   },
   {
@@ -42,7 +41,7 @@ const bowelInfoDate = [
       hour: 16,
       minute: 10,
     },
-    stoolAttributes: { consistency: "thin", shapeType: "poop-4" },
+    stoolAttributes: { consistency: "crackle", shapeType: "poop-4" },
     date: "24.09.10",
   },
   {
@@ -50,7 +49,7 @@ const bowelInfoDate = [
       hour: 20,
       minute: 10,
     },
-    stoolAttributes: { consistency: "thin", shapeType: "poop-2" },
+    stoolAttributes: { consistency: "crackle", shapeType: "poop-2" },
     date: "24.09.10",
   },
   {
@@ -58,7 +57,7 @@ const bowelInfoDate = [
       hour: 16,
       minute: 20,
     },
-    stoolAttributes: { consistency: "thin", shapeType: "poop-1" },
+    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
     date: "24.09.13",
   },
   {
@@ -66,7 +65,7 @@ const bowelInfoDate = [
       hour: 3,
       minute: 20,
     },
-    stoolAttributes: { consistency: "thin", shapeType: "poop-1" },
+    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
     date: "24.09.20",
   },
   {
@@ -90,6 +89,31 @@ const DataGraph = () => {
 
   const labels = Object.keys(bowelDateCount);
   const dataPoints = Object.values(bowelDateCount);
+  const consistency = bowelInfoDate.map((x) => x.stoolAttributes.consistency);
+
+  const consistencyCount = (consistency: string[], type: string) => {
+    return consistency.filter((consistency) => consistency === type);
+  };
+
+  const gradientData = (type, gradient) => {
+    switch (type) {
+      case "thin":
+        gradient.addColorStop(0, "#FEE88B");
+        gradient.addColorStop(1, "#FEE88B");
+        break;
+      case "default":
+        gradient.addColorStop(0, "#141313");
+        gradient.addColorStop(1, "#141313");
+        break;
+      case "crackle":
+        gradient.addColorStop(0, "#FC5064");
+        gradient.addColorStop(1, "#FC5064");
+        break;
+      default:
+        gradient.addColorStop(0, "#D9D9D9");
+        gradient.addColorStop(1, "#D9D9D9");
+    }
+  };
 
   const data = {
     labels,
@@ -97,19 +121,38 @@ const DataGraph = () => {
       {
         data: dataPoints,
         borderColor: (context) => {
-          const chart = context.chart;
-          const { ctx, chartArea } = chart;
+          const { ctx, chartArea, dataIndex } = context;
 
           if (!chartArea) return;
 
-          // 그라디언트 생성
           const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-          gradient.addColorStop(0, "rgba(75,192,192,1)");
-          gradient.addColorStop(1, "rgba(153,102,255,1)");
+
+          const consistencyType = consistency[dataIndex];
+
+          gradientData(consistencyType, gradient);
 
           return gradient;
         },
-        borderWidth: 8,
+        borderWidth: 7,
+        pointRadius: 9,
+        pointHoverRadius: 9,
+        pointBorderColor: "transparent",
+        pointBackgroundColor: (context) => {
+          const { dataIndex } = context;
+          const consistencyType = consistency[dataIndex];
+
+          switch (consistencyType) {
+            case "thin":
+              return "#FEE88B";
+            case "default":
+              return "#141313";
+            case "crackle":
+              return "#FC5064";
+            default:
+              return "#D9D9D9";
+          }
+        },
+        pointBorderWidth: 0,
         tension: 0.4,
       },
     ],
@@ -204,18 +247,23 @@ const DataGraph = () => {
           <Line data={data} options={options} plugins={[chartAreaStyles]} />
         </div>
 
-        <p className={`${caption} ${gray300} ${light}`}>
-          *같은 날 변의 묽기가 다를 경우 먼저 적힌 상태로 보여지게됩니다.
-        </p>
+        <div className={flexSprinklesFc({ alignItems: "flex-start" })} style={{ width: "90%" }}>
+          <p className={`${caption} ${gray300} ${light}`}>
+            * 같은 날 변의 묽기가 다를 경우 먼저 적힌 상태로 보여지게됩니다.
+          </p>
+        </div>
         <div className={poopBoxWrapper}>
           <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active_thin.svg" width={27} height={27} alt="icon" />3
+            <Image src="/svgs/poop/thin/active_thin.svg" width={27} height={27} alt="icon" />
+            {consistencyCount(consistency, "thin").length}
           </div>
           <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active_default.svg" width={27} height={27} alt="icon" />2
+            <Image src="/svgs/poop/thin/active_default.svg" width={27} height={27} alt="icon" />
+            {consistencyCount(consistency, "default").length}
           </div>
           <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active_crackle.svg" width={27} height={27} alt="icon" />2
+            <Image src="/svgs/poop/thin/active_crackle.svg" width={27} height={27} alt="icon" />
+            {consistencyCount(consistency, "crackle").length}
           </div>
         </div>
       </div>
