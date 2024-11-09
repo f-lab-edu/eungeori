@@ -11,6 +11,7 @@ import {
   scales,
   ScriptableContext,
   ChartOptions,
+  Chart,
 } from "chart.js";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { chartBg, filterWrapper, poopBox, poopBoxWrapper, toggle, toggleActive } from "../styles/graph.css";
@@ -20,6 +21,15 @@ import { caption, light } from "@/app/styles/font.css";
 import { gray300 } from "@/app/styles/colors.css";
 
 type BowelDateCount = Record<string, number>;
+
+interface CustomChartOptions extends ChartOptions<"line"> {
+  grouped?: boolean;
+  plugins?: {
+    chartAreaStyles?: {
+      borderColor: string;
+    };
+  } & ChartOptions<"line">["plugins"];
+}
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, scales);
 ChartJS.defaults.color = "#D9D9D9";
@@ -165,7 +175,7 @@ const DataGraph = () => {
     ],
   };
 
-  const options: ChartOptions<"line"> = {
+  const options: CustomChartOptions = {
     maintainAspectRatio: false,
     grouped: true,
     layout: {
@@ -217,10 +227,10 @@ const DataGraph = () => {
 
   const chartAreaStyles = {
     id: "chartAreaStyles",
-    beforeDatasetDraw(chart, _, options) {
+    beforeDatasetDraw(chart: Chart, _: unknown, options: { borderColor: string }) {
       const {
         ctx,
-        chartArea: { top, bottom, left, right, width, height },
+        chartArea: { top, left, width, height },
       } = chart;
       ctx.save();
       ctx.fillStyle = "#F5F5F5";
