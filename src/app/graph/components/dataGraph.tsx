@@ -9,6 +9,8 @@ import {
   Tooltip,
   Legend,
   scales,
+  ScriptableContext,
+  ChartOptions,
 } from "chart.js";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { chartBg, filterWrapper, poopBox, poopBoxWrapper, toggle, toggleActive } from "../styles/graph.css";
@@ -17,8 +19,11 @@ import { useState } from "react";
 import { caption, light } from "@/app/styles/font.css";
 import { gray300 } from "@/app/styles/colors.css";
 
+type BowelDateCount = Record<string, number>;
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, scales);
 ChartJS.defaults.color = "#D9D9D9";
+
 const bowelInfoDate = [
   {
     bowelTime: {
@@ -81,7 +86,7 @@ const bowelInfoDate = [
 const DataGraph = () => {
   const [isToggleActive, setIsToggleActive] = useState(false);
 
-  const bowelDateCount = bowelInfoDate.reduce((acc, cur) => {
+  const bowelDateCount = bowelInfoDate.reduce((acc: BowelDateCount, cur) => {
     const date = cur.date;
     acc[date] = (acc[date] || 0) + 1;
     return acc;
@@ -95,7 +100,7 @@ const DataGraph = () => {
     return consistency.filter((consistency) => consistency === type);
   };
 
-  const gradientData = (type, gradient) => {
+  const gradientData = (type: string, gradient: CanvasGradient) => {
     switch (type) {
       case "thin":
         gradient.addColorStop(0, "#FEE88B");
@@ -120,8 +125,10 @@ const DataGraph = () => {
     datasets: [
       {
         data: dataPoints,
-        borderColor: (context) => {
-          const { ctx, chartArea, dataIndex } = context;
+        borderColor: (context: ScriptableContext<"line">) => {
+          const { chart, dataIndex } = context;
+          const ctx = chart.ctx;
+          const chartArea = chart.chartArea;
 
           if (!chartArea) return;
 
@@ -137,7 +144,7 @@ const DataGraph = () => {
         pointRadius: 9,
         pointHoverRadius: 9,
         pointBorderColor: "transparent",
-        pointBackgroundColor: (context) => {
+        pointBackgroundColor: (context: ScriptableContext<"line">) => {
           const { dataIndex } = context;
           const consistencyType = consistency[dataIndex];
 
@@ -158,7 +165,7 @@ const DataGraph = () => {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     maintainAspectRatio: false,
     grouped: true,
     layout: {
