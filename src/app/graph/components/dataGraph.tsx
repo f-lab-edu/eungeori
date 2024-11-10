@@ -93,14 +93,34 @@ const bowelInfoDate = [
   },
 ];
 
+const bowelDateCount = bowelInfoDate.reduce((acc: BowelDateCount, cur) => {
+  const date = cur.date;
+  acc[date] = (acc[date] || 0) + 1;
+  return acc;
+}, {});
+
+const earliestConsistencyByDate = Object.values(
+  bowelInfoDate.reduce((acc, cur) => {
+    const date = cur.date;
+
+    if (
+      acc[date] &&
+      (acc[date].bowelTime.hour < cur.bowelTime.hour ||
+        (acc[date].bowelTime.hour === cur.bowelTime.hour &&
+          acc[date].bowelTime.minute <= cur.bowelTime.minute))
+    ) {
+      return acc;
+    }
+
+    acc[date] = cur;
+    return acc;
+  }, {})
+);
+
+const consistencyDateList = earliestConsistencyByDate.map((item) => item.stoolAttributes.consistency);
+
 const DataGraph = () => {
   const [isToggleActive, setIsToggleActive] = useState(false);
-
-  const bowelDateCount = bowelInfoDate.reduce((acc: BowelDateCount, cur) => {
-    const date = cur.date;
-    acc[date] = (acc[date] || 0) + 1;
-    return acc;
-  }, {});
 
   const labels = Object.keys(bowelDateCount);
   const dataPoints = Object.values(bowelDateCount);
@@ -110,47 +130,47 @@ const DataGraph = () => {
     return consistency.filter((consistency) => consistency === type);
   };
 
-  const gradientData = (type: string, gradient: CanvasGradient) => {
-    switch (type) {
-      case "thin":
-        gradient.addColorStop(0, "#FEE88B");
-        gradient.addColorStop(1, "#FEE88B");
-        break;
-      case "default":
-        gradient.addColorStop(0, "#141313");
-        gradient.addColorStop(1, "#141313");
-        break;
-      case "crackle":
-        gradient.addColorStop(0, "#FC5064");
-        gradient.addColorStop(1, "#FC5064");
-        break;
-      default:
-        gradient.addColorStop(0, "#D9D9D9");
-        gradient.addColorStop(1, "#D9D9D9");
-    }
-  };
-
   const data = {
     labels,
     datasets: [
       {
         data: dataPoints,
+
+        // 선에 관한 로직
         borderColor: (context: ScriptableContext<"line">) => {
-          const { chart, dataIndex } = context;
+          const { dataIndex, chart } = context;
           const ctx = chart.ctx;
           const chartArea = chart.chartArea;
 
-          if (!chartArea) return;
+          if (!chartArea) return "#D9D9D9";
 
           const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+          const consistencyType = consistencyDateList[dataIndex];
 
-          const consistencyType = consistency[dataIndex];
-
-          gradientData(consistencyType, gradient);
+          switch (consistencyType) {
+            case "thin":
+              gradient.addColorStop(0, "#FEE88B");
+              gradient.addColorStop(1, "#FEE88B");
+              break;
+            case "default":
+              gradient.addColorStop(0, "#141313");
+              gradient.addColorStop(1, "#141313");
+              break;
+            case "crackle":
+              gradient.addColorStop(0, "#FC5064");
+              gradient.addColorStop(1, "#FC5064");
+              break;
+            default:
+              gradient.addColorStop(0, "#D9D9D9");
+              gradient.addColorStop(1, "#D9D9D9");
+          }
 
           return gradient;
         },
+
         borderWidth: 7,
+
+        // 점에 관한 로직
         pointRadius: 9,
         pointHoverRadius: 9,
         pointBorderColor: "transparent",
@@ -162,7 +182,7 @@ const DataGraph = () => {
             case "thin":
               return "#FEE88B";
             case "default":
-              return "#141313";
+              return "#4FE786";
             case "crackle":
               return "#FC5064";
             default:
@@ -207,7 +227,7 @@ const DataGraph = () => {
       },
       tooltip: {
         enabled: isToggleActive,
-        padding: 10,
+        padding: 5,
         backgroundColor: "#fff",
         titleColor: "#141313",
 
