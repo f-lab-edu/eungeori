@@ -58,6 +58,34 @@ ChartJS.register(
 );
 ChartJS.defaults.color = '#D9D9D9';
 
+const bowelDateCount = bowelInfoDate.reduce((acc: BowelDateCount, cur) => {
+  const date = cur.date;
+  acc[date] = (acc[date] || 0) + 1;
+  return acc;
+}, {});
+
+const earliestConsistencyByDate = Object.values(
+  bowelInfoDate.reduce((acc, cur) => {
+    const date = cur.date;
+
+    if (
+      acc[date] &&
+      (acc[date].bowelTime.hour < cur.bowelTime.hour ||
+        (acc[date].bowelTime.hour === cur.bowelTime.hour &&
+          acc[date].bowelTime.minute <= cur.bowelTime.minute))
+    ) {
+      return acc;
+    }
+
+    acc[date] = cur;
+    return acc;
+  }, {}),
+);
+
+const consistencyDateList = earliestConsistencyByDate.map(
+  (item) => item.stoolAttributes.consistency,
+);
+
 const DataGraph = () => {
   const [dateRange, setDateRange] = useState(7);
   const [bowelDate, setBowelDate] = useState(bowelInfoDate7Days);
@@ -100,14 +128,32 @@ const DataGraph = () => {
           const chartArea = chart.chartArea;
 
           const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+          const consistencyType = consistencyDateList[dataIndex];
 
-          const consistencyType = consistency[dataIndex];
-
-          gradientData(consistencyType, gradient);
+          switch (consistencyType) {
+            case 'thin':
+              gradient.addColorStop(0, '#FEE88B');
+              gradient.addColorStop(1, '#FEE88B');
+              break;
+            case 'default':
+              gradient.addColorStop(0, '#141313');
+              gradient.addColorStop(1, '#141313');
+              break;
+            case 'crackle':
+              gradient.addColorStop(0, '#FC5064');
+              gradient.addColorStop(1, '#FC5064');
+              break;
+            default:
+              gradient.addColorStop(0, '#D9D9D9');
+              gradient.addColorStop(1, '#D9D9D9');
+          }
 
           return gradient;
         },
+
         borderWidth: 7,
+
+        // 점에 관한 로직
         pointRadius: 9,
         pointHoverRadius: 9,
         pointBorderColor: 'transparent',
