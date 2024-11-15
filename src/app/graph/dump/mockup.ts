@@ -222,6 +222,22 @@ export const bowelInfoDate7Days = [
   },
   {
     bowelTime: {
+      hour: 13,
+      minute: 20,
+    },
+    stoolAttributes: { consistency: 'default', shapeType: 'poop-1' },
+    date: '24.09.10',
+  },
+  {
+    bowelTime: {
+      hour: 13,
+      minute: 20,
+    },
+    stoolAttributes: { consistency: 'default', shapeType: 'poop-1' },
+    date: '24.09.10',
+  },
+  {
+    bowelTime: {
       hour: 16,
       minute: 10,
     },

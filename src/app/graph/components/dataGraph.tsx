@@ -115,6 +115,11 @@ const DataGraph = () => {
     setBowelDate(selectedData);
   }, []);
 
+  useEffect(() => {
+    const selectedData = dateRange === 7 ? bowelInfoDate7Days : bowelInfoDate30Days;
+    setBowelDate(selectedData);
+  }, []);
+
   const data = {
     labels,
     datasets: [
@@ -151,7 +156,7 @@ const DataGraph = () => {
           return gradient;
         },
 
-        borderWidth: 7,
+        borderWidth: 6,
 
         // 점에 관한 로직
         pointRadius: 9,
@@ -159,7 +164,7 @@ const DataGraph = () => {
         pointBorderColor: 'transparent',
         pointBackgroundColor: (context) => {
           const { dataIndex } = context;
-          const consistencyType = consistency[dataIndex];
+          const consistencyType = consistency(bowelDate)[dataIndex];
 
           switch (consistencyType) {
             case 'thin':
