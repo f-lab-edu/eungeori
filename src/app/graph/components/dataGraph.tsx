@@ -16,11 +16,11 @@ import {
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { chartBg, filterWrapper, poopBox, poopBoxWrapper, toggle, toggleActive } from "../styles/graph.css";
 import Image from "next/image";
-import { useState } from "react";
-import { caption, light } from "@/app/styles/font.css";
+import { useEffect, useState } from "react";
+import { caption, heading2, light, regular, semiBold } from "@/app/styles/font.css";
 import { gray300 } from "@/app/styles/colors.css";
-
-type BowelDateCount = Record<string, number>;
+import { bowelDateCount, bowelInfoDate30Days, bowelInfoDate7Days, consistency } from "../dump/mockup";
+import { pointer } from "@/app/styles/global.css";
 
 interface CustomChartOptions extends ChartOptions<"line"> {
   grouped?: boolean;
@@ -34,101 +34,22 @@ interface CustomChartOptions extends ChartOptions<"line"> {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, scales);
 ChartJS.defaults.color = "#D9D9D9";
 
-const bowelInfoDate = [
-  {
-    bowelTime: {
-      hour: 5,
-      minute: 20,
-    },
-    stoolAttributes: { consistency: "thin", shapeType: "poop-1" },
-    date: "24.09.09",
-  },
-  {
-    bowelTime: {
-      hour: 13,
-      minute: 20,
-    },
-    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
-    date: "24.09.10",
-  },
-  {
-    bowelTime: {
-      hour: 16,
-      minute: 10,
-    },
-    stoolAttributes: { consistency: "crackle", shapeType: "poop-4" },
-    date: "24.09.10",
-  },
-  {
-    bowelTime: {
-      hour: 20,
-      minute: 10,
-    },
-    stoolAttributes: { consistency: "crackle", shapeType: "poop-2" },
-    date: "24.09.10",
-  },
-  {
-    bowelTime: {
-      hour: 16,
-      minute: 20,
-    },
-    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
-    date: "24.09.13",
-  },
-  {
-    bowelTime: {
-      hour: 3,
-      minute: 20,
-    },
-    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
-    date: "24.09.20",
-  },
-  {
-    bowelTime: {
-      hour: 19,
-      minute: 20,
-    },
-    stoolAttributes: { consistency: "thin", shapeType: "poop-1" },
-    date: "24.09.09",
-  },
-];
-
-const bowelDateCount = bowelInfoDate.reduce((acc: BowelDateCount, cur) => {
-  const date = cur.date;
-  acc[date] = (acc[date] || 0) + 1;
-  return acc;
-}, {});
-
-const earliestConsistencyByDate = Object.values(
-  bowelInfoDate.reduce((acc, cur) => {
-    const date = cur.date;
-
-    if (
-      acc[date] &&
-      (acc[date].bowelTime.hour < cur.bowelTime.hour ||
-        (acc[date].bowelTime.hour === cur.bowelTime.hour &&
-          acc[date].bowelTime.minute <= cur.bowelTime.minute))
-    ) {
-      return acc;
-    }
-
-    acc[date] = cur;
-    return acc;
-  }, {})
-);
-
-const consistencyDateList = earliestConsistencyByDate.map((item) => item.stoolAttributes.consistency);
-
 const DataGraph = () => {
-  const [isToggleActive, setIsToggleActive] = useState(false);
+  const [dateRange, setDateRange] = useState(7);
+  const [bowelDate, setBowelDate] = useState(bowelInfoDate7Days);
+  const [isToggleActive, setIsToggleActive] = useState(true);
 
-  const labels = Object.keys(bowelDateCount);
-  const dataPoints = Object.values(bowelDateCount);
-  const consistency = bowelInfoDate.map((x) => x.stoolAttributes.consistency);
+  const labels = Object.keys(bowelDateCount(bowelDate));
+  const dataPoints = Object.values(bowelDateCount(bowelDate));
 
   const consistencyCount = (consistency: string[], type: string) => {
-    return consistency.filter((consistency) => consistency === type);
+    return consistency(bowelDate).filter((consistency) => consistency === type);
   };
+
+  useEffect(() => {
+    const selectedData = dateRange === 7 ? bowelInfoDate7Days : bowelInfoDate30Days;
+    setBowelDate(selectedData);
+  }, []);
 
   const data = {
     labels,
@@ -138,45 +59,30 @@ const DataGraph = () => {
 
         // 선에 관한 로직
         borderColor: (context: ScriptableContext<"line">) => {
-          const { dataIndex, chart } = context;
+          const { chart } = context;
           const ctx = chart.ctx;
           const chartArea = chart.chartArea;
 
           if (!chartArea) return "#D9D9D9";
 
-          const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-          const consistencyType = consistencyDateList[dataIndex];
-
-          switch (consistencyType) {
-            case "thin":
-              gradient.addColorStop(0, "#FEE88B");
-              gradient.addColorStop(1, "#FEE88B");
-              break;
-            case "default":
-              gradient.addColorStop(0, "#141313");
-              gradient.addColorStop(1, "#141313");
-              break;
-            case "crackle":
-              gradient.addColorStop(0, "#FC5064");
-              gradient.addColorStop(1, "#FC5064");
-              break;
-            default:
-              gradient.addColorStop(0, "#D9D9D9");
-              gradient.addColorStop(1, "#D9D9D9");
-          }
+          const gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
+          gradient.addColorStop(0.1, "#FEE88B");
+          gradient.addColorStop(0.4, "#FEE88B");
+          gradient.addColorStop(0.7, "#4fe786");
+          gradient.addColorStop(1, "#FC5064");
 
           return gradient;
         },
 
-        borderWidth: 7,
+        borderWidth: 6,
 
         // 점에 관한 로직
-        pointRadius: 9,
-        pointHoverRadius: 9,
+        pointRadius: 7,
+        pointHoverRadius: 7,
         pointBorderColor: "transparent",
         pointBackgroundColor: (context: ScriptableContext<"line">) => {
           const { dataIndex } = context;
-          const consistencyType = consistency[dataIndex];
+          const consistencyType = consistency(bowelDate)[dataIndex];
 
           switch (consistencyType) {
             case "thin":
@@ -196,25 +102,26 @@ const DataGraph = () => {
   };
 
   const options: CustomChartOptions = {
-    maintainAspectRatio: false,
+    responsive: true,
     grouped: true,
     layout: {
       padding: 10,
     },
     scales: {
       x: {
+        position: "right",
         ticks: {
-          display: false,
+          stepSize: 1,
         },
         grid: {
           display: false,
         },
       },
       y: {
-        position: "right",
-        max: 7,
+        max: Math.max(...dataPoints),
+
         ticks: {
-          stepSize: 1,
+          display: false,
         },
         grid: {
           display: false,
@@ -238,6 +145,8 @@ const DataGraph = () => {
         bodyFont: {
           family: "pretendard",
         },
+        yAlign: "bottom",
+        displayColors: false,
       },
       chartAreaStyles: {
         borderColor: "#F5F5F5",
@@ -264,14 +173,34 @@ const DataGraph = () => {
     },
   };
 
+  const onClickDateRange = () => {
+    if (dateRange === 7) {
+      setBowelDate(bowelInfoDate30Days);
+      setDateRange(30);
+    } else {
+      setBowelDate(bowelInfoDate7Days);
+      setDateRange(7);
+    }
+  };
   return (
     <>
+      <h2 className={`${semiBold} ${heading2}`}>
+        배변 활동을
+        <br />
+        분석해봤어요
+      </h2>
       <div className={filterWrapper}>
-        <div>일주일</div>
-        <div
+        <div className={`${flexSprinklesFc({ alignItems: "center" })} ${pointer}`}>
+          <button className={`${caption} ${regular}`} onClick={onClickDateRange}>
+            {dateRange === 7 ? "일주일" : "한 달"}
+            {""} <Image src="/svgs/drop.svg" width={8} height={5} alt="chage icon" />
+          </button>
+        </div>
+
+        <button
           className={`${toggle} ${isToggleActive ? toggleActive : ""}`}
           onClick={() => setIsToggleActive(!isToggleActive)}
-        ></div>
+        />
       </div>
       <div
         className={flexSprinklesFc({

@@ -14,7 +14,7 @@ export const bowelInfoDate30Days = [
       hour: 5,
       minute: 20,
     },
-    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
+    stoolAttributes: { consistency: "default", shapeType: "poop-2" },
     date: "24.09.02",
   },
   {
@@ -22,7 +22,7 @@ export const bowelInfoDate30Days = [
       hour: 5,
       minute: 20,
     },
-    stoolAttributes: { consistency: "crackle", shapeType: "poop-1" },
+    stoolAttributes: { consistency: "crackle", shapeType: "poop-6" },
     date: "24.09.03",
   },
   {
@@ -135,6 +135,38 @@ export const bowelInfoDate30Days = [
       minute: 20,
     },
     stoolAttributes: { consistency: "default", shapeType: "poop-1" },
+    date: "24.09.23",
+  },
+  {
+    bowelTime: {
+      hour: 3,
+      minute: 20,
+    },
+    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
+    date: "24.09.23",
+  },
+  {
+    bowelTime: {
+      hour: 3,
+      minute: 20,
+    },
+    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
+    date: "24.09.23",
+  },
+  {
+    bowelTime: {
+      hour: 3,
+      minute: 20,
+    },
+    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
+    date: "24.09.23",
+  },
+  {
+    bowelTime: {
+      hour: 3,
+      minute: 20,
+    },
+    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
     date: "24.09.24",
   },
   {
@@ -163,6 +195,22 @@ export const bowelInfoDate7Days = [
     },
     stoolAttributes: { consistency: "thin", shapeType: "poop-1" },
     date: "24.09.09",
+  },
+  {
+    bowelTime: {
+      hour: 13,
+      minute: 20,
+    },
+    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
+    date: "24.09.10",
+  },
+  {
+    bowelTime: {
+      hour: 13,
+      minute: 20,
+    },
+    stoolAttributes: { consistency: "default", shapeType: "poop-1" },
+    date: "24.09.10",
   },
   {
     bowelTime: {
@@ -216,4 +264,8 @@ export const bowelDateCount = (data) => {
 
 export const consistency = (data) => {
   return data.map((x) => x.stoolAttributes.consistency);
+};
+
+export const bowelShapeType = (data) => {
+  return data.map((x) => x.stoolAttributes.shapeType);
 };
