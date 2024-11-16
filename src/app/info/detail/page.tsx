@@ -3,8 +3,8 @@
 import Button from "@/app/components/common/Button";
 import Memo from "@/app/components/common/Memo";
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import { gray300, colors } from "@/app/styles/colors.css";
-import { semiBold, heading2, caption } from "@/app/styles/font.css";
+import { colors } from "@/app/styles/colors.css";
+
 import { infoContainer } from "../common/common.css";
 import useInfoStore from "@/app/store/info/infoStore";
 import { usePopupStore } from "@/app/store/popup/PopupStore";
@@ -14,6 +14,17 @@ import TitleText from "./components/titleText";
 const Page = () => {
   const setRecordNoteState = useInfoStore((state) => state.setRecordNote);
   const setDetailPopupState = usePopupStore((state) => state.setIsPopup);
+  const saveRecord = useInfoStore((state) => state.saveRecord);
+  const recordNoteState = useInfoStore((state) => state.recordNote);
+
+  const onClick = () => {
+    if (recordNoteState.length < 3) {
+      return setDetailPopupState(true);
+    } else {
+      setDetailPopupState(true);
+      saveRecord();
+    }
+  };
   return (
     <>
       <DetailPopup />
@@ -30,9 +41,7 @@ const Page = () => {
             background={colors.primary}
             color={colors.white}
             borderRadius="10px"
-            onClick={() => {
-              setDetailPopupState(true);
-            }}
+            onClick={onClick}
           />
         </div>
       </article>

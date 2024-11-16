@@ -10,7 +10,6 @@ const TitleText = () => {
         <br />
         내용이 있나요?
       </h3>
-      <p className={`${gray300} ${caption}`}>(선택) 기록하고 싶은 내용이 있다면 적어보세요</p>
     </div>
   );
 };

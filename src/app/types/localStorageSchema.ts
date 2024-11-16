@@ -1,12 +1,20 @@
 import { z } from "zod";
 import { signinSchema } from "./signinSchema";
 import { signupSchema } from "./signupSchema";
+import { StoolAttributes } from "../store/info/infoStore";
 
 export type LocalStorageSchema = {
   signup: z.infer<typeof signupSchema>;
   signin: z.infer<typeof signinSchema>;
-  goal: string;
-  recordNote: string;
+  recordData: {
+    date: Date;
+    bowelTime: {
+      hour: number;
+      minute: number;
+    };
+    stoolAttributes: StoolAttributes;
+    recordNote: string;
+  }[];
 };
 
 type LocalStorageMapper<T> = {
@@ -35,8 +43,8 @@ export class LocalStorage<T extends keyof LocalStorageSchema> {
     return item ? this.mapper.fromJson(item) : null;
   }
 
-  set(target: LocalStorageSchema[T]): void {
-    const value = target === "" ? JSON.stringify("") : this.mapper.toJson(target);
+  set(data: LocalStorageSchema[T]): void {
+    const value = this.mapper.toJson(data);
     localStorage.setItem(this.key, value);
   }
 

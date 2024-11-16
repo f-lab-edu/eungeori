@@ -1,3 +1,4 @@
+import { LocalStorage } from "@/app/types/localStorageSchema";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -18,10 +19,15 @@ type BowelAttributesState = {
 
   recordNote: string;
   setRecordNote: (note: string) => void;
+
+  startDate: Date;
+  setStartDate: (state: Date) => void;
+
+  saveRecord: () => void;
 };
 
 export const useInfoStore = create<BowelAttributesState>()(
-  immer((set) => ({
+  immer((set, get) => ({
     bowelTime: {
       hour: 0,
       minute: 0,
@@ -45,6 +51,28 @@ export const useInfoStore = create<BowelAttributesState>()(
       set((draft) => {
         draft.recordNote = note;
       }),
+
+    startDate: new Date(),
+    setStartDate: (state) => {
+      set((draft) => {
+        draft.startDate = state;
+      });
+    },
+    saveRecord: () => {
+      const currentRecord = {
+        date: get().startDate,
+        bowelTime: get().bowelTime,
+        stoolAttributes: get().stoolAttributes,
+        recordNote: get().recordNote,
+      };
+
+      const recordStorage = new LocalStorage<"recordData">("recordData");
+
+      const existingRecords = recordStorage.get() || [];
+      const updatedRecords = [...existingRecords, currentRecord];
+
+      recordStorage.set(updatedRecords);
+    },
   }))
 );
 
