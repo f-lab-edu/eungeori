@@ -1,11 +1,9 @@
-import { popupContents, popupWrapper } from "@/app/styles/common/popup.css";
 import { paragraph2, semiBold } from "@/app/styles/font.css";
 import { flexSprinklesFc } from "./utils/flex";
-import { z } from "zod";
+import { popupContents, popupWrapper } from "./popup.css";
+import { MessageType } from "@/app/types/schemas";
 
-const textSchema = z.string().nullable();
-
-const Popup = ({ text, children }: { text: z.infer<typeof textSchema>; children: React.ReactNode }) => {
+const Popup = ({ text, children }: { text: MessageType; children: React.ReactNode }) => {
   return (
     <section className={popupWrapper}>
       <article className={`${popupContents} ${flexSprinklesFc({ flexDirection: "column", gap: "24px" })}`}>

@@ -1,7 +1,7 @@
 import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
-import { colors } from "../colors.css";
-import { light } from "../font.css";
 import { style } from "@vanilla-extract/css";
+import { colors } from "@/app/styles/colors.css";
+import { light } from "@/app/styles/font.css";
 
 const buttonProperties = defineProperties({
   properties: {

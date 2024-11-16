@@ -19,7 +19,6 @@ export const shapeContentBox = style({
   justifyContent: "center",
   width: "74px",
   height: "74px",
-
   background: colors.white30,
 });
 

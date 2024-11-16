@@ -1,5 +1,5 @@
+import { colors } from "@/app/styles/colors.css";
 import { style } from "@vanilla-extract/css";
-import { colors } from "../colors.css";
 
 export const popupWrapper = style({
   position: "fixed",
