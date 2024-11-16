@@ -7,13 +7,36 @@ import { plusIconBox, plusIcon } from "./styles/record.css";
 import "react-datepicker/dist/react-datepicker.css";
 import RecordCalender from "./components/recordCalender";
 import RecordPopup from "./components/popup";
+import useInfoStore from "../store/info/infoStore";
+import Memo from "../components/common/Memo";
+import { LocalStorage } from "../types/localStorageSchema";
+import { formatDate } from "../common/utils/date";
+import { useState } from "react";
 
 const Page = () => {
+  const [isShow, setIsShow] = useState(false);
   const router = useRouter();
+  const startDate = useInfoStore((state) => state.startDate);
+  const recordData = new LocalStorage("recordData");
+
+  const filterdData = recordData
+    .get()
+    ?.filter((data) => formatDate(new Date(data.date)) === formatDate(new Date(startDate)));
+
+  const onDeleteClick = () => {
+    setIsShow(true);
+  };
 
   return (
     <>
-      {/* <RecordPopup /> */}
+      {isShow && (
+        <RecordPopup
+          onClick={() => {
+            setIsShow(false);
+          }}
+        />
+      )}
+
       <section>
         <RecordCalender>
           <RecordCalender.Calender />
@@ -25,7 +48,15 @@ const Page = () => {
             gap: "8px",
           })}`}
         >
-          {/* 메모 자리 */}
+          {filterdData?.map((data) => (
+            <Memo
+              key={data.date.toString()}
+              date={formatDate(new Date(data.date))}
+              text={data.recordNote}
+              edit
+              onDeleteClick={onDeleteClick}
+            />
+          ))}
         </article>
 
         <div
