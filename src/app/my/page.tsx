@@ -24,6 +24,8 @@ const Page = () => {
   const signupStorage = new LocalStorage("signup");
   const recordData = new LocalStorage("recordData");
 
+  const nickname = signupStorage.get();
+
   const onRemoveSigninStorageClick = () => {
     signinStorage.remove();
     router.push("/");
@@ -77,7 +79,7 @@ const Page = () => {
             gap: "8px",
           })}`}
         >
-          <p className={`${semiBold} ${paragraph}`}>제톰 님, 안녕하세요</p>
+          <p className={`${semiBold} ${paragraph}`}>{nickname?.nickname}님, 안녕하세요</p>
           <Image src="/image/profile.png" width={110} height={110} alt="profile" priority />
         </div>
 
