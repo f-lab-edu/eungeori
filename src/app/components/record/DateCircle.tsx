@@ -1,4 +1,4 @@
-import { circle } from "@/app/record/record.css";
+import { circle } from "@/app/record/styles/record.css";
 
 const DateCircle = ({ date }: { date: string }) => {
   return <div className={circle}>{date}</div>;

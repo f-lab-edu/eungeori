@@ -1,7 +1,7 @@
+import { colors } from "@/app/styles/colors.css";
+import { semiBold, paragraph3 } from "@/app/styles/font.css";
+import { paddingSprinkles } from "@/app/styles/padding.css";
 import { style } from "@vanilla-extract/css";
-import { colors } from "../styles/colors.css";
-import { semiBold, paragraph3 } from "../styles/font.css";
-import { paddingSprinkles } from "../styles/padding.css";
 
 export const circle = style([
   semiBold,
