@@ -1,8 +1,6 @@
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import { gray300, pink80 } from "@/app/styles/colors.css";
-import { inputStyle } from "@/app/styles/common/input.css";
-import { caption, caption2 } from "@/app/styles/font.css";
-import { paddingSprinkles } from "@/app/styles/padding.css";
+import { gray300 } from "@/app/styles/colors.css";
+import { caption2 } from "@/app/styles/font.css";
 import { formBox } from "../styles/login.css";
 import { useRouter } from "next/navigation";
 
@@ -12,11 +10,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { pointer, buttonOutLine } from "@/app/styles/global.css";
 
-import { useAuth } from "../hook";
+import { useLogin } from "../hook";
+import FormInputUI from "../../common/inputUI";
 
 const LoginForm = () => {
   const router = useRouter();
-  const { onLoginSubmit } = useAuth();
+  const { onLoginSubmit } = useLogin();
 
   const {
     register,
@@ -35,26 +34,20 @@ const LoginForm = () => {
     <>
       <form className={formBox} onSubmit={handleSubmit(onLoginSubmit)}>
         <div className={flexSprinklesFc({ flexDirection: "column", gap: "8px" })} style={{ width: "95%" }}>
-          <div>
-            <input className={inputStyle} placeholder="아이디" {...register("id")} maxLength={10} />
+          <FormInputUI
+            text="아이디"
+            maxLegnth={10}
+            register={register("id")}
+            errorMessage={errors.id?.message}
+          />
 
-            <p className={`${paddingSprinkles({ paddingTop: "s4" })} ${caption} ${pink80}`}>
-              {errors.id?.message}
-            </p>
-          </div>
-
-          <div>
-            <input
-              className={inputStyle}
-              placeholder="비밀번호"
-              {...register("password")}
-              type="password"
-              maxLength={12}
-            />
-            <p className={`${paddingSprinkles({ paddingTop: "s4" })} ${caption} ${pink80}`}>
-              {errors.password?.message}
-            </p>
-          </div>
+          <FormInputUI
+            text="비밀번호"
+            type="password"
+            maxLegnth={12}
+            register={register("password")}
+            errorMessage={errors.password?.message}
+          />
         </div>
       </form>
 

@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Logo from "@svgs/logo.svg";
-import { flexSprinklesFc } from "../components/common/utils/flex";
 import { loginWrapper, loginLogo, loginTextBox, loginHeading, loginCaption } from "./styles/login.css";
 import LoginForm from "./components/loginForm";
 import LoginPopup from "./components/loginPopup";
+import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 
 export default function LoginPage() {
   const logoClassName = flexSprinklesFc({
