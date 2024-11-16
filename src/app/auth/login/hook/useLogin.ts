@@ -1,18 +1,19 @@
-import { useLoginUiStore } from "@/app/store/login/loginStore";
+import { usePopupStore } from "@/app/store/popup/PopupStore";
 import { LocalStorage } from "@/app/types/localStorageSchema";
 import { signinSchema } from "@/app/types/signinSchema";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 
-export const useAuth = () => {
+export const useLogin = () => {
   const router = useRouter();
 
-  const { setLoginMessage, setIsLoginPopup } = useLoginUiStore();
+  const setIsPopupState = usePopupStore((state) => state.setIsPopup);
+  const setMessageState = usePopupStore((state) => state.setMessage);
 
   const onLoginSubmit = (data: z.infer<typeof signinSchema>) => {
     if (!data) {
-      setLoginMessage("가입된 정보를 확인해주세요.");
-      setIsLoginPopup(true);
+      setMessageState("가입된 정보를 확인해주세요.");
+      setIsPopupState(true);
       return;
     }
 
@@ -22,14 +23,14 @@ export const useAuth = () => {
     const getAuthInfo = signupStorage.get();
 
     if (!getAuthInfo) {
-      setLoginMessage("회원가입을 진행해주세요.");
-      setIsLoginPopup(true);
+      setMessageState("회원가입을 진행해주세요.");
+      setIsPopupState(true);
       return;
     }
 
     if (getAuthInfo.id !== data.id || getAuthInfo.password !== data.password) {
-      setLoginMessage("아이디, 비밀번호를 확인해주세요.");
-      setIsLoginPopup(true);
+      setMessageState("아이디, 비밀번호를 확인해주세요.");
+      setIsPopupState(true);
       return;
     }
 

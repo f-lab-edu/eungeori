@@ -8,9 +8,9 @@ import { paddingSprinkles } from "../styles/padding.css";
 import { gray300 } from "../styles/colors.css";
 import { buttonOutLine, pointer } from "../styles/global.css";
 import { useRouter } from "next/navigation";
-import { inputStyle } from "../styles/common/input.css";
 import { useEffect, useState } from "react";
 import { LocalStorage } from "../types/localStorageSchema";
+import { inputStyle } from "../components/common/input.css";
 
 const Page = () => {
   const router = useRouter();
