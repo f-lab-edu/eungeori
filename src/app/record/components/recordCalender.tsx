@@ -7,15 +7,43 @@ import { caption2 } from "@/app/styles/font.css";
 import { recordDateSection } from "../styles/record.css";
 
 import { datepickerWapper } from "../styles/datepicker.css";
-import CalenderDropDown from "./calenderDropDown";
 import { useRecordStore } from "@/app/store/record/recordStore";
+import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
+import CalenderDropDown from "./calenderDropDown";
 
-const RecordCalender = () => {
+type CalenderContext = {
+  isShow: boolean;
+  setIsShow: Dispatch<SetStateAction<boolean>>;
+  startDateState: Date;
+  setStartDateState: (state: Date) => void;
+};
+
+const CalenderContext = createContext<CalenderContext | undefined>(undefined);
+
+const RecordCalender = ({ children }: { children: React.ReactNode }) => {
+  const [isShow, setIsShow] = useState(false);
   const startDateState = useRecordStore((state) => state.startDate);
   const setStartDateState = useRecordStore((state) => state.setStartDate);
 
-  const startOfYear = new Date(startDateState.getFullYear(), 0, 1);
+  return (
+    <CalenderContext.Provider value={{ isShow, setIsShow, startDateState, setStartDateState }}>
+      <>{children}</>
+    </CalenderContext.Provider>
+  );
+};
 
+export const useCalenderContext = () => {
+  const context = useContext(CalenderContext);
+
+  if (!context) throw new Error("recordCalender 내에서 사용하기");
+
+  return context;
+};
+
+const Calender = () => {
+  const { startDateState, setStartDateState } = useCalenderContext();
+
+  const startOfYear = new Date(startDateState.getFullYear(), 0, 1);
   return (
     <>
       <article
@@ -44,5 +72,7 @@ const RecordCalender = () => {
     </>
   );
 };
+
+RecordCalender.Calender = Calender;
 
 export default RecordCalender;

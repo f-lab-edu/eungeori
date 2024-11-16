@@ -15,7 +15,9 @@ const Page = () => {
     <>
       {/* <RecordPopup /> */}
       <section>
-        <RecordCalender />
+        <RecordCalender>
+          <RecordCalender.Calender />
+        </RecordCalender>
 
         <article
           className={`${flexSprinklesFc({
