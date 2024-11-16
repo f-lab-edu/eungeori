@@ -1,6 +1,5 @@
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import { gray300 } from "@/app/styles/colors.css";
-import { semiBold, heading2, caption } from "@/app/styles/font.css";
+import { semiBold, heading2 } from "@/app/styles/font.css";
 
 const TitleText = () => {
   return (

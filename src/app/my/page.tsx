@@ -5,24 +5,37 @@ import { caption, paragraph, regular, semiBold } from "../styles/font.css";
 import { flexSprinklesFc } from "../components/common/utils/flex";
 import { myTargetContainer } from "./my.css";
 import { paddingSprinkles } from "../styles/padding.css";
-import { gray300 } from "../styles/colors.css";
+import { colors, gray300 } from "../styles/colors.css";
 import { buttonOutLine, pointer } from "../styles/global.css";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LocalStorage } from "../types/localStorageSchema";
 import { inputStyle } from "../components/common/input.css";
+import Popup from "../components/common/Popup";
+import Button from "../components/common/Button";
 
 const Page = () => {
   const router = useRouter();
   const [goal, setGoal] = useState<string>("");
+  const [isShow, setIsShow] = useState(false);
 
   const goalStorage = new LocalStorage("goal");
   const signinStorage = new LocalStorage("signin");
+  const signupStorage = new LocalStorage("signup");
+  const recordData = new LocalStorage("recordData");
 
-  const onClick = () => {
+  const onRemoveSigninStorageClick = () => {
     signinStorage.remove();
-
     router.push("/");
+  };
+
+  const onRemoveUserInfo = () => {
+    signinStorage.remove();
+    signupStorage.remove();
+    goalStorage.remove();
+    recordData.remove();
+    router.push("/");
+    setIsShow(false);
   };
 
   const onGoalSave = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -37,8 +50,24 @@ const Page = () => {
       setGoal(saveGoal);
     }
   }, []);
+
   return (
     <>
+      {isShow && (
+        <Popup text="정말 탈퇴하시겠습니까?">
+          <div className={flexSprinklesFc({ gap: "8px" })}>
+            <Button
+              text="취소"
+              onClick={() => {
+                setIsShow(false);
+              }}
+              background={colors.primary}
+              color={colors.white}
+            />
+            <Button text="확인" onClick={onRemoveUserInfo} />
+          </div>
+        </Popup>
+      )}
       <div>
         <div
           className={`${flexSprinklesFc({
@@ -72,11 +101,18 @@ const Page = () => {
 
       <div>
         <p className={`${caption} ${gray300}`} style={{ textAlign: "center" }}>
-          <button className={`${pointer} ${buttonOutLine}`} onClick={onClick}>
+          <button className={`${pointer} ${buttonOutLine}`} onClick={onRemoveSigninStorageClick}>
             로그아웃
           </button>{" "}
           | {""}
-          <button className={`${pointer} ${buttonOutLine}`}>회원탈퇴</button>
+          <button
+            className={`${pointer} ${buttonOutLine}`}
+            onClick={() => {
+              setIsShow(true);
+            }}
+          >
+            회원탈퇴
+          </button>
         </p>
       </div>
     </>

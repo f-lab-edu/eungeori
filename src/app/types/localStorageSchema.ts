@@ -6,6 +6,7 @@ import { StoolAttributes } from "../store/info/infoStore";
 export type LocalStorageSchema = {
   signup: z.infer<typeof signupSchema>;
   signin: z.infer<typeof signinSchema>;
+  goal: string;
   recordData: {
     date: Date;
     bowelTime: {
