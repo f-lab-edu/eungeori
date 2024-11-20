@@ -9,22 +9,37 @@ import RecordCalender from "./components/recordCalender";
 import RecordPopup from "./components/popup";
 import useInfoStore from "../store/info/infoStore";
 import Memo from "../components/common/Memo";
-import { LocalStorage } from "../types/localStorageSchema";
-import { formatDate } from "../common/utils/date";
-import { useState } from "react";
+import { LocalStorage, LocalStorageSchema } from "../types/localStorageSchema";
+import { formatDate, formatYYYYMMDD } from "../common/utils/date";
+import { useEffect, useState } from "react";
+
+type RecordData = LocalStorageSchema["recordData"];
 
 const Page = () => {
   const [isShow, setIsShow] = useState(false);
+  const [filterdData, setFilterdData] = useState<RecordData>([]);
+
   const router = useRouter();
   const startDate = useInfoStore((state) => state.startDate);
-  const recordData = new LocalStorage("recordData");
 
-  const filterdData = recordData
-    .get()
-    ?.filter((data) => formatDate(new Date(data.date)) === formatDate(new Date(startDate)));
+  useEffect(() => {
+    const recordData = new LocalStorage("recordData");
+    const data = recordData.get();
+
+    const filtered = data?.filter(
+      (item) => formatDate(new Date(item.date)) === formatDate(new Date(startDate))
+    );
+
+    setFilterdData(filtered || []);
+  }, [startDate]);
 
   const onDeleteClick = () => {
     setIsShow(true);
+  };
+
+  const onEditClick = (date: Date, idx: number) => {
+    const formattedDate = formatYYYYMMDD(date);
+    router.push(`detail/${formattedDate}/${idx}`);
   };
 
   return (
@@ -48,12 +63,15 @@ const Page = () => {
             gap: "8px",
           })}`}
         >
-          {filterdData?.map((data) => (
+          {filterdData?.map((data, idx) => (
             <Memo
-              key={data.date.toString()}
+              key={idx}
               date={formatDate(new Date(data.date))}
               text={data.recordNote}
               edit
+              onEditClick={() => {
+                onEditClick(new Date(data.date), idx);
+              }}
               onDeleteClick={onDeleteClick}
             />
           ))}
