@@ -11,14 +11,8 @@ export const useSignup = () => {
     try {
       const { data: existingUser } = await supabase
         .from("signup")
-        .select("username")
-        .eq("username", data.id)
-        .single();
-
-      const { data: exsitingNickname } = await supabase
-        .from("signup")
-        .select("nickname")
-        .eq("nickname", data.nickname)
+        .select("username, nickname")
+        .or(`username.eq.${data.id},nickname.eq.${data.nickname}`)
         .single();
 
       const { error } = await supabase.from("signup").insert({
@@ -27,13 +21,13 @@ export const useSignup = () => {
         nickname: data.nickname,
       });
 
-      if (existingUser) {
+      if (existingUser?.username) {
         setIsPopupState(true);
         setMessageState("이미 존재하는 회원입니다.");
         return;
       }
 
-      if (exsitingNickname) {
+      if (existingUser?.nickname) {
         setIsPopupState(true);
         setMessageState("이미 존재하는 닉네임입니다.");
         return;
