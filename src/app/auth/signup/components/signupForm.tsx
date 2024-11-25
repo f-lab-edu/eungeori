@@ -17,7 +17,7 @@ const SignupForm = () => {
     resolver: zodResolver(signupSchema),
     mode: "onChange",
     defaultValues: {
-      id: "",
+      email: "",
       password: "",
       confirmPassword: "",
       nickname: "",
@@ -32,12 +32,7 @@ const SignupForm = () => {
       className={flexSprinklesFc({ flexDirection: "column", gap: "32px" })}
     >
       <div className={flexSprinklesFc({ flexDirection: "column", gap: "8px" })}>
-        <FormInputUI
-          text="아이디"
-          maxLegnth={10}
-          register={register("id")}
-          errorMessage={errors.id?.message}
-        />
+        <FormInputUI text="이메일" register={register("email")} errorMessage={errors.email?.message} />
 
         <FormInputUI
           text="비밀번호"

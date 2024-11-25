@@ -8,7 +8,7 @@ import { UseFormRegister } from "react-hook-form";
 type InputUiProps = {
   text: string;
   type?: HTMLInputTypeAttribute;
-  maxLegnth: number;
+  maxLegnth?: number;
   register: ReturnType<UseFormRegister<any>>;
   errorMessage: string | undefined;
 };
