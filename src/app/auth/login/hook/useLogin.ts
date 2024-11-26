@@ -1,6 +1,6 @@
 import { supabase } from "@/app/lib/supabaseClient";
 import { usePopupStore } from "@/app/store/popup/PopupStore";
-import { signupSchema } from "@/app/types/signupSchema";
+import { signinSchema } from "@/app/types/signinSchema";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 
@@ -10,38 +10,26 @@ export const useLogin = () => {
   const setIsPopupState = usePopupStore((state) => state.setIsPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
-  const onLoginSubmit = async (data: z.infer<typeof signupSchema>) => {
+  const onLoginSubmit = async (data: z.infer<typeof signinSchema>) => {
     try {
-      const { data: user, error } = await supabase
-        .from("signup")
-        .select("username, password")
-        .or(`username.eq.${data.id}, password.eq.${data.password}`)
-        .single();
+      const { data: user, error } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      });
 
-      if (error) {
+      if (error?.message === "Invalid login credentials" || error?.message === "Invalid email or password") {
         setIsPopupState(true);
-        setMessageState("가입된 정보를 확인해주세요.");
-        return;
+        setMessageState("이메일 또는 비밀번호를 확인해주세요.");
       }
 
-      if (!user) {
-        setMessageState("회원가입을 진행해주세요.");
-        setIsPopupState(true);
-        return;
-      }
+      router.push("/record");
 
-      if (user.username !== data.id || user.password !== data.password) {
-        setMessageState("아이디, 비밀번호를 확인해주세요.");
-        setIsPopupState(true);
-        return;
-      }
+      return;
     } catch (e) {
       setIsPopupState(true);
       setMessageState("알 수 없는 오류가 발생했습니다.");
       return;
     }
-
-    router.push("/record");
   };
 
   return { onLoginSubmit };
