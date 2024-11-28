@@ -13,13 +13,15 @@ import { inputStyle } from "../components/common/input.css";
 import { supabase, userProfile } from "../lib/supabaseClient";
 import { usePopupStore } from "../store/popup/PopupStore";
 
+const IMAGE_SRC = "/image/profile.png";
+
 const Page = () => {
   const router = useRouter();
   const [userInfo, setUserInfo] = useState({
     nickname: "",
     id: "",
   });
-  const [imageUrl, setImageUrl] = useState<string>("/image/profile.png");
+  const [imageUrl, setImageUrl] = useState<string>(IMAGE_SRC);
   const [goal, setGoal] = useState<string>("");
 
   const setIsPopupState = usePopupStore((state) => state.setIsPopup);
@@ -53,17 +55,25 @@ const Page = () => {
           setMessageState("사용자 정보를 불러오는데 실패했습니다.");
         }
 
-        // 로컬호스트로 바라보는것도 문제
-        // 파일 이름을 넣기.. id 말고
         const filePath = `user_profile_image/${id}`;
 
-        const { data: urlData } = supabase.storage.from(`${userProfile}`).getPublicUrl(filePath);
-        if (!urlData.publicUrl) {
+        const { data: supabaseUrl } = await supabase.storage.from(`${userProfile}`).getPublicUrl(filePath);
+
+        const { data: urlData, error: urlError } = await supabase.storage
+          .from(`${userProfile}`)
+          .list(filePath);
+
+        if (urlError) {
           setIsPopupState(true);
           setMessageState("프로필 이미지를 불러오는데 실패했습니다.");
         }
 
-        setImageUrl(urlData.publicUrl);
+        if (!urlData || urlData.length === 0) {
+          setImageUrl(IMAGE_SRC);
+          return;
+        }
+
+        setImageUrl(`${supabaseUrl.publicUrl}/${urlData[urlData.length - 1]?.name}`);
       } catch (e) {
         setIsPopupState(true);
         setMessageState("알 수 없는 오류가 발생했습니다.");
@@ -139,11 +149,15 @@ const Page = () => {
 
   const uploadImage = async (file: File) => {
     try {
-      const filePath = `user_profile_image/${file.name}`;
+      const filePath = `public/user_profile_image/${file.name}`;
+
+      console.log("업로드 경로:", filePath);
+
       const { data, error } = await supabase.storage
         .from(`${userProfile}`)
         .upload(filePath, file, { upsert: true });
 
+      console.log(data, "test");
       if (error) {
         setIsPopupState(true);
         setMessageState("업로드에 실패하였습니다.");
@@ -175,6 +189,7 @@ const Page = () => {
           </form>
           <Image
             className={pointer}
+            style={{ borderRadius: "50%" }}
             src={imageUrl}
             width={110}
             height={110}
