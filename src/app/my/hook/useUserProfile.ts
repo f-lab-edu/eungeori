@@ -1,0 +1,70 @@
+import { supabase, userProfile } from "@/app/lib/supabaseClient";
+import { usePopupStore } from "@/app/store/popup/PopupStore";
+import { useEffect, useState } from "react";
+
+const IMAGE_SRC = "/image/profile.png";
+
+export const useUserProfile = () => {
+  const [userInfo, setUserInfo] = useState({
+    nickname: "",
+    id: "",
+  });
+  const [imageUrl, setImageUrl] = useState<string>(IMAGE_SRC);
+
+  const setIsPopupState = usePopupStore((state) => state.setIsPopup);
+  const setMessageState = usePopupStore((state) => state.setMessage);
+
+  const fetchUserProfileImage = async () => {
+    const user = await supabase.auth.getUser();
+    const nickname = user.data.user?.user_metadata.nickname;
+    const id = user.data.user?.id;
+
+    setUserInfo({
+      nickname: nickname || "",
+      id: id || "",
+    });
+  };
+
+  const fetchUserProfile = async () => {
+    try {
+      const { data, error } = await supabase.auth.getUser();
+
+      if (!data.user || error) {
+        setIsPopupState(true);
+        setMessageState("사용자 정보를 불러오는데 실패했습니다.");
+      }
+
+      const filePath = `user_profile_image/image`;
+
+      const { data: fileUrl } = await supabase.storage.from(`${userProfile}`).getPublicUrl(filePath);
+      const { data: fileList } = await supabase.storage.from(`${userProfile}`).list(filePath);
+
+      if (!fileList) {
+        setIsPopupState(true);
+        setMessageState("프로필 이미지를 불러오는데 실패했습니다.");
+        setImageUrl(IMAGE_SRC);
+      }
+
+      if (!fileUrl.publicUrl || !fileList || fileList.length === 0) {
+        setImageUrl(IMAGE_SRC);
+        return;
+      }
+
+      setImageUrl(`${fileUrl.publicUrl}/${fileList[fileList.length - 1].name}`);
+    } catch (e) {
+      setIsPopupState(true);
+      setMessageState("알 수 없는 오류가 발생했습니다.");
+    }
+  };
+
+  useEffect(() => {
+    fetchUserProfileImage();
+    fetchUserProfile();
+  }, []);
+
+  return {
+    userInfo,
+    imageUrl,
+    setImageUrl,
+  };
+};
