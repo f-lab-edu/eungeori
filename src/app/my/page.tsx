@@ -6,13 +6,13 @@ import UserGoalInput from "./components/userGoalInput";
 import LogoutButton from "./components/logoutButton";
 
 const Page = () => {
-  const { userInfo, imageUrl, setImageUrl } = useUserProfile();
+  const { imageUrl, setImageUrl } = useUserProfile();
 
   return (
     <>
       <div>
-        <UserProfileImage userInfo={userInfo} imageUrl={imageUrl} setImageUrl={setImageUrl} />
-        <UserGoalInput userInfo={userInfo} />
+        <UserProfileImage imageUrl={imageUrl} setImageUrl={setImageUrl} />
+        <UserGoalInput />
       </div>
 
       <LogoutButton />

@@ -1,5 +1,6 @@
 import { supabase } from "@/app/lib/supabaseClient";
 import { usePopupStore } from "@/app/store/popup/PopupStore";
+import { useUserInfoStore } from "@/app/store/user/userStore";
 import { signinSchema } from "@/app/types/signinSchema";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
@@ -9,6 +10,8 @@ export const useLogin = () => {
 
   const setIsPopupState = usePopupStore((state) => state.setIsPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
+
+  const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
 
   const onLoginSubmit = async (data: z.infer<typeof signinSchema>) => {
     try {
@@ -22,7 +25,18 @@ export const useLogin = () => {
         setMessageState("이메일 또는 비밀번호를 확인해주세요.");
       }
 
-      router.push("/record");
+      if (user && user.session) {
+        const {
+          id,
+          user_metadata: { nickname },
+        } = user.session.user;
+
+        setUserInfo({
+          id,
+          nickname,
+        });
+        router.push("/record");
+      }
 
       return;
     } catch (e) {

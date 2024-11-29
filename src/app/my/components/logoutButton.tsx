@@ -1,4 +1,4 @@
-import { supabase } from "@/app/lib/supabaseClient";
+import { admin, supabase } from "@/app/lib/supabaseClient";
 import { usePopupStore } from "@/app/store/popup/PopupStore";
 import { gray300 } from "@/app/styles/colors.css";
 import { caption } from "@/app/styles/font.css";
@@ -27,6 +27,10 @@ const LogoutButton = () => {
     }
   };
 
+  const onDeleteAccount = async () => {
+    const { data, error } = await admin.auth.admin.deleteUser();
+  };
+
   return (
     <div>
       <p className={`${caption} ${gray300}`} style={{ textAlign: "center" }}>
@@ -34,7 +38,9 @@ const LogoutButton = () => {
           로그아웃
         </button>{" "}
         | {""}
-        <button className={`${pointer} ${buttonOutLine}`}>회원탈퇴</button>
+        <button className={`${pointer} ${buttonOutLine}`} onClick={onDeleteAccount}>
+          회원탈퇴
+        </button>
       </p>
     </div>
   );
