@@ -1,6 +1,7 @@
 import { flexSprinklesFc } from "@/app/components/common/utils/flex";
 import { supabase, userProfile } from "@/app/lib/supabaseClient";
 import { usePopupStore } from "@/app/store/popup/PopupStore";
+import { useUserInfoStore } from "@/app/store/user/userStore";
 import { semiBold, paragraph } from "@/app/styles/font.css";
 import { pointer } from "@/app/styles/global.css";
 import Image from "next/image";
@@ -8,15 +9,13 @@ import Image from "next/image";
 import { useRef } from "react";
 
 type UserProfileImageProps = {
-  userInfo: {
-    nickname: string;
-    id: string;
-  };
   imageUrl: string;
   setImageUrl: (url: string) => void;
 };
 
-const UserProfileImage = ({ userInfo, imageUrl, setImageUrl }: UserProfileImageProps) => {
+const UserProfileImage = ({ imageUrl, setImageUrl }: UserProfileImageProps) => {
+  const userInfo = useUserInfoStore((state) => state.userInfo);
+
   const setIsPopupState = usePopupStore((state) => state.setIsPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 

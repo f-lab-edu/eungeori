@@ -1,31 +1,19 @@
 import { supabase, userProfile } from "@/app/lib/supabaseClient";
 import { usePopupStore } from "@/app/store/popup/PopupStore";
+import { useUserInfoStore } from "@/app/store/user/userStore";
 import { useEffect, useState } from "react";
 
 const IMAGE_SRC = "/image/profile.png";
 
 export const useUserProfile = () => {
-  const [userInfo, setUserInfo] = useState({
-    nickname: "",
-    id: "",
-  });
   const [imageUrl, setImageUrl] = useState<string>(IMAGE_SRC);
+
+  const userInfo = useUserInfoStore((state) => state.userInfo);
 
   const setIsPopupState = usePopupStore((state) => state.setIsPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
-  const fetchUserProfileImage = async () => {
-    const user = await supabase.auth.getUser();
-    const nickname = user.data.user?.user_metadata.nickname;
-    const id = user.data.user?.id;
-
-    setUserInfo({
-      nickname: nickname || "",
-      id: id || "",
-    });
-  };
-
-  const fetchUserProfile = async () => {
+  const fetchUserProfileUpload = async () => {
     try {
       const { data, error } = await supabase.auth.getUser();
 
@@ -58,8 +46,7 @@ export const useUserProfile = () => {
   };
 
   useEffect(() => {
-    fetchUserProfileImage();
-    fetchUserProfile();
+    fetchUserProfileUpload();
   }, []);
 
   return {

@@ -5,16 +5,12 @@ import { myTargetContainer } from "../my.css";
 import { useState } from "react";
 import { usePopupStore } from "@/app/store/popup/PopupStore";
 import { supabase } from "@/app/lib/supabaseClient";
+import { useUserInfoStore } from "@/app/store/user/userStore";
 
-type UserGoalInputProps = {
-  userInfo: {
-    nickname: string;
-    id: string;
-  };
-};
-
-const UserGoalInput = ({ userInfo }: UserGoalInputProps) => {
+const UserGoalInput = () => {
   const [goal, setGoal] = useState<string>("");
+
+  const userInfo = useUserInfoStore((state) => state.userInfo);
 
   const setIsPopupState = usePopupStore((state) => state.setIsPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
@@ -27,7 +23,9 @@ const UserGoalInput = ({ userInfo }: UserGoalInputProps) => {
         return;
       }
 
-      const { data, error } = await supabase.from("user_profile").insert([{ goal, id: userInfo.id }]);
+      const { data, error } = await supabase
+        .from("user_profile")
+        .upsert([{ id: userInfo.id, nickname: userInfo.nickname, goal }]);
 
       console.log(data, "test");
 
