@@ -48,32 +48,29 @@ const Page = () => {
     const getUserProfile = async () => {
       try {
         const { data, error } = await supabase.auth.getUser();
-        const id = userInfo.id;
 
         if (!data.user || error) {
           setIsPopupState(true);
           setMessageState("사용자 정보를 불러오는데 실패했습니다.");
         }
 
-        const filePath = `user_profile_image/${id}`;
+        const filePath = `user_profile_image/image`;
 
-        const { data: supabaseUrl } = await supabase.storage.from(`${userProfile}`).getPublicUrl(filePath);
+        const { data: fileUrl } = await supabase.storage.from(`${userProfile}`).getPublicUrl(filePath);
+        const { data: fileList } = await supabase.storage.from(`${userProfile}`).list(filePath);
 
-        const { data: urlData, error: urlError } = await supabase.storage
-          .from(`${userProfile}`)
-          .list(filePath);
-
-        if (urlError) {
+        if (!fileList) {
           setIsPopupState(true);
           setMessageState("프로필 이미지를 불러오는데 실패했습니다.");
+          setImageUrl(IMAGE_SRC);
         }
 
-        if (!urlData || urlData.length === 0) {
+        if (!fileUrl.publicUrl || !fileList || fileList.length === 0) {
           setImageUrl(IMAGE_SRC);
           return;
         }
 
-        setImageUrl(`${supabaseUrl.publicUrl}/${urlData[urlData.length - 1]?.name}`);
+        setImageUrl(`${fileUrl.publicUrl}/${fileList[fileList.length - 1].name}`);
       } catch (e) {
         setIsPopupState(true);
         setMessageState("알 수 없는 오류가 발생했습니다.");
@@ -149,23 +146,26 @@ const Page = () => {
 
   const uploadImage = async (file: File) => {
     try {
-      const filePath = `public/user_profile_image/${file.name}`;
-
-      console.log("업로드 경로:", filePath);
+      const fileExtension = file.name.split(".").pop();
+      const filePath = `user_profile_image/image/${Math.random().toString(36).substring(2)}.${fileExtension}`;
 
       const { data, error } = await supabase.storage
         .from(`${userProfile}`)
         .upload(filePath, file, { upsert: true });
 
-      console.log(data, "test");
       if (error) {
         setIsPopupState(true);
         setMessageState("업로드에 실패하였습니다.");
         return;
       }
 
-      setIsPopupState(true);
-      setMessageState("변경되었습니다.");
+      const { data: supabaseUrl } = await supabase.storage.from(`${userProfile}`).getPublicUrl(filePath);
+
+      if (supabaseUrl) {
+        setImageUrl(`${supabaseUrl.publicUrl}?tiemstamp=${Date.now()}`);
+        setIsPopupState(true);
+        setMessageState("변경되었습니다.");
+      }
     } catch (e) {
       setIsPopupState(true);
       setMessageState("알 수 없는 오류가 발생했습니다.");
