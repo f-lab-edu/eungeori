@@ -2,7 +2,7 @@ import { inputStyle } from "@/app/components/common/input.css";
 import { caption, regular } from "@/app/styles/font.css";
 import { paddingSprinkles } from "@/app/styles/padding.css";
 import { myTargetContainer } from "../my.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePopupStore } from "@/app/store/popup/PopupStore";
 import { supabase } from "@/app/lib/supabaseClient";
 import { useUserInfoStore } from "@/app/store/user/userStore";
@@ -25,12 +25,11 @@ const UserGoalInput = () => {
 
       const { data, error } = await supabase
         .from("user_profile")
-        .upsert([{ id: userInfo.id, nickname: userInfo.nickname, goal }]);
-
-      console.log(data, "test");
+        .upsert({ id: userInfo.id, nickname: userInfo.nickname, goal }, { onConflict: "id" });
 
       if (error) {
-        console.log(error, "error");
+        console.log(userInfo.id, "tst");
+        console.log(error, "test");
         setIsPopupState(true);
         setMessageState("알 수 없는 오류가 발생했습니다.");
         return;
@@ -38,7 +37,6 @@ const UserGoalInput = () => {
 
       setIsPopupState(true);
       setMessageState("저장 되었습니다.");
-      setGoal("");
     } catch (e) {
       setIsPopupState(true);
       setMessageState("알 수 없는 오류가 발생했습니다.");
@@ -51,6 +49,30 @@ const UserGoalInput = () => {
       await onGoalSave(goal);
     }
   };
+
+  useEffect(() => {
+    const getGoalData = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("user_profile")
+          .select("goal")
+          .eq("id", userInfo.id)
+          .single();
+
+        if (data) {
+          setGoal(data.goal);
+        }
+
+        if (error) {
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    getGoalData();
+  }, []);
+
   return (
     <div className={myTargetContainer}>
       <p className={`${caption} ${regular} ${paddingSprinkles({ paddingBottom: "s4" })}`}>한 줄 목표</p>
