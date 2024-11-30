@@ -28,8 +28,6 @@ const UserGoalInput = () => {
         .upsert({ id: userInfo.id, nickname: userInfo.nickname, goal }, { onConflict: "id" });
 
       if (error) {
-        console.log(userInfo.id, "tst");
-        console.log(error, "test");
         setIsPopupState(true);
         setMessageState("알 수 없는 오류가 발생했습니다.");
         return;
