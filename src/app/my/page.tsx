@@ -8,14 +8,12 @@ import { usePopupStore } from "../store/popup/PopupStore";
 import Button from "../components/common/Button";
 import Popup from "../components/common/Popup";
 import { colors } from "../styles/colors.css";
-import { useState } from "react";
 import { flexSprinklesFc } from "../components/common/utils/flex";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();
   const { imageUrl, setImageUrl } = useUserProfile();
-  const [deleted, setDeleted] = useState(false);
   const isPopupState = usePopupStore((state) => state.isPopup);
   const messageState = usePopupStore((state) => state.message);
   const setIsPopupState = usePopupStore((state) => state.setIsPopup);
@@ -67,7 +65,7 @@ const Page = () => {
         <UserGoalInput />
       </div>
 
-      <LogoutButton deleted={deleted} />
+      <LogoutButton />
     </>
   );
 };

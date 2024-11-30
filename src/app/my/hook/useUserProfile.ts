@@ -1,11 +1,13 @@
 import { supabase, userProfile } from "@/app/lib/supabaseClient";
 import { usePopupStore } from "@/app/store/popup/PopupStore";
 import { useUserInfoStore } from "@/app/store/user/userStore";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const IMAGE_SRC = "/image/profile.png";
 
 export const useUserProfile = () => {
+  const router = useRouter();
   const [imageUrl, setImageUrl] = useState<string>(IMAGE_SRC);
 
   const userInfo = useUserInfoStore((state) => state.userInfo);
