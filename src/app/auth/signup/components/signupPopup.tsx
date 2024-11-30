@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const messageRoute: Record<string, string | null> = {
   "이미 존재하는 회원입니다.": null,
   "이미 존재하는 닉네임입니다.": null,
-  "회원가입이 완료됐습니다.": "/",
+  "이메일 인증 후 로그인 해주세요.": "/",
 };
 
 const SignupPopup = () => {

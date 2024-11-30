@@ -7,7 +7,6 @@ const checkEmailExists = async (email: string) => {
   const { data, error } = await supabase.rpc("check_email_exists", { email_input: email });
 
   if (error) {
-    console.error("RPC 호출 오류:", error.message);
     return false;
   }
 
@@ -18,7 +17,6 @@ const checkNicknameExists = async (nickname: string) => {
   const { data, error } = await supabase.rpc("check_nickname_exists", { nickname });
 
   if (error) {
-    console.error("RPC 호출 오류:", error.message);
     return false;
   }
 
@@ -63,7 +61,7 @@ export const useSignup = () => {
       }
 
       setIsPopupState(true);
-      setMessageState("회원가입이 완료됐습니다.");
+      setMessageState("이메일 인증 후 로그인 해주세요.");
     } catch (e) {
       setIsPopupState(true);
       setMessageState("알 수 없는 오류가 발생했습니다.");
