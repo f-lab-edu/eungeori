@@ -1,5 +1,5 @@
-import Navigation from "../components/common/Navigation";
-import { recordContainer, recordWrapper } from "./styles/record.css";
+import Navigation from '../components/common/Navigation';
+import { recordContainer, recordWrapper } from './styles/record.css';
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (

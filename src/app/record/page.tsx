@@ -1,12 +1,11 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { flexSprinklesFc } from "../components/common/utils/flex";
-import { plusIconBox, plusIcon } from "./styles/record.css";
-import "react-datepicker/dist/react-datepicker.css";
-import RecordCalender from "./components/recordCalender";
-import RecordPopup from "./components/popup";
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { flexSprinklesFc } from '../components/common/utils/flex';
+import { plusIconBox, plusIcon } from './styles/record.css';
+import 'react-datepicker/dist/react-datepicker.css';
+import RecordCalender from './components/recordCalender';
 
 const Page = () => {
   const router = useRouter();
@@ -21,8 +20,8 @@ const Page = () => {
 
         <article
           className={`${flexSprinklesFc({
-            flexDirection: "column",
-            gap: "8px",
+            flexDirection: 'column',
+            gap: '8px',
           })}`}
         >
           {/* 메모 자리 */}
@@ -31,7 +30,7 @@ const Page = () => {
         <div
           className={plusIconBox}
           onClick={() => {
-            router.push("/info/time");
+            router.push('/info/time');
           }}
         >
           <div className={plusIcon}>

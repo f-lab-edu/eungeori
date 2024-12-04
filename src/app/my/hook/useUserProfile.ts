@@ -1,13 +1,11 @@
-import { supabase, userProfile } from "@/app/lib/supabaseClient";
-import { usePopupStore } from "@/app/store/popup/PopupStore";
-import { useUserInfoStore } from "@/app/store/user/userStore";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { supabase, userProfile } from '@/app/lib/supabaseClient';
+import { usePopupStore } from '@/app/store/popup/PopupStore';
+import { useUserInfoStore } from '@/app/store/user/userStore';
+import { useEffect, useState } from 'react';
 
-const IMAGE_SRC = "/image/profile.png";
+const IMAGE_SRC = '/image/profile.png';
 
 export const useUserProfile = () => {
-  const router = useRouter();
   const [imageUrl, setImageUrl] = useState<string>(IMAGE_SRC);
 
   const userInfo = useUserInfoStore((state) => state.userInfo);
@@ -21,17 +19,19 @@ export const useUserProfile = () => {
 
       if (!data.user || error) {
         setIsPopupState(true);
-        setMessageState("사용자 정보를 불러오는데 실패했습니다.");
+        setMessageState('사용자 정보를 불러오는데 실패했습니다.');
       }
 
       const filePath = `user_profile_image/image`;
 
-      const { data: fileUrl } = await supabase.storage.from(`${userProfile}`).getPublicUrl(filePath);
+      const { data: fileUrl } = await supabase.storage
+        .from(`${userProfile}`)
+        .getPublicUrl(filePath);
       const { data: fileList } = await supabase.storage.from(`${userProfile}`).list(filePath);
 
       if (!fileList) {
         setIsPopupState(true);
-        setMessageState("프로필 이미지를 불러오는데 실패했습니다.");
+        setMessageState('프로필 이미지를 불러오는데 실패했습니다.');
         setImageUrl(IMAGE_SRC);
       }
 
@@ -42,8 +42,9 @@ export const useUserProfile = () => {
 
       setImageUrl(`${fileUrl.publicUrl}/${fileList[fileList.length - 1].name}`);
     } catch (e) {
+      console.error(e);
       setIsPopupState(true);
-      setMessageState("알 수 없는 오류가 발생했습니다.");
+      setMessageState('알 수 없는 오류가 발생했습니다.');
     }
   };
 

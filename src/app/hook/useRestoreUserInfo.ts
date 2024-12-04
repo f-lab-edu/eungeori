@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { supabase } from "@/app/lib/supabaseClient";
-import { useUserInfoStore } from "@/app/store/user/userStore";
+import { useEffect } from 'react';
+import { supabase } from '@/app/lib/supabaseClient';
+import { useUserInfoStore } from '@/app/store/user/userStore';
 
 export const useRestoreUserInfo = () => {
   const setUserInfo = useUserInfoStore((state) => state.setUserInfo);

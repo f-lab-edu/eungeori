@@ -1,14 +1,14 @@
-import { inputStyle } from "@/app/components/common/input.css";
-import { caption, regular } from "@/app/styles/font.css";
-import { paddingSprinkles } from "@/app/styles/padding.css";
-import { myTargetContainer } from "../my.css";
-import { useEffect, useState } from "react";
-import { usePopupStore } from "@/app/store/popup/PopupStore";
-import { supabase } from "@/app/lib/supabaseClient";
-import { useUserInfoStore } from "@/app/store/user/userStore";
+import { inputStyle } from '@/app/components/common/input.css';
+import { caption, regular } from '@/app/styles/font.css';
+import { paddingSprinkles } from '@/app/styles/padding.css';
+import { myTargetContainer } from '../my.css';
+import { useEffect, useState } from 'react';
+import { usePopupStore } from '@/app/store/popup/PopupStore';
+import { supabase } from '@/app/lib/supabaseClient';
+import { useUserInfoStore } from '@/app/store/user/userStore';
 
 const UserGoalInput = () => {
-  const [goal, setGoal] = useState<string>("");
+  const [goal, setGoal] = useState<string>('');
 
   const userInfo = useUserInfoStore((state) => state.userInfo);
 
@@ -19,31 +19,32 @@ const UserGoalInput = () => {
     try {
       if (!userInfo.id || !goal.trim()) {
         setIsPopupState(true);
-        setMessageState("유효하지 않은 입력값입니다.");
+        setMessageState('유효하지 않은 입력값입니다.');
         return;
       }
 
-      const { data, error } = await supabase
-        .from("user_profile")
-        .upsert({ id: userInfo.id, nickname: userInfo.nickname, goal }, { onConflict: "id" });
+      const { error } = await supabase
+        .from('user_profile')
+        .upsert({ id: userInfo.id, nickname: userInfo.nickname, goal }, { onConflict: 'id' });
 
       if (error) {
         setIsPopupState(true);
-        setMessageState("알 수 없는 오류가 발생했습니다.");
+        setMessageState('알 수 없는 오류가 발생했습니다.');
         return;
       }
 
       setIsPopupState(true);
-      setMessageState("저장 되었습니다.");
+      setMessageState('저장 되었습니다.');
     } catch (e) {
+      console.error(e);
       setIsPopupState(true);
-      setMessageState("알 수 없는 오류가 발생했습니다.");
+      setMessageState('알 수 없는 오류가 발생했습니다.');
       return;
     }
   };
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && goal.trim()) {
+    if (e.key === 'Enter' && goal.trim()) {
       await onGoalSave(goal);
     }
   };
@@ -52,9 +53,9 @@ const UserGoalInput = () => {
     const getGoalData = async () => {
       try {
         const { data, error } = await supabase
-          .from("user_profile")
-          .select("goal")
-          .eq("id", userInfo.id)
+          .from('user_profile')
+          .select('goal')
+          .eq('id', userInfo.id)
           .single();
 
         if (data) {
@@ -73,7 +74,9 @@ const UserGoalInput = () => {
 
   return (
     <div className={myTargetContainer}>
-      <p className={`${caption} ${regular} ${paddingSprinkles({ paddingBottom: "s4" })}`}>한 줄 목표</p>
+      <p className={`${caption} ${regular} ${paddingSprinkles({ paddingBottom: 's4' })}`}>
+        한 줄 목표
+      </p>
       <input
         className={inputStyle}
         value={goal}

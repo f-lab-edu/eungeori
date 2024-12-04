@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { signinSchema } from "./signinSchema";
-import { signupSchema } from "./signupSchema";
+import { z } from 'zod';
+import { signinSchema } from './signinSchema';
+import { signupSchema } from './signupSchema';
 
 export type LocalStorageSchema = {
   signup: z.infer<typeof signupSchema>;
@@ -36,7 +36,7 @@ export class LocalStorage<T extends keyof LocalStorageSchema> {
   }
 
   set(target: LocalStorageSchema[T]): void {
-    const value = target === "" ? JSON.stringify("") : this.mapper.toJson(target);
+    const value = target === '' ? JSON.stringify('') : this.mapper.toJson(target);
     localStorage.setItem(this.key, value);
   }
 

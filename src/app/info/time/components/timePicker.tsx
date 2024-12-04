@@ -1,10 +1,10 @@
-import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import { semiBold } from "@/app/styles/font.css";
-import { amPmText, hourText } from "../styles/timePicker.css";
-import { gray300 } from "@/app/styles/colors.css";
-import { useEffect, useState } from "react";
-import useInfoStore from "@/app/store/info/infoStore";
-import useDebounce from "@/app/hook/useDebounce";
+import { flexSprinklesFc } from '@/app/components/common/utils/flex';
+import { semiBold } from '@/app/styles/font.css';
+import { amPmText, hourText } from '../styles/timePicker.css';
+import { gray300 } from '@/app/styles/colors.css';
+import { useEffect, useState } from 'react';
+import useInfoStore from '@/app/store/info/infoStore';
+import useDebounce from '@/app/hook/useDebounce';
 
 const TimePicker = () => {
   const now = new Date();
@@ -21,7 +21,7 @@ const TimePicker = () => {
 
   const [hour, setHour] = useState(initialHour);
   const [minute, setMinute] = useState(initialMinute);
-  const [amPm, setAmPm] = useState<string>(hour >= 12 ? "오후" : "오전");
+  const [amPm, setAmPm] = useState<string>(hour >= 12 ? '오후' : '오전');
 
   const debouncedHour = useDebounce(hour, 500); // 500ms 지연
   const debouncedMinute = useDebounce(minute, 500);
@@ -41,17 +41,19 @@ const TimePicker = () => {
     setMinute((prev) => (e.deltaY < 0 ? (prev + 10) % 60 : (prev - 10 + 60) % 60));
   };
 
-  const onAmPmWheel = (e: React.WheelEvent) => {
-    setAmPm((prev) => (prev === "오전" ? "오후" : "오전"));
+  const onAmPmWheel = () => {
+    setAmPm((prev) => (prev === '오전' ? '오후' : '오전'));
     setHour((prev) => {
-      if (amPm === "오전" && prev < 12) return prev + 12; // 오전 -> 오후
-      if (amPm === "오후" && prev >= 12) return prev - 12; // 오후 -> 오전
+      if (amPm === '오전' && prev < 12) return prev + 12; // 오전 -> 오후
+      if (amPm === '오후' && prev >= 12) return prev - 12; // 오후 -> 오전
       return prev;
     });
   };
 
   return (
-    <div className={flexSprinklesFc({ gap: "8px", alignItems: "center", justifyContent: "center" })}>
+    <div
+      className={flexSprinklesFc({ gap: '8px', alignItems: 'center', justifyContent: 'center' })}
+    >
       <p className={`${semiBold} ${hourText}`} onWheel={onHourWheel}>
         {getHour(hour)}
       </p>

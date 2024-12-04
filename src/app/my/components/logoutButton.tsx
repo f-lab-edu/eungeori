@@ -1,13 +1,13 @@
-import Button from "@/app/components/common/Button";
-import Popup from "@/app/components/common/Popup";
-import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import { admin, supabase } from "@/app/lib/supabaseClient";
-import { usePopupStore } from "@/app/store/popup/PopupStore";
-import { useUserInfoStore } from "@/app/store/user/userStore";
-import { colors, gray300 } from "@/app/styles/colors.css";
-import { caption } from "@/app/styles/font.css";
-import { pointer, buttonOutLine } from "@/app/styles/global.css";
-import { useRouter } from "next/navigation";
+import Button from '@/app/components/common/Button';
+import Popup from '@/app/components/common/Popup';
+import { flexSprinklesFc } from '@/app/components/common/utils/flex';
+import { admin, supabase } from '@/app/lib/supabaseClient';
+import { usePopupStore } from '@/app/store/popup/PopupStore';
+import { useUserInfoStore } from '@/app/store/user/userStore';
+import { colors, gray300 } from '@/app/styles/colors.css';
+import { caption } from '@/app/styles/font.css';
+import { pointer, buttonOutLine } from '@/app/styles/global.css';
+import { useRouter } from 'next/navigation';
 
 const LogoutButton = () => {
   const router = useRouter();
@@ -24,20 +24,21 @@ const LogoutButton = () => {
       const { error } = await supabase.auth.signOut();
       if (error) {
         setIsPopupState(true);
-        setMessageState("로그아웃 실패. 다시 시도해주세요.");
+        setMessageState('로그아웃 실패. 다시 시도해주세요.');
         return;
       }
-      router.push("/");
+      router.push('/');
       return;
     } catch (e) {
+      console.error(e);
       setIsPopupState(true);
-      setMessageState("알 수 없는 오류가 발생했습니다.");
+      setMessageState('알 수 없는 오류가 발생했습니다.');
     }
   };
 
   const deleteConfirmationVisible = () => {
     setIsPopupState(true);
-    setMessageState("정말 탈퇴하시겠습니까?");
+    setMessageState('정말 탈퇴하시겠습니까?');
   };
 
   const onDeleteAccount = async () => {
@@ -45,42 +46,48 @@ const LogoutButton = () => {
 
     if (error) {
       setIsPopupState(true);
-      setMessageState("탈퇴 실패. 다시 시도해주세요.");
+      setMessageState('탈퇴 실패. 다시 시도해주세요.');
       return;
     }
 
     try {
       if (data) {
-        setMessageState("탈퇴 되었습니다.");
+        setMessageState('탈퇴 되었습니다.');
         setTimeout(() => {
-          router.push("/");
+          router.push('/');
         }, 5000);
       }
     } catch (e) {
+      console.error(e);
       setIsPopupState(true);
-      setMessageState("알 수 없는 오류가 발생했습니다.");
+      setMessageState('알 수 없는 오류가 발생했습니다.');
     }
   };
 
   const closePopup = () => {
     setIsPopupState(false);
-    setMessageState("");
+    setMessageState('');
   };
 
   return (
     <>
       {isPopupState && (
         <Popup text={messageState}>
-          <div className={flexSprinklesFc({ gap: "4px" })}>
-            {messageState === "정말 탈퇴하시겠습니까?" ? (
+          <div className={flexSprinklesFc({ gap: '4px' })}>
+            {messageState === '정말 탈퇴하시겠습니까?' ? (
               <>
-                <Button text="취소" onClick={closePopup} background={colors.primary} color={colors.white} />
+                <Button
+                  text="취소"
+                  onClick={closePopup}
+                  background={colors.primary}
+                  color={colors.white}
+                />
                 <Button
                   text="확인"
                   onClick={() => {
                     onDeleteAccount();
                     setIsPopupState(false);
-                    setMessageState("");
+                    setMessageState('');
                   }}
                 />
               </>
@@ -90,7 +97,7 @@ const LogoutButton = () => {
                 onClick={() => {
                   onDeleteAccount();
                   setIsPopupState(false);
-                  setMessageState("");
+                  setMessageState('');
                 }}
               />
             )}
@@ -98,11 +105,11 @@ const LogoutButton = () => {
         </Popup>
       )}
       <div>
-        <p className={`${caption} ${gray300}`} style={{ textAlign: "center" }}>
+        <p className={`${caption} ${gray300}`} style={{ textAlign: 'center' }}>
           <button className={`${pointer} ${buttonOutLine}`} onClick={onClick}>
             로그아웃
-          </button>{" "}
-          | {""}
+          </button>{' '}
+          | {''}
           <button className={`${pointer} ${buttonOutLine}`} onClick={deleteConfirmationVisible}>
             회원탈퇴
           </button>

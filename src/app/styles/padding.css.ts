@@ -1,5 +1,5 @@
-import { defineProperties, createSprinkles } from "@vanilla-extract/sprinkles";
-import { vars } from "./vars.css";
+import { defineProperties, createSprinkles } from '@vanilla-extract/sprinkles';
+import { vars } from './vars.css';
 
 const spaceValues = {
   ...vars.space,
@@ -14,9 +14,9 @@ const properties = defineProperties({
   },
 
   shorthands: {
-    padding: ["paddingTop", "paddingBottom", "paddingLeft", "paddingRight"],
-    paddingX: ["paddingLeft", "paddingRight"],
-    paddingY: ["paddingTop", "paddingBottom"],
+    padding: ['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'],
+    paddingX: ['paddingLeft', 'paddingRight'],
+    paddingY: ['paddingTop', 'paddingBottom'],
   },
 });
 

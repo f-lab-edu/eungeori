@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { immer } from "zustand/middleware/immer";
+import { create } from 'zustand';
+import { immer } from 'zustand/middleware/immer';
 
 type UserInfo = {
   id: string;
@@ -14,7 +14,7 @@ type UserInfoStore = {
 
 export const useUserInfoStore = create<UserInfoStore>()(
   immer((set) => ({
-    userInfo: { nickname: "", id: "" },
+    userInfo: { nickname: '', id: '' },
     setUserInfo: (state) => {
       set((draft) => {
         draft.userInfo = state;
@@ -22,8 +22,8 @@ export const useUserInfoStore = create<UserInfoStore>()(
     },
     resetUserInfo: () => {
       set((draft) => {
-        draft.userInfo = { nickname: "", id: "" };
+        draft.userInfo = { nickname: '', id: '' };
       });
     },
-  }))
+  })),
 );

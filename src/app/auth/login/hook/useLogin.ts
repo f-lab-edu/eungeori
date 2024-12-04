@@ -1,9 +1,9 @@
-import { supabase } from "@/app/lib/supabaseClient";
-import { usePopupStore } from "@/app/store/popup/PopupStore";
-import { useUserInfoStore } from "@/app/store/user/userStore";
-import { signinSchema } from "@/app/types/signinSchema";
-import { useRouter } from "next/navigation";
-import { z } from "zod";
+import { supabase } from '@/app/lib/supabaseClient';
+import { usePopupStore } from '@/app/store/popup/PopupStore';
+import { useUserInfoStore } from '@/app/store/user/userStore';
+import { signinSchema } from '@/app/types/signinSchema';
+import { useRouter } from 'next/navigation';
+import { z } from 'zod';
 
 export const useLogin = () => {
   const router = useRouter();
@@ -20,9 +20,12 @@ export const useLogin = () => {
         password: data.password,
       });
 
-      if (error?.message === "Invalid login credentials" || error?.message === "Invalid email or password") {
+      if (
+        error?.message === 'Invalid login credentials' ||
+        error?.message === 'Invalid email or password'
+      ) {
         setIsPopupState(true);
-        setMessageState("이메일 또는 비밀번호를 확인해주세요.");
+        setMessageState('이메일 또는 비밀번호를 확인해주세요.');
       }
 
       if (user && user.session) {
@@ -35,13 +38,14 @@ export const useLogin = () => {
           id,
           nickname,
         });
-        router.push("/record");
+        router.push('/record');
       }
 
       return;
     } catch (e) {
+      console.error(e);
       setIsPopupState(true);
-      setMessageState("알 수 없는 오류가 발생했습니다.");
+      setMessageState('알 수 없는 오류가 발생했습니다.');
       return;
     }
   };

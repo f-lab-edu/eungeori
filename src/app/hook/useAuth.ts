@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { useUserInfoStore } from "../store/user/userStore";
-import { useRouter } from "next/navigation";
+import { useEffect } from 'react';
+import { useUserInfoStore } from '../store/user/userStore';
+import { useRouter } from 'next/navigation';
 
 export const useAuth = () => {
   const router = useRouter();
@@ -8,7 +8,7 @@ export const useAuth = () => {
 
   useEffect(() => {
     if (!userInfo) {
-      router.push("/");
+      router.push('/');
     }
   }, []);
 };

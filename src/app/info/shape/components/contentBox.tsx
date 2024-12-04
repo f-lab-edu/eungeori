@@ -1,13 +1,13 @@
-import { primary, gray300 } from "@/app/styles/colors.css";
-import { pointer } from "@/app/styles/global.css";
-import Image, { ImageProps } from "next/image";
-import { shapeContentBoxWrapper, shapeContentBox, shapeContentBoxText } from "../styles/shape.css";
+import { primary, gray300 } from '@/app/styles/colors.css';
+import { pointer } from '@/app/styles/global.css';
+import Image, { ImageProps } from 'next/image';
+import { shapeContentBoxWrapper, shapeContentBox, shapeContentBoxText } from '../styles/shape.css';
 
 type ContentBoxProps = {
   src: string;
   text: string;
-  width: ImageProps["width"];
-  height: ImageProps["height"];
+  width: ImageProps['width'];
+  height: ImageProps['height'];
   active?: boolean;
   onClick: (label: string) => void;
 };

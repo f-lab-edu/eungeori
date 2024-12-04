@@ -1,10 +1,10 @@
-import { supabase } from "@/app/lib/supabaseClient";
-import { usePopupStore } from "@/app/store/popup/PopupStore";
-import { signupSchema } from "@/app/types/signupSchema";
-import { z } from "zod";
+import { supabase } from '@/app/lib/supabaseClient';
+import { usePopupStore } from '@/app/store/popup/PopupStore';
+import { signupSchema } from '@/app/types/signupSchema';
+import { z } from 'zod';
 
 const checkEmailExists = async (email: string) => {
-  const { data, error } = await supabase.rpc("check_email_exists", { email_input: email });
+  const { data, error } = await supabase.rpc('check_email_exists', { email_input: email });
 
   if (error) {
     return false;
@@ -14,7 +14,7 @@ const checkEmailExists = async (email: string) => {
 };
 
 const checkNicknameExists = async (nickname: string) => {
-  const { data, error } = await supabase.rpc("check_nickname_exists", { nickname });
+  const { data, error } = await supabase.rpc('check_nickname_exists', { nickname });
 
   if (error) {
     return false;
@@ -34,17 +34,17 @@ export const useSignup = () => {
 
       if (isEmailExists) {
         setIsPopupState(true);
-        setMessageState("이미 가입된 이메일입니다.");
+        setMessageState('이미 가입된 이메일입니다.');
         return;
       }
 
       if (isNicknameExists) {
         setIsPopupState(true);
-        setMessageState("이미 존재하는 닉네임입니다.");
+        setMessageState('이미 존재하는 닉네임입니다.');
         return;
       }
 
-      const { data: userData, error } = await supabase.auth.signUp({
+      const { data: _userData, error } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
@@ -61,10 +61,11 @@ export const useSignup = () => {
       }
 
       setIsPopupState(true);
-      setMessageState("이메일 인증 후 로그인 해주세요.");
+      setMessageState('이메일 인증 후 로그인 해주세요.');
     } catch (e) {
+      console.error(e);
       setIsPopupState(true);
-      setMessageState("알 수 없는 오류가 발생했습니다.");
+      setMessageState('알 수 없는 오류가 발생했습니다.');
     }
   };
 
