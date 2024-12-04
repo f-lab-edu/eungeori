@@ -46,14 +46,8 @@ export default [
       "arrow-body-style": "off",
       "prefer-arrow-callback": "off",
       "react/jsx-no-target-blank": "off",
-      "no-unused-vars": "off", 
-      "@typescript-eslint/no-unused-vars": [
-    "warn",
-    {
-      varsIgnorePattern: "^_",
-      argsIgnorePattern: "^_", 
-    },
-  ],
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "off",
     },
     settings: {
       react: {

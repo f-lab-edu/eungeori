@@ -30,7 +30,6 @@ const LogoutButton = () => {
       router.push('/');
       return;
     } catch (e) {
-      console.error(e);
       setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
     }
@@ -58,7 +57,6 @@ const LogoutButton = () => {
         }, 5000);
       }
     } catch (e) {
-      console.error(e);
       setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
     }

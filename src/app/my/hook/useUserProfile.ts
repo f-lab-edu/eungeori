@@ -42,7 +42,6 @@ export const useUserProfile = () => {
 
       setImageUrl(`${fileUrl.publicUrl}/${fileList[fileList.length - 1].name}`);
     } catch (e) {
-      console.error(e);
       setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
     }

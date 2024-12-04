@@ -36,7 +36,6 @@ const UserGoalInput = () => {
       setIsPopupState(true);
       setMessageState('저장 되었습니다.');
     } catch (e) {
-      console.error(e);
       setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
       return;
