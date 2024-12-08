@@ -1,10 +1,10 @@
-import { supabase } from '@/app/lib/supabaseClient';
+import { supabaseClient } from '@/app/lib/supabaseClient';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { signupSchema } from '@/app/types/signupSchema';
 import { z } from 'zod';
 
 const checkEmailExists = async (email: string) => {
-  const { data, error } = await supabase.rpc('check_email_exists', { email_input: email });
+  const { data, error } = await supabaseClient.rpc('check_email_exists', { email_input: email });
 
   if (error) {
     return false;
@@ -14,7 +14,7 @@ const checkEmailExists = async (email: string) => {
 };
 
 const checkNicknameExists = async (nickname: string) => {
-  const { data, error } = await supabase.rpc('check_nickname_exists', { nickname });
+  const { data, error } = await supabaseClient.rpc('check_nickname_exists', { nickname });
 
   if (error) {
     return false;
@@ -44,7 +44,7 @@ export const useSignup = () => {
         return;
       }
 
-      const { data: userData, error } = await supabase.auth.signUp({
+      const { data: userData, error } = await supabaseClient.auth.signUp({
         email: data.email,
         password: data.password,
         options: {

@@ -4,7 +4,7 @@ import { paddingSprinkles } from '@/app/styles/padding.css';
 import { myTargetContainer } from '../my.css';
 import { useEffect, useState } from 'react';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
-import { supabase } from '@/app/lib/supabaseClient';
+import { supabaseClient } from '@/app/lib/supabaseClient';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 
 const UserGoalInput = () => {
@@ -23,7 +23,7 @@ const UserGoalInput = () => {
         return;
       }
 
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('user_profile')
         .upsert({ id: userInfo.id, nickname: userInfo.nickname, goal }, { onConflict: 'id' });
 
@@ -51,7 +51,7 @@ const UserGoalInput = () => {
   useEffect(() => {
     const getGoalData = async () => {
       try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('user_profile')
           .select('goal')
           .eq('id', userInfo.id)

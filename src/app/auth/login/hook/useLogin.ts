@@ -1,4 +1,4 @@
-import { supabase } from '@/app/lib/supabaseClient';
+import { supabaseClient } from '@/app/lib/supabaseClient';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 import { signinSchema } from '@/app/types/signinSchema';
@@ -15,7 +15,7 @@ export const useLogin = () => {
 
   const onLoginSubmit = async (data: z.infer<typeof signinSchema>) => {
     try {
-      const { data: user, error } = await supabase.auth.signInWithPassword({
+      const { data: user, error } = await supabaseClient.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });

@@ -1,4 +1,5 @@
-import { supabase, userProfile } from '@/app/lib/supabaseClient';
+import { userProfile } from '@/app/lib/supabase';
+import { supabaseClient } from '@/app/lib/supabaseClient';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 import { useEffect, useState } from 'react';
@@ -15,7 +16,7 @@ export const useUserProfile = () => {
 
   const fetchUserProfileUpload = async () => {
     try {
-      const { data, error } = await supabase.auth.getUser();
+      const { data, error } = await supabaseClient.auth.getUser();
 
       if (!data.user || error) {
         setIsPopupState(true);
@@ -24,10 +25,10 @@ export const useUserProfile = () => {
 
       const filePath = `user_profile_image/image`;
 
-      const { data: fileUrl } = await supabase.storage
+      const { data: fileUrl } = await supabaseClient.storage
         .from(`${userProfile}`)
         .getPublicUrl(filePath);
-      const { data: fileList } = await supabase.storage.from(`${userProfile}`).list(filePath);
+      const { data: fileList } = await supabaseClient.storage.from(`${userProfile}`).list(filePath);
 
       if (!fileList) {
         setIsPopupState(true);

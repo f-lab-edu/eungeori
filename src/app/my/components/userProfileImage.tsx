@@ -1,5 +1,6 @@
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { supabase, userProfile } from '@/app/lib/supabaseClient';
+import { userProfile } from '@/app/lib/supabase';
+import { supabaseClient } from '@/app/lib/supabaseClient';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 import { semiBold, paragraph } from '@/app/styles/font.css';
@@ -33,7 +34,7 @@ const UserProfileImage = ({ imageUrl, setImageUrl }: UserProfileImageProps) => {
       const fileExtension = file.name.split('.').pop();
       const filePath = `user_profile_image/image/${Math.random().toString(36).substring(2)}.${fileExtension}`;
 
-      const { error } = await supabase.storage
+      const { error } = await supabaseClient.storage
         .from(`${userProfile}`)
         .upload(filePath, file, { upsert: true });
 
@@ -43,7 +44,7 @@ const UserProfileImage = ({ imageUrl, setImageUrl }: UserProfileImageProps) => {
         return;
       }
 
-      const { data: supabaseUrl } = await supabase.storage
+      const { data: supabaseUrl } = await supabaseClient.storage
         .from(`${userProfile}`)
         .getPublicUrl(filePath);
 

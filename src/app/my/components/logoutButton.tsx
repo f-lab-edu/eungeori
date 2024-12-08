@@ -1,7 +1,7 @@
 import Button from '@/app/components/common/Button';
 import Popup from '@/app/components/common/Popup';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { admin, supabase } from '@/app/lib/supabaseClient';
+import { admin, supabaseClient } from '@/app/lib/supabaseClient';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 import { colors, gray300 } from '@/app/styles/colors.css';
@@ -21,7 +21,7 @@ const LogoutButton = () => {
 
   const onClick = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await supabaseClient.auth.signOut();
       if (error) {
         setIsPopupState(true);
         setMessageState('로그아웃 실패. 다시 시도해주세요.');
