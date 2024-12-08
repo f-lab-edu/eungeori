@@ -93,7 +93,6 @@ const LogoutButton = () => {
               <Button
                 text="확인"
                 onClick={() => {
-                  onDeleteAccount();
                   setIsPopupState(false);
                   setMessageState('');
                 }}

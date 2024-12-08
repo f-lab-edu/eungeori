@@ -4,6 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 type UserInfo = {
   id: string;
   nickname: string;
+  avatarUrl: string;
 };
 
 type UserInfoStore = {
@@ -14,7 +15,7 @@ type UserInfoStore = {
 
 export const useUserInfoStore = create<UserInfoStore>()(
   immer((set) => ({
-    userInfo: { nickname: '', id: '' },
+    userInfo: { nickname: '', id: '', avatarUrl: '' },
     setUserInfo: (state) => {
       set((draft) => {
         draft.userInfo = state;
@@ -22,7 +23,7 @@ export const useUserInfoStore = create<UserInfoStore>()(
     },
     resetUserInfo: () => {
       set((draft) => {
-        draft.userInfo = { nickname: '', id: '' };
+        draft.userInfo = { nickname: '', id: '', avatarUrl: '' };
       });
     },
   })),
