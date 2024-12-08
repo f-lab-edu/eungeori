@@ -1,10 +1,8 @@
 import { userProfile } from '@/app/lib/supabase';
 import { supabaseClient } from '@/app/lib/supabaseClient';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
-import { useUserInfoStore } from '@/app/store/user/userStore';
+import { IMAGE_SRC, useUserInfoStore } from '@/app/store/user/userStore';
 import { useState } from 'react';
-
-const IMAGE_SRC = '/image/profile.png';
 
 export const useUserProfile = () => {
   const [imageUrl, setImageUrl] = useState<string>(IMAGE_SRC);

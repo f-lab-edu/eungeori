@@ -10,6 +10,8 @@ import { useUserProfile } from '../hook/useUserProfile';
 const UserProfileImage = () => {
   const userInfo = useUserInfoStore((state) => state.userInfo);
 
+  console.log(userInfo, 'userInfo');
+
   const { uploadUserProfile } = useUserProfile();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);

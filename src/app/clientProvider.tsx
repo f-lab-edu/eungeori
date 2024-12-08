@@ -2,9 +2,7 @@
 
 import { useEffect } from 'react';
 import { supabaseClient } from './lib/supabaseClient';
-import { useUserInfoStore } from './store/user/userStore';
-
-const IMAGE_SRC = '/image/profile.png';
+import { IMAGE_SRC, useUserInfoStore } from './store/user/userStore';
 
 const ClientProvider = ({ children }: { children: React.ReactNode }) => {
   const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
