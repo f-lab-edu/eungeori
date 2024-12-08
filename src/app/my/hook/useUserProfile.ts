@@ -69,10 +69,7 @@ export const useUserProfile = () => {
         .from('user_profile')
         .upsert({ id, avatar_url: avatarUrl, nickname: userInfo.nickname });
 
-      console.log('Upsert response:', { data, error });
-
       if (error) {
-        console.error('Supabase upsert error:', error.message);
         setIsPopupState(true);
         setMessageState('프로필 이미지를 저장하는데 실패했습니다.');
         return;
@@ -81,7 +78,6 @@ export const useUserProfile = () => {
       setIsPopupState(true);
       setMessageState('프로필 이미지가 성공적으로 저장되었습니다.');
     } catch (e) {
-      console.error('Unexpected error during upsert:', e);
       setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
     }
@@ -102,15 +98,12 @@ export const useUserProfile = () => {
         .single();
 
       if (error || !data?.avatar_url) {
-        console.error('Error fetching profile:', error);
         setImageUrl(IMAGE_SRC);
         return;
       }
 
-      console.log('Fetched profile data:', data);
       setImageUrl(data.avatar_url);
     } catch (e) {
-      console.error('Unexpected error during profile fetch:', e);
       setIsPopupState(true);
       setMessageState('프로필 이미지를 불러오는데 실패했습니다.');
     }

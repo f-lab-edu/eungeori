@@ -1,5 +1,5 @@
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { useUserInfoStore } from '@/app/store/user/userStore';
+import { IMAGE_SRC, useUserInfoStore } from '@/app/store/user/userStore';
 import { semiBold, paragraph } from '@/app/styles/font.css';
 import { pointer } from '@/app/styles/global.css';
 import Image from 'next/image';
@@ -9,8 +9,6 @@ import { useUserProfile } from '../hook/useUserProfile';
 
 const UserProfileImage = () => {
   const userInfo = useUserInfoStore((state) => state.userInfo);
-
-  console.log(userInfo, 'userInfo');
 
   const { uploadUserProfile } = useUserProfile();
 
@@ -47,7 +45,7 @@ const UserProfileImage = () => {
       <Image
         className={pointer}
         style={{ borderRadius: '50%' }}
-        src={userInfo.avatarUrl}
+        src={userInfo.avatarUrl || IMAGE_SRC}
         width={110}
         height={110}
         alt="profile"
