@@ -3,10 +3,12 @@
 import { useEffect } from 'react';
 import { supabaseClient } from './lib/supabaseClient';
 import { IMAGE_SRC, useUserInfoStore } from './store/user/userStore';
+import { useUserProfile } from './my/hook/useUserProfile';
 
 const ClientProvider = ({ children }: { children: React.ReactNode }) => {
   const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
   const resetUserInfo = useUserInfoStore((state) => state.resetUserInfo);
+  const fetchUserProfile = useUserProfile().fetchUserProfile;
 
   useEffect(() => {
     const getUser = async () => {
@@ -15,9 +17,9 @@ const ClientProvider = ({ children }: { children: React.ReactNode }) => {
 
         if (data.session) {
           const { id, user_metadata } = data.session.user;
-          const nickname = user_metadata.nickname || '';
+          const nickname = user_metadata.nickname || 'Guest';
 
-          const { data: profile, error: profileError } = await supabaseClient
+          const { data: profile } = await supabaseClient
             .from('user_profile')
             .select('avatar_url')
             .eq('id', id)
@@ -34,10 +36,9 @@ const ClientProvider = ({ children }: { children: React.ReactNode }) => {
 
         if (error) {
           resetUserInfo();
-          return;
         }
       } catch (e) {
-        console.log(e);
+        resetUserInfo();
       }
     };
 
@@ -45,15 +46,9 @@ const ClientProvider = ({ children }: { children: React.ReactNode }) => {
 
     const {
       data: { subscription },
-    } = supabaseClient.auth.onAuthStateChange((e, session) => {
+    } = supabaseClient.auth.onAuthStateChange(async (e, session) => {
       if (session?.user) {
-        const avatarUrl = session.user.user_metadata.avatarUrl || IMAGE_SRC;
-
-        setUserInfo({
-          id: session.user.id,
-          nickname: session.user.user_metadata.nickname || '',
-          avatarUrl,
-        });
+        fetchUserProfile();
       } else {
         resetUserInfo();
       }

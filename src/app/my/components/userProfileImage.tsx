@@ -4,15 +4,22 @@ import { semiBold, paragraph } from '@/app/styles/font.css';
 import { pointer } from '@/app/styles/global.css';
 import Image from 'next/image';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useUserProfile } from '../hook/useUserProfile';
 
 const UserProfileImage = () => {
   const userInfo = useUserInfoStore((state) => state.userInfo);
+  const fetchUserProfile = useUserProfile().fetchUserProfile;
 
   const { uploadUserProfile } = useUserProfile();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (!userInfo.id) {
+      fetchUserProfile();
+    }
+  }, []);
 
   const handleImageClick = () => {
     if (fileInputRef.current) {

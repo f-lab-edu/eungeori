@@ -87,11 +87,17 @@ export const useUserProfile = () => {
 
   const fetchUserProfile = async () => {
     try {
-      if (!id) {
-        setIsPopupState(true);
-        setMessageState('사용자 정보를 불러오는데 실패했습니다.');
+      const { data: sessionData } = await supabaseClient.auth.getSession();
+
+      if (!sessionData?.session?.user?.id) {
+        setUserInfo({
+          ...userInfo,
+          avatarUrl: IMAGE_SRC,
+        });
         return;
       }
+
+      const id = sessionData.session.user.id;
 
       const { data, error } = await supabaseClient
         .from('user_profile')
@@ -108,12 +114,15 @@ export const useUserProfile = () => {
       }
 
       setUserInfo({
-        ...userInfo,
+        id,
+        nickname: sessionData.session.user.user_metadata.nickname || '',
         avatarUrl: data.avatar_url,
       });
     } catch (e) {
-      setIsPopupState(true);
-      setMessageState('프로필 이미지를 불러오는데 실패했습니다.');
+      setUserInfo({
+        ...userInfo,
+        avatarUrl: IMAGE_SRC,
+      });
     }
   };
 
