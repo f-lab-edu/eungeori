@@ -1,13 +1,11 @@
 import { userProfile } from '@/app/lib/supabase';
 import { supabaseClient } from '@/app/lib/supabaseClient';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
-import { IMAGE_SRC, useUserInfoStore } from '@/app/store/user/userStore';
-import { useState } from 'react';
+import { useUserInfoStore, IMAGE_SRC } from '@/app/store/user/userStore';
 
 export const useUserProfile = () => {
-  const [imageUrl, setImageUrl] = useState<string>(IMAGE_SRC);
-
   const userInfo = useUserInfoStore((state) => state.userInfo);
+  const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
   const setIsPopupState = usePopupStore((state) => state.setIsPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
   const { id } = userInfo;
@@ -48,7 +46,11 @@ export const useUserProfile = () => {
 
       await saveUserProfile(avatarUrl);
 
-      setImageUrl(avatarUrl);
+      setUserInfo({
+        ...userInfo,
+        avatarUrl,
+      });
+
       setIsPopupState(true);
       setMessageState('프로필 이미지가 변경되었습니다.');
     } catch (e) {
@@ -98,11 +100,17 @@ export const useUserProfile = () => {
         .single();
 
       if (error || !data?.avatar_url) {
-        setImageUrl(IMAGE_SRC);
+        setUserInfo({
+          ...userInfo,
+          avatarUrl: IMAGE_SRC,
+        });
         return;
       }
 
-      setImageUrl(data.avatar_url);
+      setUserInfo({
+        ...userInfo,
+        avatarUrl: data.avatar_url,
+      });
     } catch (e) {
       setIsPopupState(true);
       setMessageState('프로필 이미지를 불러오는데 실패했습니다.');
@@ -110,8 +118,6 @@ export const useUserProfile = () => {
   };
 
   return {
-    imageUrl,
-    setImageUrl,
     uploadUserProfile,
     saveUserProfile,
     fetchUserProfile,

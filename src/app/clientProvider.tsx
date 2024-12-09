@@ -47,10 +47,12 @@ const ClientProvider = ({ children }: { children: React.ReactNode }) => {
       data: { subscription },
     } = supabaseClient.auth.onAuthStateChange((e, session) => {
       if (session?.user) {
+        const avatarUrl = session.user.user_metadata.avatarUrl || IMAGE_SRC;
+
         setUserInfo({
           id: session.user.id,
           nickname: session.user.user_metadata.nickname || '',
-          avatarUrl: '',
+          avatarUrl,
         });
       } else {
         resetUserInfo();

@@ -78,7 +78,7 @@ const UserGoalInput = () => {
       </p>
       <input
         className={inputStyle}
-        value={goal}
+        value={goal ?? ''}
         type="text"
         placeholder="목표를 적은 뒤 Enter 키를 눌러주세요"
         maxLength={30}
