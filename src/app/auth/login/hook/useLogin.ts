@@ -24,7 +24,6 @@ export const useLogin = () => {
         error?.message === 'Invalid login credentials' ||
         error?.message === 'Invalid email or password'
       ) {
-        setIsPopupState(true);
         setMessageState('이메일 또는 비밀번호를 확인해주세요.');
       }
 
@@ -43,9 +42,10 @@ export const useLogin = () => {
 
       return;
     } catch (e) {
-      setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
       return;
+    } finally {
+      setIsPopupState(true);
     }
   };
 

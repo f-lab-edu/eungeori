@@ -27,7 +27,6 @@ export const useUserProfile = () => {
         .upload(filePath, file, { upsert: true });
 
       if (uploadError) {
-        setIsPopupState(true);
         setMessageState('업로드에 실패하였습니다.');
         return;
       }
@@ -37,7 +36,6 @@ export const useUserProfile = () => {
         .getPublicUrl(filePath);
 
       if (!supabaseUrl?.publicUrl) {
-        setIsPopupState(true);
         setMessageState('URL을 가져오는 데 실패하였습니다.');
         return;
       }
@@ -51,18 +49,17 @@ export const useUserProfile = () => {
         avatarUrl,
       });
 
-      setIsPopupState(true);
       setMessageState('프로필 이미지가 변경되었습니다.');
     } catch (e) {
-      setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
+    } finally {
+      setIsPopupState(true);
     }
   };
 
   const saveUserProfile = async (avatarUrl: string) => {
     try {
       if (!id) {
-        setIsPopupState(true);
         setMessageState('사용자 정보를 불러오는데 실패했습니다.');
         return;
       }
@@ -72,16 +69,15 @@ export const useUserProfile = () => {
         .upsert({ id, avatar_url: avatarUrl, nickname: userInfo.nickname });
 
       if (error) {
-        setIsPopupState(true);
         setMessageState('프로필 이미지를 저장하는데 실패했습니다.');
         return;
       }
 
-      setIsPopupState(true);
       setMessageState('프로필 이미지가 성공적으로 저장되었습니다.');
     } catch (e) {
-      setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
+    } finally {
+      setIsPopupState(true);
     }
   };
 

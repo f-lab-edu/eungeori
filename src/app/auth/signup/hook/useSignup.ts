@@ -33,13 +33,11 @@ export const useSignup = () => {
       const isEmailExists = await checkEmailExists(data.email);
 
       if (isEmailExists) {
-        setIsPopupState(true);
         setMessageState('이미 가입된 이메일입니다.');
         return;
       }
 
       if (isNicknameExists) {
-        setIsPopupState(true);
         setMessageState('이미 존재하는 닉네임입니다.');
         return;
       }
@@ -55,16 +53,15 @@ export const useSignup = () => {
       });
 
       if (error) {
-        setIsPopupState(true);
         setMessageState(`회원가입 실패: ${error.message}`);
         return;
       }
 
-      setIsPopupState(true);
       setMessageState('이메일 인증 후 로그인 해주세요.');
     } catch (e) {
-      setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
+    } finally {
+      setIsPopupState(true);
     }
   };
 

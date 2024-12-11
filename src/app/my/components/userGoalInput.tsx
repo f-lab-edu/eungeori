@@ -18,7 +18,6 @@ const UserGoalInput = () => {
   const onGoalSave = async (goal: string) => {
     try {
       if (!userInfo.id || !goal.trim()) {
-        setIsPopupState(true);
         setMessageState('유효하지 않은 입력값입니다.');
         return;
       }
@@ -28,17 +27,16 @@ const UserGoalInput = () => {
         .upsert({ id: userInfo.id, nickname: userInfo.nickname, goal }, { onConflict: 'id' });
 
       if (error) {
-        setIsPopupState(true);
         setMessageState('알 수 없는 오류가 발생했습니다.');
         return;
       }
 
-      setIsPopupState(true);
       setMessageState('저장 되었습니다.');
     } catch (e) {
-      setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
       return;
+    } finally {
+      setIsPopupState(true);
     }
   };
 

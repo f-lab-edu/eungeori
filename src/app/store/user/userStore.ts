@@ -6,7 +6,7 @@ export const IMAGE_SRC = '/image/profile.png';
 type UserInfo = {
   id: string;
   nickname: string;
-  avatarUrl: string;
+  avatarUrl?: string;
 };
 
 type UserInfoStore = {
