@@ -1,16 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { flexSprinklesFc } from "../components/common/utils/flex";
-import { plusIconBox, plusIcon } from "./styles/record.css";
 import "react-datepicker/dist/react-datepicker.css";
 import RecordCalender from "./components/recordCalender";
 import RecordPopup from "./components/popup";
+import PlusIcon from "./components/plusIcon";
 
 const Page = () => {
-  const router = useRouter();
-
   return (
     <>
       {/* <RecordPopup /> */}
@@ -27,17 +23,7 @@ const Page = () => {
         >
           {/* 메모 자리 */}
         </article>
-
-        <div
-          className={plusIconBox}
-          onClick={() => {
-            router.push("/info/time");
-          }}
-        >
-          <div className={plusIcon}>
-            <Image src="/svgs/plus.svg" alt="add" width={10} height={10} />
-          </div>
-        </div>
+        <PlusIcon />
       </section>
     </>
   );
