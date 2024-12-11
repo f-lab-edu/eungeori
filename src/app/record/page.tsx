@@ -5,6 +5,7 @@ import RecordPage from ".";
 import TimePage from "./(info)/time/page";
 import ShapePage from "./(info)/shape/page";
 import DetailPage from "./(info)/detail/page";
+import useConfirmPageLeave from "../hook/useConfirmPageLeave";
 
 export type StepChangeHandler = (newStep: number) => void;
 
@@ -14,6 +15,8 @@ const Page = () => {
   const handleButtonClick = (step: number) => {
     setStep(step);
   };
+
+  useConfirmPageLeave(step !== 0);
 
   return (
     <>
