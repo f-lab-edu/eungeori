@@ -53,8 +53,7 @@ export const useSignup = () => {
       });
 
       if (error) {
-        setMessageState(`회원가입 실패: ${error.message}`);
-        return;
+        throw new Error();
       }
 
       setMessageState('이메일 인증 후 로그인 해주세요.');

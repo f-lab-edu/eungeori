@@ -36,8 +36,7 @@ export const useUserProfile = () => {
         .getPublicUrl(filePath);
 
       if (!supabaseUrl?.publicUrl) {
-        setMessageState('URL을 가져오는 데 실패하였습니다.');
-        return;
+        throw new Error();
       }
 
       const avatarUrl = `${supabaseUrl.publicUrl}?timestamp=${Date.now()}`;
@@ -69,8 +68,7 @@ export const useUserProfile = () => {
         .upsert({ id, avatar_url: avatarUrl, nickname: userInfo.nickname });
 
       if (error) {
-        setMessageState('프로필 이미지를 저장하는데 실패했습니다.');
-        return;
+        throw new Error();
       }
 
       setMessageState('프로필 이미지가 성공적으로 저장되었습니다.');
@@ -102,11 +100,7 @@ export const useUserProfile = () => {
         .single();
 
       if (error || !data?.avatar_url) {
-        setUserInfo({
-          ...userInfo,
-          avatarUrl: IMAGE_SRC,
-        });
-        return;
+        throw new Error();
       }
 
       setUserInfo({

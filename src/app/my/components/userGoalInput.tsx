@@ -27,8 +27,7 @@ const UserGoalInput = () => {
         .upsert({ id: userInfo.id, nickname: userInfo.nickname, goal }, { onConflict: 'id' });
 
       if (error) {
-        setMessageState('알 수 없는 오류가 발생했습니다.');
-        return;
+        throw new Error();
       }
 
       setMessageState('저장 되었습니다.');
@@ -60,6 +59,7 @@ const UserGoalInput = () => {
         }
 
         if (error) {
+          throw new Error();
         }
       } catch (e) {
         console.log(e);

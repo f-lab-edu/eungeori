@@ -12,30 +12,33 @@ const ClientProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data, error } = await supabaseClient.auth.getSession();
+      try {
+        const { data, error } = await supabaseClient.auth.getSession();
 
-      if (data.session) {
-        const { id, user_metadata } = data.session.user;
-        const nickname = user_metadata.nickname || 'Guest';
+        if (data.session) {
+          const { id, user_metadata } = data.session.user;
+          const nickname = user_metadata.nickname || 'Guest';
 
-        const { data: profile } = await supabaseClient
-          .from('user_profile')
-          .select('avatar_url')
-          .eq('id', id)
-          .single();
+          const { data: profile } = await supabaseClient
+            .from('user_profile')
+            .select('avatar_url')
+            .eq('id', id)
+            .single();
 
-        const avatarUrl = profile?.avatar_url || IMAGE_SRC;
+          const avatarUrl = profile?.avatar_url || IMAGE_SRC;
 
-        setUserInfo({
-          id,
-          nickname,
-          avatarUrl,
-        });
-      }
+          setUserInfo({
+            id,
+            nickname,
+            avatarUrl,
+          });
+        }
 
-      if (error || !data) {
+        if (error || !data) {
+          throw new Error();
+        }
+      } catch {
         resetUserInfo();
-        throw new Error('데이터를 불러올 수 없습니다.');
       }
     };
 
