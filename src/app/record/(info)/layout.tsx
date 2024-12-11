@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { pointer } from "../styles/global.css";
-import { paddingSprinkles } from "../styles/padding.css";
+import { pointer } from "@/app/styles/global.css";
+import { paddingSprinkles } from "@/app/styles/padding.css";
 import { infoWrapper } from "./common/common.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

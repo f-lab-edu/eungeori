@@ -6,8 +6,9 @@ import { paddingSprinkles } from "@/app/styles/padding.css";
 import ShapeButton from "./components/shapeButton";
 import ConsistencyBox from "./components/consistencyBox";
 import ShapeTypeBox from "./components/shapeTypeBox";
+import { StepChangeHandler } from "../../page";
 
-const Page = () => {
+const ShapePage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   return (
     <article>
       <div className={`${flexSprinklesFc({ flexDirection: "column", gap: "16px" })} `}>
@@ -23,9 +24,9 @@ const Page = () => {
         <ShapeTypeBox />
       </div>
 
-      <ShapeButton />
+      <ShapeButton onButtonClick={onButtonClick} />
     </article>
   );
 };
 
-export default Page;
+export default ShapePage;
