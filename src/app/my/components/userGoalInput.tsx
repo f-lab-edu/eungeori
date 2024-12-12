@@ -4,7 +4,7 @@ import { paddingSprinkles } from '@/app/styles/padding.css';
 import { myTargetContainer } from '../my.css';
 import { useEffect, useState } from 'react';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
-import { supabase } from '@/app/lib/supabaseClient';
+import { supabaseClient } from '@/app/lib/supabaseClient';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 
 const UserGoalInput = () => {
@@ -18,27 +18,24 @@ const UserGoalInput = () => {
   const onGoalSave = async (goal: string) => {
     try {
       if (!userInfo.id || !goal.trim()) {
-        setIsPopupState(true);
         setMessageState('유효하지 않은 입력값입니다.');
         return;
       }
 
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('user_profile')
         .upsert({ id: userInfo.id, nickname: userInfo.nickname, goal }, { onConflict: 'id' });
 
       if (error) {
-        setIsPopupState(true);
-        setMessageState('알 수 없는 오류가 발생했습니다.');
-        return;
+        throw new Error();
       }
 
-      setIsPopupState(true);
       setMessageState('저장 되었습니다.');
     } catch (e) {
-      setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
       return;
+    } finally {
+      setIsPopupState(true);
     }
   };
 
@@ -51,7 +48,7 @@ const UserGoalInput = () => {
   useEffect(() => {
     const getGoalData = async () => {
       try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('user_profile')
           .select('goal')
           .eq('id', userInfo.id)
@@ -62,6 +59,7 @@ const UserGoalInput = () => {
         }
 
         if (error) {
+          throw new Error();
         }
       } catch (e) {
         console.log(e);
@@ -78,7 +76,7 @@ const UserGoalInput = () => {
       </p>
       <input
         className={inputStyle}
-        value={goal}
+        value={goal ?? ''}
         type="text"
         placeholder="목표를 적은 뒤 Enter 키를 눌러주세요"
         maxLength={30}

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { contentContainer } from './styles/global.css';
+import ClientProvider from './clientProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <div className={contentContainer}>{children}</div>
+        <ClientProvider>
+          <div className={contentContainer}>{children}</div>
+        </ClientProvider>
       </body>
     </html>
   );

@@ -1,4 +1,4 @@
-import { supabase } from '@/app/lib/supabaseClient';
+import { supabaseClient } from '@/app/lib/supabaseClient';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 import { signinSchema } from '@/app/types/signinSchema';
@@ -15,7 +15,7 @@ export const useLogin = () => {
 
   const onLoginSubmit = async (data: z.infer<typeof signinSchema>) => {
     try {
-      const { data: user, error } = await supabase.auth.signInWithPassword({
+      const { data: user, error } = await supabaseClient.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });
@@ -24,7 +24,6 @@ export const useLogin = () => {
         error?.message === 'Invalid login credentials' ||
         error?.message === 'Invalid email or password'
       ) {
-        setIsPopupState(true);
         setMessageState('이메일 또는 비밀번호를 확인해주세요.');
       }
 
@@ -43,9 +42,10 @@ export const useLogin = () => {
 
       return;
     } catch (e) {
-      setIsPopupState(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
       return;
+    } finally {
+      setIsPopupState(true);
     }
   };
 

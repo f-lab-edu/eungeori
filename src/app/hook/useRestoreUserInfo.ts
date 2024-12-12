@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { supabase } from '@/app/lib/supabaseClient';
+import { supabaseClient } from '@/app/lib/supabaseClient';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 
 export const useRestoreUserInfo = () => {
@@ -9,7 +9,7 @@ export const useRestoreUserInfo = () => {
 
   useEffect(() => {
     const restoreUserInfo = async () => {
-      const { data: session } = await supabase.auth.getSession();
+      const { data: session } = await supabaseClient.auth.getSession();
 
       if (session?.session?.user) {
         const {
