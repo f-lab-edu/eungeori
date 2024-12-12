@@ -1,11 +1,9 @@
 import Button from '@/app/components/common/Button';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-
+import { StepChangeHandler } from '@/app/record/page';
 import { colors } from '@/app/styles/colors.css';
-import { useRouter } from 'next/navigation';
 
-const TimeButton = () => {
-  const router = useRouter();
+const ShapeButton = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   return (
     <div className={flexSprinklesFc({ gap: '16px', justifyContent: 'center' })}>
       <Button
@@ -13,7 +11,7 @@ const TimeButton = () => {
         height="59px"
         borderRadius="10px"
         onClick={() => {
-          router.push('/record');
+          onButtonClick(1);
         }}
       />
       <Button
@@ -24,11 +22,11 @@ const TimeButton = () => {
         color={colors.white}
         borderRadius="10px"
         onClick={() => {
-          router.push('/info/shape');
+          onButtonClick(3);
         }}
       />
     </div>
   );
 };
 
-export default TimeButton;
+export default ShapeButton;

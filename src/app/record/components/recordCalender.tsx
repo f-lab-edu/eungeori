@@ -7,9 +7,10 @@ import { caption2 } from '@/app/styles/font.css';
 import { recordDateSection } from '../styles/record.css';
 
 import { datepickerWapper } from '../styles/datepicker.css';
-import { useRecordStore } from '@/app/store/record/recordStore';
+
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
 import CalenderDropDown from './calenderDropDown';
+import useInfoStore from '@/app/store/info/infoStore';
 
 type CalenderContext = {
   isShow: boolean;
@@ -22,8 +23,8 @@ const CalenderContext = createContext<CalenderContext | undefined>(undefined);
 
 const RecordCalender = ({ children }: { children: React.ReactNode }) => {
   const [isShow, setIsShow] = useState(false);
-  const startDateState = useRecordStore((state) => state.startDate);
-  const setStartDateState = useRecordStore((state) => state.setStartDate);
+  const startDateState = useInfoStore((state) => state.startDate);
+  const setStartDateState = useInfoStore((state) => state.setStartDate);
 
   return (
     <CalenderContext.Provider value={{ isShow, setIsShow, startDateState, setStartDateState }}>
