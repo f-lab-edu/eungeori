@@ -1,7 +1,7 @@
-import Button from "@/app/components/common/Button";
-import Popup from "@/app/components/common/Popup";
-import { usePopupStore } from "@/app/store/popup/PopupStore";
-import { colors } from "@/app/styles/colors.css";
+import Button from '@/app/components/common/Button';
+import Popup from '@/app/components/common/Popup';
+import { usePopupStore } from '@/app/store/popup/PopupStore';
+import { colors } from '@/app/styles/colors.css';
 
 const LoginPopup = () => {
   const { setIsPopup, setMessage } = usePopupStore();
@@ -17,7 +17,7 @@ const LoginPopup = () => {
             color={colors.white}
             onClick={() => {
               setIsPopup(false);
-              setMessage("");
+              setMessage('');
             }}
           />
         </Popup>

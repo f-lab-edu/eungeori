@@ -1,15 +1,15 @@
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/locale/ko";
-import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import { gray300 } from "@/app/styles/colors.css";
-import { caption2 } from "@/app/styles/font.css";
-import { recordDateSection } from "../styles/record.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { ko } from 'date-fns/locale/ko';
+import { flexSprinklesFc } from '@/app/components/common/utils/flex';
+import { gray300 } from '@/app/styles/colors.css';
+import { caption2 } from '@/app/styles/font.css';
+import { recordDateSection } from '../styles/record.css';
 
-import { datepickerWapper } from "../styles/datepicker.css";
-import { useRecordStore } from "@/app/store/record/recordStore";
-import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
-import CalenderDropDown from "./calenderDropDown";
+import { datepickerWapper } from '../styles/datepicker.css';
+import { useRecordStore } from '@/app/store/record/recordStore';
+import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
+import CalenderDropDown from './calenderDropDown';
 
 type CalenderContext = {
   isShow: boolean;
@@ -35,7 +35,7 @@ const RecordCalender = ({ children }: { children: React.ReactNode }) => {
 export const useCalenderContext = () => {
   const context = useContext(CalenderContext);
 
-  if (!context) throw new Error("recordCalender 내에서 사용하기");
+  if (!context) throw new Error('recordCalender 내에서 사용하기');
 
   return context;
 };
@@ -48,8 +48,8 @@ const Calender = () => {
     <>
       <article
         className={`${flexSprinklesFc({
-          alignItems: "center",
-          justifyContent: "space-between",
+          alignItems: 'center',
+          justifyContent: 'space-between',
         })} ${recordDateSection}`}
       >
         <CalenderDropDown />

@@ -1,6 +1,6 @@
-import { MessageType } from "@/app/types/schemas";
-import { create } from "zustand";
-import { immer } from "zustand/middleware/immer";
+import { MessageType } from '@/app/types/schemas';
+import { create } from 'zustand';
+import { immer } from 'zustand/middleware/immer';
 
 type PopupStore = {
   isPopup: boolean;
@@ -24,5 +24,5 @@ export const usePopupStore = create<PopupStore>()(
         draft.message = state;
       });
     },
-  }))
+  })),
 );

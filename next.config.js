@@ -1,9 +1,19 @@
-const {
-    createVanillaExtractPlugin
-  } = require('@vanilla-extract/next-plugin');
-  const withVanillaExtract = createVanillaExtractPlugin();
-  
-  /** @type {import('next').NextConfig} */
-  const nextConfig = {};
-  
-  module.exports = withVanillaExtract(nextConfig);
+import { createVanillaExtractPlugin } from '@vanilla-extract/next-plugin';
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'qzohcyvjvdvxzbblmbtx.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
+  },
+};
+
+const withVanillaExtract = createVanillaExtractPlugin();
+
+export default withVanillaExtract(nextConfig);

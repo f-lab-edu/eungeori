@@ -1,17 +1,22 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
     "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "incremental": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "preserve",
+    "strict": true,
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "plugins": [
       {
         "name": "next"
@@ -19,13 +24,32 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@hook/*": ["src/app/components/common/hook/*"],
-      "@styles/*": ["src/app/styles/*"],
-      "@image/*": ["public/image/*"],
-      "@svgs/*": ["public/svgs/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@hook/*": [
+        "src/app/components/common/hook/*"
+      ],
+      "@styles/*": [
+        "src/app/styles/*"
+      ],
+      "@image/*": [
+        "public/image/*"
+      ],
+      "@svgs/*": [
+        "public/svgs/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist"
+  ]
 }

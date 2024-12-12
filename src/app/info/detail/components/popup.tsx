@@ -1,10 +1,10 @@
-import Button from "@/app/components/common/Button";
-import Popup from "@/app/components/common/Popup";
-import useInfoStore from "@/app/store/info/infoStore";
-import { usePopupStore } from "@/app/store/popup/PopupStore";
-import { colors } from "@/app/styles/colors.css";
-import { LocalStorage } from "@/app/types/localStorageSchema";
-import { useRouter } from "next/navigation";
+import Button from '@/app/components/common/Button';
+import Popup from '@/app/components/common/Popup';
+import useInfoStore from '@/app/store/info/infoStore';
+import { usePopupStore } from '@/app/store/popup/PopupStore';
+import { colors } from '@/app/styles/colors.css';
+import { LocalStorage } from '@/app/types/localStorageSchema';
+import { useRouter } from 'next/navigation';
 
 const DetailPopup = () => {
   const router = useRouter();
@@ -14,18 +14,18 @@ const DetailPopup = () => {
   const recordNoteState = useInfoStore((state) => state.recordNote);
   const setRecordNoteState = useInfoStore((state) => state.setRecordNote);
 
-  const detailStorage = new LocalStorage("recordNote");
+  const detailStorage = new LocalStorage('recordNote');
 
   const onClick = () => {
-    if (recordNoteState === "") {
+    if (recordNoteState === '') {
       setDetailPopupState(false);
-      detailStorage.set("");
-      router.push("/record");
+      detailStorage.set('');
+      router.push('/record');
     } else {
       setDetailPopupState(false);
       detailStorage.set(recordNoteState);
-      router.push("/record");
-      setRecordNoteState("");
+      router.push('/record');
+      setRecordNoteState('');
     }
   };
   return (
