@@ -21,8 +21,6 @@ type BowelAttributesState = {
 
   startDate: Date;
   setStartDate: (state: Date) => void;
-
-  saveRecord: () => void;
 };
 
 export const useInfoStore = create<BowelAttributesState>()(
@@ -56,21 +54,6 @@ export const useInfoStore = create<BowelAttributesState>()(
       set((draft) => {
         draft.startDate = state;
       });
-    },
-    saveRecord: () => {
-      const currentRecord = {
-        date: get().startDate,
-        bowelTime: get().bowelTime,
-        stoolAttributes: get().stoolAttributes,
-        recordNote: get().recordNote,
-      };
-
-      // const recordStorage = new LocalStorage<'recordData'>('recordData');
-
-      // const existingRecords = recordStorage.get() || [];
-      // const updatedRecords = [...existingRecords, currentRecord];
-
-      // recordStorage.set(updatedRecords);
     },
   })),
 );
