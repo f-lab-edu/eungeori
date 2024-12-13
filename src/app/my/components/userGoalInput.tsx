@@ -27,7 +27,7 @@ const UserGoalInput = () => {
         .upsert({ id: userInfo.id, nickname: userInfo.nickname, goal }, { onConflict: 'id' });
 
       if (error) {
-        throw new Error();
+        throw error;
       }
 
       setMessageState('저장 되었습니다.');
@@ -59,7 +59,7 @@ const UserGoalInput = () => {
         }
 
         if (error) {
-          throw new Error();
+          throw error;
         }
       } catch (e) {
         console.log(e);

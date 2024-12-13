@@ -23,7 +23,7 @@ const LogoutButton = () => {
     try {
       const { error } = await supabaseClient.auth.signOut();
       if (error) {
-        throw new Error();
+        throw error;
       }
       router.push('/');
       return;
@@ -42,7 +42,7 @@ const LogoutButton = () => {
     const { data, error } = await admin.auth.admin.deleteUser(userInfo.id);
 
     if (error) {
-      throw new Error();
+      throw error;
     }
 
     try {
