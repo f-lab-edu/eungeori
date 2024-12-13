@@ -1,17 +1,18 @@
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { formatDate, formatYYYYMMDD } from "../common/utils/date";
-import Memo from "../components/common/Memo";
-import { flexSprinklesFc } from "../components/common/utils/flex";
-import useInfoStore from "../store/info/infoStore";
-import { LocalStorageSchema, LocalStorage } from "../types/localStorageSchema";
-import RecordPopup from "./components/popup";
-import RecordCalender from "./components/recordCalender";
-import { plusIconBox, plusIcon } from "./styles/record.css";
-import Image from "next/image";
-import { StepChangeHandler } from "./page";
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { formatDate, formatYYYYMMDD } from '../common/utils/date';
+import Memo from '../components/common/Memo';
+import { flexSprinklesFc } from '../components/common/utils/flex';
+import useInfoStore from '../store/info/infoStore';
 
-type RecordData = LocalStorageSchema["recordData"];
+import RecordPopup from './components/popup';
+import RecordCalender from './components/recordCalender';
+import { plusIconBox, plusIcon } from './styles/record.css';
+import Image from 'next/image';
+import { StepChangeHandler } from './page';
+import { RecordSchema } from '../types/recordSchema';
+
+type RecordData = RecordSchema['recordData'];
 
 const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   const [isShow, setIsShow] = useState(false);
@@ -20,16 +21,16 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
   const router = useRouter();
   const startDate = useInfoStore((state) => state.startDate);
 
-  useEffect(() => {
-    const recordData = new LocalStorage("recordData");
-    const data = recordData.get();
+  // useEffect(() => {
+  //   const recordData = new LocalStorage('recordData');
+  //   const data = recordData.get();
 
-    const filtered = data?.filter(
-      (item) => formatDate(new Date(item.date)) === formatDate(new Date(startDate))
-    );
+  //   const filtered = data?.filter(
+  //     (item) => formatDate(new Date(item.date)) === formatDate(new Date(startDate)),
+  //   );
 
-    setFilterdData(filtered || []);
-  }, [startDate]);
+  //   setFilterdData(filtered || []);
+  // }, [startDate]);
 
   const onDeleteClick = () => {
     setIsShow(true);
@@ -57,8 +58,8 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
 
         <article
           className={`${flexSprinklesFc({
-            flexDirection: "column",
-            gap: "8px",
+            flexDirection: 'column',
+            gap: '8px',
           })}`}
         >
           {filterdData?.map((data, idx) => (
