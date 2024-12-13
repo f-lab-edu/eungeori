@@ -12,9 +12,8 @@ import TitleText from './components/titleText';
 import { infoContainer } from '../common/common.css';
 import { StepChangeHandler } from '../../page';
 import { formatToLocalISOString, formatToLocalYYYYMMDD } from '@/app/common/utils/date';
-import { supabaseClient } from '@/app/lib/supabaseClient';
 import { useUserInfoStore } from '@/app/store/user/userStore';
-import { useState } from 'react';
+import { supabaseClient } from '@/app/lib/supabaseClient';
 
 const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   const setRecordNoteState = useInfoStore((state) => state.setRecordNote);

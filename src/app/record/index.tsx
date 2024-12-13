@@ -10,27 +10,35 @@ import RecordCalender from './components/recordCalender';
 import { plusIconBox, plusIcon } from './styles/record.css';
 import Image from 'next/image';
 import { StepChangeHandler } from './page';
-import { RecordSchema } from '../types/recordSchema';
-
-type RecordData = RecordSchema['recordData'];
+import { supabaseClient } from '../lib/supabaseClient';
+import { BowelAttributes } from '../types/bowelAttributesSchema';
 
 const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   const [isShow, setIsShow] = useState(false);
-  const [filterdData, setFilterdData] = useState<RecordData>([]);
+  const [filterdData, setFilterdData] = useState<BowelAttributes[] | []>([]);
 
   const router = useRouter();
   const startDate = useInfoStore((state) => state.startDate);
 
-  // useEffect(() => {
-  //   const recordData = new LocalStorage('recordData');
-  //   const data = recordData.get();
+  useEffect(() => {
+    const getMemoData = async () => {
+      try {
+        const { data, error } = await supabaseClient.from('bowel_attributes').select('*');
 
-  //   const filtered = data?.filter(
-  //     (item) => formatDate(new Date(item.date)) === formatDate(new Date(startDate)),
-  //   );
+        if (data) {
+          const date = data.filter(
+            (date) => formatYYYYMMDD(new Date(date.bowel_time)) === formatYYYYMMDD(startDate),
+          );
+          setFilterdData(date);
+        }
 
-  //   setFilterdData(filtered || []);
-  // }, [startDate]);
+        if (error) {
+          throw error;
+        }
+      } catch (e) {}
+    };
+    getMemoData();
+  }, [startDate]);
 
   const onDeleteClick = () => {
     setIsShow(true);
@@ -62,18 +70,10 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
             gap: '8px',
           })}`}
         >
-          {filterdData?.map((data, idx) => (
-            <Memo
-              key={idx}
-              date={formatDate(new Date(data.date))}
-              text={data.recordNote}
-              edit
-              onEditClick={() => {
-                onEditClick(new Date(data.date), idx);
-              }}
-              onDeleteClick={onDeleteClick}
-            />
-          ))}
+          {filterdData.map((date) => {
+            const dateData = formatDate(new Date(date.bowel_time));
+            return <Memo key={date.id} date={dateData} text={date.record_note} height="145px" />;
+          })}
         </article>
 
         <div
