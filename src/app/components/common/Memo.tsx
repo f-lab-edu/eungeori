@@ -8,8 +8,8 @@ import { memoBox } from './memo.css';
 type MemoPorps = {
   onEditClick?: () => void;
   onDeleteClick?: () => void;
-  date: string;
-  text: string;
+  date?: string;
+  text?: string;
   height?: string;
   edit?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
