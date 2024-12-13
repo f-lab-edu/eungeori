@@ -44,9 +44,10 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
     setIsShow(true);
   };
 
-  const onEditClick = (date: Date, idx: number) => {
+  const onEditClick = (date: Date, id: string) => {
     const formattedDate = formatYYYYMMDD(date);
-    router.push(`detail/${formattedDate}/${idx}`);
+    const url = `/edit/${formattedDate}/${id}`;
+    router.push(url);
   };
 
   return (
@@ -72,7 +73,19 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
         >
           {filterdData.map((date) => {
             const dateData = formatDate(new Date(date.bowel_time));
-            return <Memo key={date.id} date={dateData} text={date.record_note} height="145px" />;
+            return (
+              <Memo
+                key={date.id}
+                date={dateData}
+                text={date.record_note}
+                height="145px"
+                edit
+                onEditClick={() => {
+                  onEditClick(new Date(date.bowel_time), date.id);
+                }}
+                onDeleteClick={onDeleteClick}
+              />
+            );
           })}
         </article>
 
