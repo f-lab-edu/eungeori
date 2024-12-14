@@ -29,7 +29,12 @@ const Memo = ({
       <Image src="/svgs/comment.svg" alt="icon" width={20} height={19} />
       <div className={flexSprinklesFc({ flexDirection: 'column', gap: '24px' })}>
         {date && <p className={subFontStyle}>{date}</p>}
-        <input value={text} className={subFontStyle} onChange={onChange} readOnly={!onChange} />
+        <input
+          value={text ?? ''}
+          className={subFontStyle}
+          onChange={onChange}
+          readOnly={!onChange}
+        />
       </div>
 
       {edit && (
