@@ -74,7 +74,6 @@ const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
     if (saveSuccess) {
       setDetailPopupMessageState('기록 되었습니다.');
       setDetailPopupState(true);
-      setRecordNoteState('');
 
       setTimeout(() => {
         onButtonClick(0);
@@ -83,6 +82,7 @@ const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
       setDetailPopupMessageState('기록에 실패했습니다. 다시 시도해 주세요.');
       setDetailPopupState(true);
     }
+    setRecordNoteState('');
   };
 
   return (
@@ -91,7 +91,7 @@ const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
       <article className={infoContainer}>
         <TitleText />
 
-        <Memo onChange={(e) => setRecordNoteState(e.target.value)} />
+        <Memo onChange={(e) => setRecordNoteState(e.target.value)} text={recordNoteState} />
 
         <div className={flexSprinklesFc({ gap: '16px', justifyContent: 'center' })}>
           <Button
