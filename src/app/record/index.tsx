@@ -12,10 +12,14 @@ import Image from 'next/image';
 import { StepChangeHandler } from './page';
 import { supabaseClient } from '../lib/supabaseClient';
 import { BowelAttributes } from '../types/bowelAttributesSchema';
+import { useUserInfoStore } from '../store/user/userStore';
 
 const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
-  const [isShow, setIsShow] = useState(false);
-  const [filterdData, setFilterdData] = useState<BowelAttributes[] | []>([]);
+  const [filteredData, setFilteredData] = useState<BowelAttributes[] | []>([]);
+  const [isShowPopup, setIsShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+  const userInfo = useUserInfoStore((state) => state.userInfo);
 
   const router = useRouter();
   const startDate = useInfoStore((state) => state.startDate);
@@ -29,7 +33,7 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
           const date = data.filter(
             (date) => formatYYYYMMDD(new Date(date.bowel_time)) === formatYYYYMMDD(startDate),
           );
-          setFilterdData(date);
+          setFilteredData(date);
         }
 
         if (error) {
@@ -40,8 +44,36 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
     getMemoData();
   }, [startDate]);
 
-  const onDeleteClick = () => {
-    setIsShow(true);
+  const onDeleteClick = async (id: string) => {
+    setPopupMessage('내용을 삭제하시겠습니까?');
+    setDeleteTargetId(id);
+    setIsShowPopup(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteTargetId) return;
+
+    try {
+      const { data, error } = await supabaseClient
+        .from('bowel_attributes')
+        .delete()
+        .eq('id', deleteTargetId)
+        .eq('user_id', userInfo.id);
+
+      if (error) throw error;
+
+      setPopupMessage('삭제되었습니다.');
+      setFilteredData((prevData) => prevData.filter((item) => item.id !== deleteTargetId));
+      setDeleteTargetId(null);
+    } catch (e) {
+      setPopupMessage('삭제에 실패했습니다.');
+    }
+  };
+
+  const handleClosePopup = () => {
+    setIsShowPopup(false);
+    setPopupMessage('');
+    setDeleteTargetId(null);
   };
 
   const onEditClick = (date: Date, id: string) => {
@@ -52,11 +84,13 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
 
   return (
     <>
-      {isShow && (
+      {isShowPopup && (
         <RecordPopup
-          onClick={() => {
-            setIsShow(false);
-          }}
+          message={popupMessage}
+          onClose={handleClosePopup}
+          onConfirm={
+            popupMessage === '내용을 삭제하시겠습니까?' ? handleConfirmDelete : handleClosePopup
+          }
         />
       )}
 
@@ -71,7 +105,7 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
             gap: '8px',
           })}`}
         >
-          {filterdData.map((date) => {
+          {filteredData.map((date) => {
             const dateData = formatDate(new Date(date.bowel_time));
             return (
               <Memo
@@ -83,7 +117,9 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
                 onEditClick={() => {
                   onEditClick(new Date(date.bowel_time), date.id);
                 }}
-                onDeleteClick={onDeleteClick}
+                onDeleteClick={() => {
+                  onDeleteClick(date.id);
+                }}
               />
             );
           })}

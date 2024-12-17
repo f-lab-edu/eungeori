@@ -37,6 +37,7 @@ const DetailEditPage = () => {
       if (data) {
         setEditPopupState(true);
         setEditPopupMessageState('수정 되었습니다.');
+        setRecordNoteState('');
 
         setTimeout(() => {
           router.push('/record');
