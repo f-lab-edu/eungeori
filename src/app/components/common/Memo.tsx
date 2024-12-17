@@ -5,7 +5,7 @@ import { pointer } from '@/app/styles/global.css';
 import { flexSprinklesFc } from './utils/flex';
 import { memoBox } from './memo.css';
 
-type MemoPorps = {
+type MemoProps = {
   onEditClick?: () => void;
   onDeleteClick?: () => void;
   date?: string;
@@ -23,14 +23,14 @@ const Memo = ({
   height = '200px',
   edit = false,
   onChange,
-}: MemoPorps) => {
+}: MemoProps) => {
   return (
     <div className={memoBox} style={{ height }}>
       <Image src="/svgs/comment.svg" alt="icon" width={20} height={19} />
       <div className={flexSprinklesFc({ flexDirection: 'column', gap: '24px' })}>
         {date && <p className={subFontStyle}>{date}</p>}
         <input
-          value={text ?? ''}
+          value={text ? text : ''}
           className={subFontStyle}
           onChange={onChange}
           readOnly={!onChange}
