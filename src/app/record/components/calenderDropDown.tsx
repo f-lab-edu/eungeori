@@ -1,6 +1,6 @@
-import { useRef, useEffect } from "react";
-import { dropDownButton, dropDownList, dropDownUL } from "../styles/datepicker.css";
-import { useCalenderContext } from "./recordCalender";
+import { useRef, useEffect } from 'react';
+import { dropDownButton, dropDownList, dropDownUL } from '../styles/datepicker.css';
+import { useCalenderContext } from './recordCalender';
 
 const CalenderDropDown = () => {
   const { startDateState, setStartDateState, isShow, setIsShow } = useCalenderContext();
@@ -12,7 +12,7 @@ const CalenderDropDown = () => {
 
   const months = Array.from({ length: currentMonth + 1 }, (_, i) => ({
     value: i,
-    label: `${currentYear}.${String(i + 1).padStart(2, "0")}`,
+    label: `${currentYear}.${String(i + 1).padStart(2, '0')}`,
   }));
 
   const onClickDate = (month: number) => {
@@ -27,16 +27,16 @@ const CalenderDropDown = () => {
       }
     };
 
-    document.addEventListener("mousedown", onClickOutside);
+    document.addEventListener('mousedown', onClickOutside);
     return () => {
-      document.removeEventListener("mousedown", onClickOutside);
+      document.removeEventListener('mousedown', onClickOutside);
     };
   }, []);
 
   return (
     <div ref={dropDownRef}>
       <button className={dropDownButton} onClick={() => setIsShow((state) => !state)}>
-        {`${startDateState.getFullYear()}.${String(startDateState.getMonth() + 1).padStart(2, "0")}`}
+        {`${startDateState.getFullYear()}.${String(startDateState.getMonth() + 1).padStart(2, '0')}`}
       </button>
       {isShow && (
         <ul className={dropDownUL}>

@@ -1,21 +1,21 @@
-import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import useInfoStore, { StoolAttributes } from "@/app/store/info/infoStore";
-import { semiBold } from "@/app/styles/font.css";
-import { paddingSprinkles } from "@/app/styles/padding.css";
-import ContentBox from "./contentBox";
+import { flexSprinklesFc } from '@/app/components/common/utils/flex';
+import useInfoStore, { StoolAttributes } from '@/app/store/info/infoStore';
+import { semiBold } from '@/app/styles/font.css';
+import { paddingSprinkles } from '@/app/styles/padding.css';
+import ContentBox from './contentBox';
 
 const ConsistencyBox = () => {
   const stoolAttributesState = useInfoStore((state) => state.stoolAttributes);
   const setStoolAttributesState = useInfoStore((state) => state.setStoolAttributes);
 
-  const onConsistencyChange = (value: StoolAttributes["consistency"]) => {
+  const onConsistencyChange = (value: StoolAttributes['consistency']) => {
     setStoolAttributesState({ consistency: value });
   };
 
-  const consistencyOption: { label: string; consistency: StoolAttributes["consistency"] }[] = [
-    { label: "묽음", consistency: "thin" },
-    { label: "정상", consistency: "default" },
-    { label: "딱딱", consistency: "hard" },
+  const consistencyOption: { label: string; consistency: StoolAttributes['consistency'] }[] = [
+    { label: '묽음', consistency: 'thin' },
+    { label: '정상', consistency: 'default' },
+    { label: '딱딱', consistency: 'hard' },
   ];
 
   const getConsistencyImageSrc = (label: string) => {
@@ -25,10 +25,10 @@ const ConsistencyBox = () => {
   };
 
   return (
-    <div className={paddingSprinkles({ paddingBottom: "s60" })}>
-      <p className={`${semiBold} ${paddingSprinkles({ paddingBottom: "s24" })}`}>묽음 정도</p>
+    <div className={paddingSprinkles({ paddingBottom: 's60' })}>
+      <p className={`${semiBold} ${paddingSprinkles({ paddingBottom: 's24' })}`}>묽음 정도</p>
 
-      <div className={`${flexSprinklesFc({ gap: "16px" })}`}>
+      <div className={`${flexSprinklesFc({ gap: '16px' })}`}>
         {consistencyOption.map((image) => {
           return (
             <ContentBox

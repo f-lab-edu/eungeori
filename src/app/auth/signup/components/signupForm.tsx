@@ -1,12 +1,12 @@
-import Button from "@/app/components/common/Button";
-import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import { colors } from "@/app/styles/colors.css";
-import { signupSchema } from "@/app/types/signupSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useSignup } from "../hook";
-import FormInputUI from "../../common/inputUI";
+import Button from '@/app/components/common/Button';
+import { flexSprinklesFc } from '@/app/components/common/utils/flex';
+import { colors } from '@/app/styles/colors.css';
+import { signupSchema } from '@/app/types/signupSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { useSignup } from '../hook';
+import FormInputUI from '../../common/inputUI';
 
 const SignupForm = () => {
   const {
@@ -15,12 +15,12 @@ const SignupForm = () => {
     formState: { errors, isValid },
   } = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      id: "",
-      password: "",
-      confirmPassword: "",
-      nickname: "",
+      email: '',
+      password: '',
+      confirmPassword: '',
+      nickname: '',
     },
   });
 
@@ -29,21 +29,20 @@ const SignupForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSignupSubmit)}
-      className={flexSprinklesFc({ flexDirection: "column", gap: "32px" })}
+      className={flexSprinklesFc({ flexDirection: 'column', gap: '32px' })}
     >
-      <div className={flexSprinklesFc({ flexDirection: "column", gap: "8px" })}>
+      <div className={flexSprinklesFc({ flexDirection: 'column', gap: '8px' })}>
         <FormInputUI
-          text="아이디"
-          maxLegnth={10}
-          register={register("id")}
-          errorMessage={errors.id?.message}
+          text="이메일"
+          register={register('email')}
+          errorMessage={errors.email?.message}
         />
 
         <FormInputUI
           text="비밀번호"
           type="password"
           maxLegnth={12}
-          register={register("password")}
+          register={register('password')}
           errorMessage={errors.password?.message}
         />
 
@@ -51,14 +50,14 @@ const SignupForm = () => {
           text="비밀번호 확인"
           type="password"
           maxLegnth={12}
-          register={register("confirmPassword")}
+          register={register('confirmPassword')}
           errorMessage={errors.confirmPassword?.message}
         />
 
         <FormInputUI
           text="닉네임"
           maxLegnth={12}
-          register={register("nickname")}
+          register={register('nickname')}
           errorMessage={errors.nickname?.message}
         />
       </div>
