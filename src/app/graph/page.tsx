@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import DataGraph from "./components/dataGraph";
+import DataGraph from './components/dataGraph';
 
 const Page = () => {
   return <DataGraph />;

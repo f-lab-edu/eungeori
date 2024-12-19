@@ -1,4 +1,4 @@
-import { Line } from "react-chartjs-2";
+import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,27 +12,50 @@ import {
   ScriptableContext,
   ChartOptions,
   Chart,
-} from "chart.js";
-import { flexSprinklesFc } from "@/app/components/common/utils/flex";
-import { chartBg, filterWrapper, poopBox, poopBoxWrapper, toggle, toggleActive } from "../styles/graph.css";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { caption, heading2, light, regular, semiBold } from "@/app/styles/font.css";
-import { gray300 } from "@/app/styles/colors.css";
-import { bowelDateCount, bowelInfoDate30Days, bowelInfoDate7Days, consistency } from "../dump/mockup";
-import { pointer } from "@/app/styles/global.css";
+} from 'chart.js';
+import { flexSprinklesFc } from '@/app/components/common/utils/flex';
+import {
+  chartBg,
+  filterWrapper,
+  poopBox,
+  poopBoxWrapper,
+  poopInfoText,
+  toggle,
+  toggleActive,
+} from '../styles/graph.css';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { caption, heading2, light, regular, semiBold } from '@/app/styles/font.css';
+import { gray300 } from '@/app/styles/colors.css';
+import {
+  bowelDateCount,
+  bowelInfoDate30Days,
+  bowelInfoDate7Days,
+  consistency,
+} from '../dump/mockup';
+import { pointer } from '@/app/styles/global.css';
+import { paddingSprinkles } from '@/app/styles/padding.css';
 
-interface CustomChartOptions extends ChartOptions<"line"> {
+interface CustomChartOptions extends ChartOptions<'line'> {
   grouped?: boolean;
   plugins?: {
     chartAreaStyles?: {
       borderColor: string;
     };
-  } & ChartOptions<"line">["plugins"];
+  } & ChartOptions<'line'>['plugins'];
 }
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, scales);
-ChartJS.defaults.color = "#D9D9D9";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  scales,
+);
+ChartJS.defaults.color = '#D9D9D9';
 
 const DataGraph = () => {
   const [dateRange, setDateRange] = useState(7);
@@ -58,18 +81,18 @@ const DataGraph = () => {
         data: dataPoints,
 
         // 선에 관한 로직
-        borderColor: (context: ScriptableContext<"line">) => {
+        borderColor: (context: ScriptableContext<'line'>) => {
           const { chart } = context;
           const ctx = chart.ctx;
           const chartArea = chart.chartArea;
 
-          if (!chartArea) return "#D9D9D9";
+          if (!chartArea) return '#D9D9D9';
 
           const gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
-          gradient.addColorStop(0.1, "#FEE88B");
-          gradient.addColorStop(0.4, "#FEE88B");
-          gradient.addColorStop(0.7, "#4fe786");
-          gradient.addColorStop(1, "#FC5064");
+          gradient.addColorStop(0.1, '#FEE88B');
+          gradient.addColorStop(0.4, '#FEE88B');
+          gradient.addColorStop(0.7, '#4fe786');
+          gradient.addColorStop(1, '#FC5064');
 
           return gradient;
         },
@@ -79,20 +102,20 @@ const DataGraph = () => {
         // 점에 관한 로직
         pointRadius: 7,
         pointHoverRadius: 7,
-        pointBorderColor: "transparent",
-        pointBackgroundColor: (context: ScriptableContext<"line">) => {
+        pointBorderColor: 'transparent',
+        pointBackgroundColor: (context: ScriptableContext<'line'>) => {
           const { dataIndex } = context;
           const consistencyType = consistency(bowelDate)[dataIndex];
 
           switch (consistencyType) {
-            case "thin":
-              return "#FEE88B";
-            case "default":
-              return "#4FE786";
-            case "crackle":
-              return "#FC5064";
+            case 'thin':
+              return '#FEE88B';
+            case 'default':
+              return '#4FE786';
+            case 'hard':
+              return '#FC5064';
             default:
-              return "#D9D9D9";
+              return '#D9D9D9';
           }
         },
         pointBorderWidth: 0,
@@ -109,7 +132,8 @@ const DataGraph = () => {
     },
     scales: {
       x: {
-        position: "right",
+        offset: true,
+        position: 'right',
         ticks: {
           stepSize: 1,
         },
@@ -118,7 +142,7 @@ const DataGraph = () => {
         },
       },
       y: {
-        max: Math.max(...dataPoints),
+        max: Math.max(...dataPoints) + 1,
 
         ticks: {
           display: false,
@@ -135,34 +159,34 @@ const DataGraph = () => {
       tooltip: {
         enabled: isToggleActive,
         padding: 5,
-        backgroundColor: "#fff",
-        titleColor: "#141313",
+        backgroundColor: '#fff',
+        titleColor: '#141313',
 
-        bodyColor: "#141313",
+        bodyColor: '#141313',
         titleFont: {
-          family: "pretendard",
+          family: 'pretendard',
         },
         bodyFont: {
-          family: "pretendard",
+          family: 'pretendard',
         },
-        yAlign: "bottom",
+        yAlign: 'bottom',
         displayColors: false,
       },
       chartAreaStyles: {
-        borderColor: "#F5F5F5",
+        borderColor: '#F5F5F5',
       },
     },
   };
 
   const chartAreaStyles = {
-    id: "chartAreaStyles",
+    id: 'chartAreaStyles',
     beforeDatasetDraw(chart: Chart, _: unknown, options: { borderColor: string }) {
       const {
         ctx,
         chartArea: { top, left, width, height },
       } = chart;
       ctx.save();
-      ctx.fillStyle = "#F5F5F5";
+      ctx.fillStyle = '#F5F5F5';
       ctx.fillRect(left, top, width, height);
 
       // 경계선
@@ -184,52 +208,52 @@ const DataGraph = () => {
   };
   return (
     <>
-      <h2 className={`${semiBold} ${heading2}`}>
+      <h2 className={`${semiBold} ${heading2} ${paddingSprinkles({ paddingBottom: 's60' })}`}>
         배변 활동을
         <br />
         분석해봤어요
       </h2>
       <div className={filterWrapper}>
-        <div className={`${flexSprinklesFc({ alignItems: "center" })} ${pointer}`}>
+        <div className={`${flexSprinklesFc({ alignItems: 'center' })} ${pointer}`}>
           <button className={`${caption} ${regular}`} onClick={onClickDateRange}>
-            {dateRange === 7 ? "일주일" : "한 달"}
-            {""} <Image src="/svgs/drop.svg" width={8} height={5} alt="chage icon" />
+            {dateRange === 7 ? '일주일' : '한 달'}
+            {''} <Image src="/svgs/drop.svg" width={8} height={5} alt="change icon" />
           </button>
         </div>
 
         <button
-          className={`${toggle} ${isToggleActive ? toggleActive : ""}`}
+          className={`${toggle} ${isToggleActive ? toggleActive : ''}`}
           onClick={() => setIsToggleActive(!isToggleActive)}
         />
       </div>
       <div
         className={flexSprinklesFc({
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
         })}
       >
         <div className={chartBg}>
           <Line data={data} options={options} plugins={[chartAreaStyles]} />
         </div>
 
-        <div className={flexSprinklesFc({ alignItems: "flex-start" })} style={{ width: "90%" }}>
+        <div className={poopInfoText}>
           <p className={`${caption} ${gray300} ${light}`}>
             * 같은 날 변의 묽기가 다를 경우 먼저 적힌 상태로 보여지게됩니다.
           </p>
         </div>
         <div className={poopBoxWrapper}>
           <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active_thin.svg" width={27} height={27} alt="icon" />
-            {consistencyCount(consistency, "thin").length}
+            <Image src="/svgs/poop/thin/active-thin.svg" width={27} height={27} alt="icon" />
+            {consistencyCount(consistency, 'thin').length}
           </div>
           <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active_default.svg" width={27} height={27} alt="icon" />
-            {consistencyCount(consistency, "default").length}
+            <Image src="/svgs/poop/thin/active-default.svg" width={27} height={27} alt="icon" />
+            {consistencyCount(consistency, 'default').length}
           </div>
           <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active_crackle.svg" width={27} height={27} alt="icon" />
-            {consistencyCount(consistency, "crackle").length}
+            <Image src="/svgs/poop/thin/active-hard.svg" width={27} height={27} alt="icon" />
+            {consistencyCount(consistency, 'hard').length}
           </div>
         </div>
       </div>
