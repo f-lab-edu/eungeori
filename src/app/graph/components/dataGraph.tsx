@@ -35,6 +35,7 @@ import {
 } from '../dump/mockup';
 import { pointer } from '@/app/styles/global.css';
 import { paddingSprinkles } from '@/app/styles/padding.css';
+import { supabaseClient } from '@/app/lib/supabaseClient';
 
 interface CustomChartOptions extends ChartOptions<'line'> {
   grouped?: boolean;
@@ -65,9 +66,21 @@ const DataGraph = () => {
   const labels = Object.keys(bowelDateCount(bowelDate));
   const dataPoints = Object.values(bowelDateCount(bowelDate));
 
-  const consistencyCount = (consistency: string[], type: string) => {
-    return consistency(bowelDate).filter((consistency) => consistency === type);
-  };
+  useEffect(() => {
+    const getBowlData = async () => {
+      const { data, error } = await supabaseClient.from('bowel_attributes').select('*');
+      if (data) {
+        setBowelDate(data);
+      }
+    };
+
+    getBowlData();
+  }, []);
+
+  // console.log(
+  //   bowelDate.map((x) => x.bowelTime),
+  //   'bowelDate',
+  // );
 
   useEffect(() => {
     const selectedData = dateRange === 7 ? bowelInfoDate7Days : bowelInfoDate30Days;
@@ -103,21 +116,21 @@ const DataGraph = () => {
         pointRadius: 7,
         pointHoverRadius: 7,
         pointBorderColor: 'transparent',
-        pointBackgroundColor: (context: ScriptableContext<'line'>) => {
-          const { dataIndex } = context;
-          const consistencyType = consistency(bowelDate)[dataIndex];
+        // pointBackgroundColor: (context: ScriptableContext<'line'>) => {
+        //   const { dataIndex } = context;
+        //   const consistencyType = consistency(bowelDate)[dataIndex];
 
-          switch (consistencyType) {
-            case 'thin':
-              return '#FEE88B';
-            case 'default':
-              return '#4FE786';
-            case 'hard':
-              return '#FC5064';
-            default:
-              return '#D9D9D9';
-          }
-        },
+        //   switch (consistencyType) {
+        //     case 'thin':
+        //       return '#FEE88B';
+        //     case 'default':
+        //       return '#4FE786';
+        //     case 'hard':
+        //       return '#FC5064';
+        //     default:
+        //       return '#D9D9D9';
+        //   }
+        // },
         pointBorderWidth: 0,
         tension: 0.4,
       },
@@ -206,6 +219,11 @@ const DataGraph = () => {
       setDateRange(7);
     }
   };
+
+  // const consistencyCount = (consistency: string[], type: string) => {
+  //   return consistency(bowelDate).filter((consistency) => consistency === type);
+  // };
+
   return (
     <>
       <h2 className={`${semiBold} ${heading2} ${paddingSprinkles({ paddingBottom: 's60' })}`}>
@@ -242,7 +260,7 @@ const DataGraph = () => {
             * 같은 날 변의 묽기가 다를 경우 먼저 적힌 상태로 보여지게됩니다.
           </p>
         </div>
-        <div className={poopBoxWrapper}>
+        {/* <div className={poopBoxWrapper}>
           <div className={poopBox}>
             <Image src="/svgs/poop/thin/active-thin.svg" width={27} height={27} alt="icon" />
             {consistencyCount(consistency, 'thin').length}
@@ -255,7 +273,7 @@ const DataGraph = () => {
             <Image src="/svgs/poop/thin/active-hard.svg" width={27} height={27} alt="icon" />
             {consistencyCount(consistency, 'hard').length}
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
