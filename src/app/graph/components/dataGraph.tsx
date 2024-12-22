@@ -306,7 +306,7 @@ const DataGraph = () => {
             * 같은 날 변의 묽기가 다를 경우 먼저 적힌 상태로 보여지게됩니다.
           </p>
         </div>
-        <div className={poopBoxWrapper}>
+        {/* <div className={poopBoxWrapper}>
           <div className={poopBox}>
             <Image src="/svgs/poop/thin/active_thin.svg" width={27} height={27} alt="icon" />
             {consistencyCount(consistency, 'thin').length}
