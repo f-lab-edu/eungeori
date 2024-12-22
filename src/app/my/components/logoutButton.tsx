@@ -1,7 +1,8 @@
 import Button from '@/app/components/common/Button';
 import Popup from '@/app/components/common/Popup';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { admin, supabaseClient } from '@/app/lib/supabaseClient';
+import { supabaseClient } from '@/app/lib/supabaseClient';
+import { supabaseAdmin } from '@/app/lib/supabaseAdmin';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 import { colors, gray300 } from '@/app/styles/colors.css';
@@ -23,13 +24,12 @@ const LogoutButton = () => {
     try {
       const { error } = await supabaseClient.auth.signOut();
       if (error) {
-        throw new Error();
+        throw error;
       }
       router.push('/');
       return;
     } catch (e) {
       setMessageState('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요');
-    } finally {
       setIsPopupState(true);
     }
   };
@@ -40,10 +40,10 @@ const LogoutButton = () => {
   };
 
   const onDeleteAccount = async () => {
-    const { data, error } = await admin.auth.admin.deleteUser(userInfo.id);
+    const { data, error } = await supabaseAdmin.auth.admin.deleteUser(userInfo.id);
 
     if (error) {
-      throw new Error();
+      throw error;
     }
 
     try {

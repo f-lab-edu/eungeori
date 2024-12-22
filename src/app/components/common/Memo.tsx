@@ -5,8 +5,9 @@ import { pointer } from '@/app/styles/global.css';
 import { flexSprinklesFc } from './utils/flex';
 import { memoBox } from './memo.css';
 
-type MemoPorps = {
-  onClick?: () => void;
+type MemoProps = {
+  onEditClick?: () => void;
+  onDeleteClick?: () => void;
   date?: string;
   text?: string;
   height?: string;
@@ -14,21 +15,35 @@ type MemoPorps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Memo = ({ onClick, date, text, height = '200px', edit = false, onChange }: MemoPorps) => {
+const Memo = ({
+  onEditClick,
+  onDeleteClick,
+  date,
+  text,
+  height = '200px',
+  edit = false,
+  onChange,
+}: MemoProps) => {
   return (
     <div className={memoBox} style={{ height }}>
       <Image src="/svgs/comment.svg" alt="icon" width={20} height={19} />
       <div className={flexSprinklesFc({ flexDirection: 'column', gap: '24px' })}>
         {date && <p className={subFontStyle}>{date}</p>}
-        <input className={subFontStyle} onChange={onChange}>
-          {text}
-        </input>
+        <input
+          value={text ? text : ''}
+          className={subFontStyle}
+          onChange={onChange}
+          readOnly={!onChange}
+        />
       </div>
 
       {edit && (
         <p className={`${caption2} ${gray300}`}>
-          <span className={pointer}>수정</span> <span>|</span>{' '}
-          <span className={pointer} onClick={onClick}>
+          <span className={pointer} onClick={onEditClick}>
+            수정
+          </span>{' '}
+          <span>|</span>{' '}
+          <span className={pointer} onClick={onDeleteClick}>
             삭제
           </span>
         </p>

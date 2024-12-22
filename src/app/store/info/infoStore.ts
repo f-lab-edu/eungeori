@@ -18,10 +18,13 @@ type BowelAttributesState = {
 
   recordNote: string;
   setRecordNote: (note: string) => void;
+
+  startDate: Date;
+  setStartDate: (state: Date) => void;
 };
 
 export const useInfoStore = create<BowelAttributesState>()(
-  immer((set) => ({
+  immer((set, get) => ({
     bowelTime: {
       hour: 0,
       minute: 0,
@@ -45,6 +48,13 @@ export const useInfoStore = create<BowelAttributesState>()(
       set((draft) => {
         draft.recordNote = note;
       }),
+
+    startDate: new Date(),
+    setStartDate: (state) => {
+      set((draft) => {
+        draft.startDate = state;
+      });
+    },
   })),
 );
 

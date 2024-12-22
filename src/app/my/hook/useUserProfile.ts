@@ -36,7 +36,7 @@ export const useUserProfile = () => {
         .getPublicUrl(filePath);
 
       if (!supabaseUrl?.publicUrl) {
-        throw new Error();
+        throw error;
       }
 
       const avatarUrl = `${supabaseUrl.publicUrl}?timestamp=${Date.now()}`;
@@ -68,7 +68,7 @@ export const useUserProfile = () => {
         .upsert({ id, avatar_url: avatarUrl, nickname: userInfo.nickname });
 
       if (error) {
-        throw new Error();
+        throw error;
       }
 
       setMessageState('프로필 이미지가 성공적으로 저장되었습니다.');
@@ -100,7 +100,7 @@ export const useUserProfile = () => {
         .single();
 
       if (error || !data?.avatar_url) {
-        throw new Error();
+        throw error;
       }
 
       setUserInfo({
