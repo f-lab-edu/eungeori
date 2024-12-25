@@ -27,12 +27,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { caption, heading2, light, regular, semiBold } from '@/app/styles/font.css';
 import { gray300 } from '@/app/styles/colors.css';
-import {
-  bowelDateCount,
-  bowelInfoDate30Days,
-  bowelInfoDate7Days,
-  consistency,
-} from '../dump/mockup';
+import { bowelDateCount, consistency, transformBowelData } from '../dump/mockup';
 import { pointer } from '@/app/styles/global.css';
 import { paddingSprinkles } from '@/app/styles/padding.css';
 import { supabaseClient } from '@/app/lib/supabaseClient';
@@ -58,127 +53,128 @@ ChartJS.register(
 );
 ChartJS.defaults.color = '#D9D9D9';
 
-const bowelDateCount = bowelInfoDate.reduce((acc: BowelDateCount, cur) => {
-  const date = cur.date;
-  acc[date] = (acc[date] || 0) + 1;
-  return acc;
-}, {});
-
-const earliestConsistencyByDate = Object.values(
-  bowelInfoDate.reduce((acc, cur) => {
-    const date = cur.date;
-
-    if (
-      acc[date] &&
-      (acc[date].bowelTime.hour < cur.bowelTime.hour ||
-        (acc[date].bowelTime.hour === cur.bowelTime.hour &&
-          acc[date].bowelTime.minute <= cur.bowelTime.minute))
-    ) {
-      return acc;
-    }
-
-    acc[date] = cur;
-    return acc;
-  }, {}),
-);
-
-const consistencyDateList = earliestConsistencyByDate.map(
-  (item) => item.stoolAttributes.consistency,
-);
-
 const DataGraph = () => {
   const [dateRange, setDateRange] = useState(7);
-  const [bowelDate, setBowelDate] = useState(bowelInfoDate7Days);
+  const [bowelDate, setBowelDate] = useState([]);
   const [isToggleActive, setIsToggleActive] = useState(true);
+  const [hasData, setHasData] = useState(false);
 
   const labels = Object.keys(bowelDateCount(bowelDate));
   const dataPoints = Object.values(bowelDateCount(bowelDate));
+
+  const consistencyCount = (consistency: string[], type: string) => {
+    return consistency(bowelDate).filter((consistency) => consistency === type);
+  };
 
   useEffect(() => {
     const getBowlData = async () => {
       const { data, error } = await supabaseClient.from('bowel_attributes').select('*');
       if (data) {
-        setBowelDate(data);
+        const transformedData = transformBowelData(data);
+
+        const uniqueDates = [...new Set(transformedData.map((item) => item.date))].sort().reverse();
+
+        const selectedDates = uniqueDates.slice(0, dateRange);
+
+        const filteredData = transformedData.filter((item) => selectedDates.includes(item.date));
+
+        setHasData(filteredData.length > 0);
+        setBowelDate(filteredData);
       }
     };
 
     getBowlData();
-  }, []);
-
-  // console.log(
-  //   bowelDate.map((x) => x.bowelTime),
-  //   'bowelDate',
-  // );
-
-  useEffect(() => {
-    const selectedData = dateRange === 7 ? bowelInfoDate7Days : bowelInfoDate30Days;
-    setBowelDate(selectedData);
-  }, []);
-
-  useEffect(() => {
-    const selectedData = dateRange === 7 ? bowelInfoDate7Days : bowelInfoDate30Days;
-    setBowelDate(selectedData);
-  }, []);
+  }, [dateRange]);
 
   const data = {
     labels,
     datasets: [
       {
         data: dataPoints,
+        segment: {
+          borderColor: (ctx) => {
+            const { chart } = ctx;
+            const { ctx: context } = chart;
+            const gradient = context.createLinearGradient(ctx.p0.x, 0, ctx.p1.x, 0);
 
-        // 선에 관한 로직
-        borderColor: (context: ScriptableContext<'line'>) => {
-          const { chart } = context;
-          const ctx = chart.ctx;
-          const chartArea = chart.chartArea;
+            const currentDate = labels[ctx.p0DataIndex];
+            const nextDate = labels[ctx.p1DataIndex];
 
-          const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-          const consistencyType = consistencyDateList[dataIndex];
+            const currentData = bowelDate.find((item) => item.date === currentDate);
+            const nextData = bowelDate.find((item) => item.date === nextDate);
 
-          switch (consistencyType) {
-            case 'thin':
-              gradient.addColorStop(0, '#FEE88B');
-              gradient.addColorStop(1, '#FEE88B');
-              break;
-            case 'default':
-              gradient.addColorStop(0, '#141313');
-              gradient.addColorStop(1, '#141313');
-              break;
-            case 'crackle':
-              gradient.addColorStop(0, '#FC5064');
-              gradient.addColorStop(1, '#FC5064');
-              break;
-            default:
-              gradient.addColorStop(0, '#D9D9D9');
-              gradient.addColorStop(1, '#D9D9D9');
-          }
+            const currentConsistency = currentData?.stoolAttributes.consistency;
+            const nextConsistency = nextData?.stoolAttributes.consistency;
 
-          return gradient;
+            const getColor = (type: string) => {
+              switch (type) {
+                case 'thin':
+                  return '#FEE88B';
+                case 'default':
+                  return '#4FE786';
+                case 'hard':
+                  return '#FC5064';
+                default:
+                  return '#D9D9D9';
+              }
+            };
+
+            const parseDate = (dateStr: string) => {
+              const datePart = dateStr.split('(')[0].trim();
+              const [year, month, day] = datePart.split('.');
+              return new Date(`20${year}-${month}-${day}`);
+            };
+
+            try {
+              const currentDateObj = parseDate(currentDate);
+              const nextDateObj = parseDate(nextDate);
+
+              const daysDiff =
+                Math.abs(nextDateObj.getTime() - currentDateObj.getTime()) / (1000 * 60 * 60 * 24);
+
+              if (daysDiff > 1) {
+                const startColor = getColor(currentConsistency);
+                const endColor = getColor(nextConsistency);
+
+                gradient.addColorStop(0, startColor);
+                gradient.addColorStop(0.3, startColor);
+                gradient.addColorStop(0.7, endColor);
+                gradient.addColorStop(1, endColor);
+              } else {
+                gradient.addColorStop(0, getColor(currentConsistency));
+                gradient.addColorStop(1, getColor(nextConsistency));
+              }
+
+              return gradient;
+            } catch (error) {
+              return getColor(currentConsistency);
+            }
+          },
         },
-
         borderWidth: 6,
-
-        // 점에 관한 로직
-        pointRadius: 9,
-        pointHoverRadius: 9,
+        pointRadius: 7,
+        pointHoverRadius: 7,
         pointBorderColor: 'transparent',
         pointBackgroundColor: (context) => {
           const { dataIndex } = context;
-          const consistencyType = consistency(bowelDate)[dataIndex];
+          const currentDate = labels[dataIndex];
+          const currentData = bowelDate.find((item) => item.date === currentDate);
+          const consistencyType = currentData?.stoolAttributes.consistency;
 
           switch (consistencyType) {
             case 'thin':
               return '#FEE88B';
             case 'default':
-              return '#141313';
-            case 'crackle':
+              return '#4FE786';
+            case 'hard':
               return '#FC5064';
             default:
               return '#D9D9D9';
           }
         },
         pointBorderWidth: 0,
-        tension: 0.4,
+        tension: 0.2,
+        cubicInterpolationMode: 'monotone',
       },
     ],
   };
@@ -257,18 +253,8 @@ const DataGraph = () => {
   };
 
   const onClickDateRange = () => {
-    if (dateRange === 7) {
-      setBowelDate(bowelInfoDate30Days);
-      setDateRange(30);
-    } else {
-      setBowelDate(bowelInfoDate7Days);
-      setDateRange(7);
-    }
+    setDateRange(dateRange === 7 ? 30 : 7);
   };
-
-  // const consistencyCount = (consistency: string[], type: string) => {
-  //   return consistency(bowelDate).filter((consistency) => consistency === type);
-  // };
 
   return (
     <>
@@ -290,51 +276,46 @@ const DataGraph = () => {
           onClick={() => setIsToggleActive(!isToggleActive)}
         />
       </div>
-      <div
-        className={flexSprinklesFc({
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-        })}
-      >
-        <div className={chartBg}>
-          <Line data={data} options={options} plugins={[chartAreaStyles]} />
-        </div>
+      {hasData ? (
+        <div
+          className={flexSprinklesFc({
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+          })}
+        >
+          <div className={chartBg}>
+            <Line data={data} options={options} plugins={[chartAreaStyles]} />
+          </div>
 
-        <div className={flexSprinklesFc({ alignItems: 'flex-start' })} style={{ width: '90%' }}>
-          <p className={`${caption} ${gray300} ${light}`}>
-            * 같은 날 변의 묽기가 다를 경우 먼저 적힌 상태로 보여지게됩니다.
+          <div className={poopInfoText}>
+            <p className={`${caption} ${gray300} ${light}`}>
+              * 같은 날 변의 묽기가 다를 경우 먼저 적힌 상태로 보여지게됩니다.
+            </p>
+          </div>
+          <div className={poopBoxWrapper}>
+            <div className={poopBox}>
+              <Image src="/svgs/poop/thin/active-thin.svg" width={27} height={27} alt="icon" />
+              {consistencyCount(consistency, 'thin').length}
+            </div>
+            <div className={poopBox}>
+              <Image src="/svgs/poop/thin/active-default.svg" width={27} height={27} alt="icon" />
+              {consistencyCount(consistency, 'default').length}
+            </div>
+            <div className={poopBox}>
+              <Image src="/svgs/poop/thin/active-hard.svg" width={27} height={27} alt="icon" />
+              {consistencyCount(consistency, 'hard').length}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <>
+          <p className={paddingSprinkles({ paddingTop: 's28' })}>
+            {dateRange === 7 ? '일주일' : '한 달'} 동안의 배변 기록이 없습니다. 😥
           </p>
-        </div>
-        {/* <div className={poopBoxWrapper}>
-          <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active_thin.svg" width={27} height={27} alt="icon" />
-            {consistencyCount(consistency, 'thin').length}
-          </div>
-          <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active_default.svg" width={27} height={27} alt="icon" />
-            {consistencyCount(consistency, 'default').length}
-          </div>
-          <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active_crackle.svg" width={27} height={27} alt="icon" />
-            {consistencyCount(consistency, 'crackle').length}
-          </div>
-        </div>
-        {/* <div className={poopBoxWrapper}>
-          <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active-thin.svg" width={27} height={27} alt="icon" />
-            {consistencyCount(consistency, 'thin').length}
-          </div>
-          <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active-default.svg" width={27} height={27} alt="icon" />
-            {consistencyCount(consistency, 'default').length}
-          </div>
-          <div className={poopBox}>
-            <Image src="/svgs/poop/thin/active-hard.svg" width={27} height={27} alt="icon" />
-            {consistencyCount(consistency, 'hard').length}
-          </div>
-        </div> */}
-      </div>
+          <p>새로운 기록을 추가해보세요.</p>
+        </>
+      )}
     </>
   );
 };

@@ -1,3 +1,5 @@
+import { formatDate } from '@/app/common/utils/date';
+
 type BowelDateCount = Record<string, number>;
 
 export const bowelInfoDate30Days = [
@@ -279,9 +281,40 @@ export const bowelDateCount = (data) => {
 };
 
 export const consistency = (data) => {
-  return data.map((x) => x.stoolAttributes.consistency);
+  return data.map((x) => x.stoolAttributes?.consistency);
 };
 
 export const bowelShapeType = (data) => {
   return data.map((x) => x.stoolAttributes.shapeType);
+};
+
+export const transformBowelData = (data) => {
+  const sortedData = data.sort((a, b) => {
+    return new Date(a.bowel_time) - new Date(b.bowel_time);
+  });
+
+  return sortedData.map((item) => {
+    const date = new Date(item.bowel_time);
+
+    return {
+      bowelTime: {
+        hour: date.getHours(),
+        minute: date.getMinutes(),
+      },
+      stoolAttributes: {
+        consistency: item.stool_attributes.consistency,
+        shapeType: item.stool_attributes.shapeType,
+      },
+      date: date
+        .toLocaleDateString('ko', {
+          year: '2-digit',
+          month: '2-digit',
+          day: '2-digit',
+          weekday: 'short',
+        })
+        .replace(/\./g, '')
+        .split(' ')
+        .join('.'),
+    };
+  });
 };
