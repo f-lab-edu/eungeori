@@ -12,6 +12,7 @@ import {
   ScriptableContext,
   ChartOptions,
   Chart,
+  ChartData,
 } from 'chart.js';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
 import {
@@ -27,10 +28,16 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { caption, heading2, light, regular, semiBold } from '@/app/styles/font.css';
 import { gray300 } from '@/app/styles/colors.css';
-import { bowelDateCount, consistency, transformBowelData } from '../dump/mockup';
 import { pointer } from '@/app/styles/global.css';
 import { paddingSprinkles } from '@/app/styles/padding.css';
 import { supabaseClient } from '@/app/lib/supabaseClient';
+import {
+  bowelDateCount,
+  transformBowelData,
+  consistency,
+  TransformedBowelData,
+} from '../utils/function';
+import { StoolAttributes } from '@/app/store/info/infoStore';
 
 interface CustomChartOptions extends ChartOptions<'line'> {
   grouped?: boolean;
@@ -53,17 +60,88 @@ ChartJS.register(
 );
 ChartJS.defaults.color = '#D9D9D9';
 
+const createCustomLinePlugin = (bowelDateData: TransformedBowelData[]) => ({
+  id: 'customLine',
+  beforeDatasetDraw: (chart: Chart) => {
+    const ctx = chart.ctx;
+    const meta = chart.getDatasetMeta(0);
+    if (!meta.data || meta.data.length === 0) return;
+
+    const points = meta.data;
+    const labels = chart.data.labels;
+
+    const getColor = (type: string) => {
+      switch (type) {
+        case 'thin':
+          return '#FEE88B';
+        case 'default':
+          return '#4FE786';
+        case 'hard':
+          return '#FC5064';
+        default:
+          return '#D9D9D9';
+      }
+    };
+
+    points.forEach((point: { x: number; y: number }, index: number) => {
+      if (index < points.length - 1) {
+        const nextPoint = points[index + 1];
+
+        if (labels) {
+          const currentDate = labels[index];
+          const nextDate = labels[index + 1];
+
+          const currentData = bowelDateData.find((item) => item.date === currentDate);
+          const nextData = bowelDateData.find((item) => item.date === nextDate);
+
+          const currentColor = getColor(currentData?.stoolAttributes.consistency as string);
+          const nextColor = getColor(nextData?.stoolAttributes.consistency as string);
+
+          const tension = 0.4;
+
+          const controlPoint1X = point.x + (nextPoint.x - point.x) * tension;
+          const controlPoint1Y = point.y;
+          const controlPoint2X = nextPoint.x - (nextPoint.x - point.x) * tension;
+          const controlPoint2Y = nextPoint.y;
+
+          const gradient = ctx.createLinearGradient(point.x, point.y, nextPoint.x, nextPoint.y);
+
+          gradient.addColorStop(0, currentColor);
+          gradient.addColorStop(1, nextColor);
+
+          ctx.beginPath();
+          ctx.moveTo(point.x, point.y);
+          ctx.bezierCurveTo(
+            controlPoint1X,
+            controlPoint1Y,
+            controlPoint2X,
+            controlPoint2Y,
+            nextPoint.x,
+            nextPoint.y,
+          );
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 6;
+          ctx.stroke();
+        }
+      }
+    });
+  },
+});
+
 const DataGraph = () => {
   const [dateRange, setDateRange] = useState(7);
-  const [bowelDate, setBowelDate] = useState([]);
+  const [bowelDate, setBowelDate] = useState<TransformedBowelData[]>([]);
   const [isToggleActive, setIsToggleActive] = useState(true);
   const [hasData, setHasData] = useState(false);
 
   const labels = Object.keys(bowelDateCount(bowelDate));
   const dataPoints = Object.values(bowelDateCount(bowelDate));
 
-  const consistencyCount = (consistency: string[], type: string) => {
-    return consistency(bowelDate).filter((consistency) => consistency === type);
+  const consistencyCount = (
+    consistencyFn: (data: TransformedBowelData[]) => StoolAttributes['consistency'][],
+    type: StoolAttributes['consistency'],
+  ): StoolAttributes['consistency'][] => {
+    return consistencyFn(bowelDate).filter((consistency) => consistency === type);
   };
 
   useEffect(() => {
@@ -86,76 +164,17 @@ const DataGraph = () => {
     getBowlData();
   }, [dateRange]);
 
-  const data = {
+  const chartData: ChartData<'line', number[]> = {
     labels,
     datasets: [
       {
         data: dataPoints,
-        segment: {
-          borderColor: (ctx) => {
-            const { chart } = ctx;
-            const { ctx: context } = chart;
-            const gradient = context.createLinearGradient(ctx.p0.x, 0, ctx.p1.x, 0);
-
-            const currentDate = labels[ctx.p0DataIndex];
-            const nextDate = labels[ctx.p1DataIndex];
-
-            const currentData = bowelDate.find((item) => item.date === currentDate);
-            const nextData = bowelDate.find((item) => item.date === nextDate);
-
-            const currentConsistency = currentData?.stoolAttributes.consistency;
-            const nextConsistency = nextData?.stoolAttributes.consistency;
-
-            const getColor = (type: string) => {
-              switch (type) {
-                case 'thin':
-                  return '#FEE88B';
-                case 'default':
-                  return '#4FE786';
-                case 'hard':
-                  return '#FC5064';
-                default:
-                  return '#D9D9D9';
-              }
-            };
-
-            const parseDate = (dateStr: string) => {
-              const datePart = dateStr.split('(')[0].trim();
-              const [year, month, day] = datePart.split('.');
-              return new Date(`20${year}-${month}-${day}`);
-            };
-
-            try {
-              const currentDateObj = parseDate(currentDate);
-              const nextDateObj = parseDate(nextDate);
-
-              const daysDiff =
-                Math.abs(nextDateObj.getTime() - currentDateObj.getTime()) / (1000 * 60 * 60 * 24);
-
-              if (daysDiff > 1) {
-                const startColor = getColor(currentConsistency);
-                const endColor = getColor(nextConsistency);
-
-                gradient.addColorStop(0, startColor);
-                gradient.addColorStop(0.3, startColor);
-                gradient.addColorStop(0.7, endColor);
-                gradient.addColorStop(1, endColor);
-              } else {
-                gradient.addColorStop(0, getColor(currentConsistency));
-                gradient.addColorStop(1, getColor(nextConsistency));
-              }
-
-              return gradient;
-            } catch (error) {
-              return getColor(currentConsistency);
-            }
-          },
-        },
+        borderColor: 'transparent',
         borderWidth: 6,
         pointRadius: 7,
         pointHoverRadius: 7,
         pointBorderColor: 'transparent',
-        pointBackgroundColor: (context) => {
+        pointBackgroundColor: (context: ScriptableContext<'line'>) => {
           const { dataIndex } = context;
           const currentDate = labels[dataIndex];
           const currentData = bowelDate.find((item) => item.date === currentDate);
@@ -173,7 +192,7 @@ const DataGraph = () => {
           }
         },
         pointBorderWidth: 0,
-        tension: 0.2,
+        tension: 0.4,
         cubicInterpolationMode: 'monotone',
       },
     ],
@@ -285,7 +304,11 @@ const DataGraph = () => {
           })}
         >
           <div className={chartBg}>
-            <Line data={data} options={options} plugins={[chartAreaStyles]} />
+            <Line
+              data={chartData}
+              options={options}
+              plugins={[chartAreaStyles, createCustomLinePlugin(bowelDate)]}
+            />
           </div>
 
           <div className={poopInfoText}>
