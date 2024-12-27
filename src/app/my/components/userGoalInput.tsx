@@ -12,7 +12,7 @@ const UserGoalInput = () => {
 
   const userInfo = useUserInfoStore((state) => state.userInfo);
 
-  const setIsPopupState = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setIsPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
   const onGoalSave = async (goal: string) => {
@@ -35,7 +35,7 @@ const UserGoalInput = () => {
       setMessageState('알 수 없는 오류가 발생했습니다.');
       return;
     } finally {
-      setIsPopupState(true);
+      setOpenPopup(true);
     }
   };
 

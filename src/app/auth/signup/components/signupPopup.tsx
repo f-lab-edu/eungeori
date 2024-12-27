@@ -13,7 +13,7 @@ const messageRoute: Record<string, string | null> = {
 const SignupPopup = () => {
   const router = useRouter();
   const signupMessageState = usePopupStore((state) => state.message);
-  const signupPopupState = usePopupStore((state) => state.isPopup);
+  const signupPopupState = usePopupStore((state) => state.openPopup);
   const setSignupPopupState = usePopupStore((state) => state.setIsPopup);
 
   const onClick = () => {

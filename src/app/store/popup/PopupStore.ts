@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 type PopupStore = {
-  isPopup: boolean;
+  openPopup: boolean;
   setIsPopup: (state: boolean) => void;
 
   message: MessageType;
@@ -12,10 +12,10 @@ type PopupStore = {
 
 export const usePopupStore = create<PopupStore>()(
   immer((set) => ({
-    isPopup: false,
+    openPopup: false,
     setIsPopup: (state) => {
       set((draft) => {
-        draft.isPopup = state;
+        draft.openPopup = state;
       });
     },
     message: null,

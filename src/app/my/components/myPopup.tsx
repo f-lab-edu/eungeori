@@ -5,9 +5,9 @@ import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { colors } from '@/app/styles/colors.css';
 
 const MyPopup = () => {
-  const isPopupState = usePopupStore((state) => state.isPopup);
+  const isPopupState = usePopupStore((state) => state.openPopup);
   const messageState = usePopupStore((state) => state.message);
-  const setIsPopupState = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setIsPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
   return (
     <>
@@ -21,7 +21,7 @@ const MyPopup = () => {
                 text="확인"
                 onClick={() => {
                   // setDeleted(true);
-                  setIsPopupState(false);
+                  setOpenPopup(false);
                   setMessageState('');
                 }}
               />
@@ -35,7 +35,7 @@ const MyPopup = () => {
                 background={colors.primary}
                 color={colors.white}
                 onClick={() => {
-                  setIsPopupState(false);
+                  setOpenPopup(false);
                   setMessageState('');
                 }}
               />
@@ -43,7 +43,7 @@ const MyPopup = () => {
                 text="확인"
                 onClick={() => {
                   // setDeleted(true);
-                  setIsPopupState(false);
+                  setOpenPopup(false);
                   setMessageState('');
                 }}
               />

@@ -6,7 +6,7 @@ import { colors } from '@/app/styles/colors.css';
 const LoginPopup = () => {
   const { setIsPopup, setMessage } = usePopupStore();
   const loginMessageState = usePopupStore((state) => state.message);
-  const isLoginPopupState = usePopupStore((state) => state.isPopup);
+  const isLoginPopupState = usePopupStore((state) => state.openPopup);
   return (
     <>
       {isLoginPopupState && (

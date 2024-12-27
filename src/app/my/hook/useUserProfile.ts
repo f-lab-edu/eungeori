@@ -6,14 +6,14 @@ import { useUserInfoStore, IMAGE_SRC } from '@/app/store/user/userStore';
 export const useUserProfile = () => {
   const userInfo = useUserInfoStore((state) => state.userInfo);
   const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
-  const setIsPopupState = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setIsPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
   const { id } = userInfo;
 
   const uploadUserProfile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
-      setIsPopupState(true);
+      setOpenPopup(true);
       setMessageState('업로드할 파일을 선택하세요.');
       return;
     }
@@ -52,7 +52,7 @@ export const useUserProfile = () => {
     } catch (e) {
       setMessageState('알 수 없는 오류가 발생했습니다.');
     } finally {
-      setIsPopupState(true);
+      setOpenPopup(true);
     }
   };
 
@@ -75,7 +75,7 @@ export const useUserProfile = () => {
     } catch (e) {
       setMessageState('알 수 없는 오류가 발생했습니다.');
     } finally {
-      setIsPopupState(true);
+      setOpenPopup(true);
     }
   };
 

@@ -15,9 +15,9 @@ const LogoutButton = () => {
 
   const userInfo = useUserInfoStore((state) => state.userInfo);
 
-  const isPopupState = usePopupStore((state) => state.isPopup);
+  const isPopupState = usePopupStore((state) => state.openPopup);
   const messageState = usePopupStore((state) => state.message);
-  const setIsPopupState = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setIsPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
   const onClick = async () => {
@@ -30,12 +30,12 @@ const LogoutButton = () => {
       return;
     } catch (e) {
       setMessageState('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요');
-      setIsPopupState(true);
+      setOpenPopup(true);
     }
   };
 
   const deleteConfirmationVisible = () => {
-    setIsPopupState(true);
+    setOpenPopup(true);
     setMessageState('정말 탈퇴하시겠습니까?');
   };
 
@@ -56,12 +56,12 @@ const LogoutButton = () => {
     } catch (e) {
       setMessageState('알 수 없는 오류가 발생했습니다.');
     } finally {
-      setIsPopupState(true);
+      setOpenPopup(true);
     }
   };
 
   const closePopup = () => {
-    setIsPopupState(false);
+    setOpenPopup(false);
     setMessageState('');
   };
 
@@ -82,7 +82,7 @@ const LogoutButton = () => {
                   text="확인"
                   onClick={() => {
                     onDeleteAccount();
-                    setIsPopupState(false);
+                    setOpenPopup(false);
                     setMessageState('');
                   }}
                 />
@@ -91,7 +91,7 @@ const LogoutButton = () => {
               <Button
                 text="확인"
                 onClick={() => {
-                  setIsPopupState(false);
+                  setOpenPopup(false);
                   setMessageState('');
                 }}
               />

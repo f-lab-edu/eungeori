@@ -17,7 +17,7 @@ const DetailEditPage = () => {
   const recordNoteState = useInfoStore((state) => state.recordNote);
   const setRecordNoteState = useInfoStore((state) => state.setRecordNote);
 
-  const editPopupState = usePopupStore((state) => state.isPopup);
+  const editPopupState = usePopupStore((state) => state.openPopup);
   const setEditPopupState = usePopupStore((state) => state.setIsPopup);
   const editPopupMessageState = usePopupStore((state) => state.message);
   const setEditPopupMessageState = usePopupStore((state) => state.setMessage);
