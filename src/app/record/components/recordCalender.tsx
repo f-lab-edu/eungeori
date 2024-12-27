@@ -1,6 +1,5 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ko } from 'date-fns/locale/ko';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
 import { gray300 } from '@/app/styles/colors.css';
 import { caption2 } from '@/app/styles/font.css';
@@ -45,6 +44,7 @@ const Calender = () => {
   const { startDateState, setStartDateState } = useCalenderContext();
 
   const startOfYear = new Date(startDateState.getFullYear(), 0, 1);
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
   return (
     <>
       <article
@@ -58,7 +58,6 @@ const Calender = () => {
       </article>
       <DatePicker
         className={datepickerWapper}
-        locale={ko}
         selected={startDateState}
         onChange={(date) => {
           if (date !== null) {
@@ -69,6 +68,18 @@ const Calender = () => {
         minDate={startOfYear}
         maxDate={new Date()}
         renderCustomHeader={() => <></>}
+        formatWeekDay={(nameOfDay) => {
+          const dayIndex = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+          ].indexOf(nameOfDay);
+          return days[dayIndex];
+        }}
       />
     </>
   );
