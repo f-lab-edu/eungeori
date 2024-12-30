@@ -68,7 +68,7 @@ const LogoutButton = () => {
   return (
     <>
       {isPopupState && (
-        <Popup text={messageState}>
+        <Popup>
           <div className={flexSprinklesFc({ gap: '4px' })}>
             {messageState === '정말 탈퇴하시겠습니까?' ? (
               <>

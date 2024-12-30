@@ -15,12 +15,13 @@ const MyPopup = () => {
         (messageState === '유효하지 않은 입력값입니다.' ||
         messageState === '알 수 없는 오류가 발생했습니다.' ||
         messageState === '저장 되었습니다.' ? (
-          <Popup text={messageState}>
+          <Popup>
             <div className={flexSprinklesFc({ gap: '4px' })}>
               <Button
+                background={colors.primary}
+                color={colors.white}
                 text="확인"
                 onClick={() => {
-                  // setDeleted(true);
                   setOpenPopup(false);
                   setMessageState('');
                 }}
@@ -28,7 +29,7 @@ const MyPopup = () => {
             </div>
           </Popup>
         ) : (
-          <Popup text={messageState}>
+          <Popup>
             <div className={flexSprinklesFc({ gap: '4px' })}>
               <Button
                 text="취소"
@@ -42,7 +43,6 @@ const MyPopup = () => {
               <Button
                 text="확인"
                 onClick={() => {
-                  // setDeleted(true);
                   setOpenPopup(false);
                   setMessageState('');
                 }}

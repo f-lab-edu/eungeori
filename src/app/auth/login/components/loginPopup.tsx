@@ -4,19 +4,18 @@ import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { colors } from '@/app/styles/colors.css';
 
 const LoginPopup = () => {
-  const { setIsPopup, setMessage } = usePopupStore();
-  const loginMessageState = usePopupStore((state) => state.message);
+  const { setOpenPopup, setMessage } = usePopupStore();
   const isLoginPopupState = usePopupStore((state) => state.openPopup);
   return (
     <>
       {isLoginPopupState && (
-        <Popup text={loginMessageState}>
+        <Popup>
           <Button
             text="확인"
             background={colors.primary}
             color={colors.white}
             onClick={() => {
-              setIsPopup(false);
+              setOpenPopup(false);
               setMessage('');
             }}
           />

@@ -14,7 +14,7 @@ const SignupPopup = () => {
   const router = useRouter();
   const signupMessageState = usePopupStore((state) => state.message);
   const signupPopupState = usePopupStore((state) => state.openPopup);
-  const setSignupPopupState = usePopupStore((state) => state.setIsPopup);
+  const setSignupPopupState = usePopupStore((state) => state.setOpenPopup);
 
   const onClick = () => {
     const route = signupMessageState ? messageRoute[signupMessageState] : null;
@@ -29,7 +29,7 @@ const SignupPopup = () => {
   return (
     <div>
       {signupPopupState && (
-        <Popup text={signupMessageState}>
+        <Popup>
           <Button
             width="115px"
             text="확인"
