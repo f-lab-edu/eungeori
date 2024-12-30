@@ -9,7 +9,7 @@ import RecordPopup from './components/popup';
 import RecordCalender from './components/recordCalender';
 import { plusIconBox, plusIcon } from './styles/record.css';
 import Image from 'next/image';
-import { StepChangeHandler } from './page';
+import { Step, StepChangeHandler } from './page';
 import { supabaseClient } from '../lib/supabaseClient';
 import { BowelAttributes } from '../types/bowelAttributesSchema';
 import { useUserInfoStore } from '../store/user/userStore';
@@ -128,7 +128,7 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
         <div
           className={plusIconBox}
           onClick={() => {
-            onButtonClick(1);
+            onButtonClick(Step.STEP2);
           }}
         >
           <div className={plusIcon}>

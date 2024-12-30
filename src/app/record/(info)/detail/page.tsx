@@ -10,7 +10,7 @@ import { usePopupStore } from '@/app/store/popup/PopupStore';
 import DetailPopup from './components/popup';
 import TitleText from './components/titleText';
 import { infoContainer } from '../common/common.css';
-import { StepChangeHandler } from '../../page';
+import { Step, StepChangeHandler } from '../../page';
 import { formatToLocalISOString, formatToLocalYYYYMMDD } from '@/app/common/utils/date';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 import { supabaseClient } from '@/app/lib/supabaseClient';
@@ -76,8 +76,8 @@ const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
       setDetailPopupState(true);
 
       setTimeout(() => {
-        onButtonClick(0);
-      }, 2000); // 팝업을 닫지 않아도 이동되게
+        onButtonClick(Step.STEP1);
+      }, 1000); // 팝업을 닫지 않아도 이동되게
     } else {
       setDetailPopupMessageState('기록에 실패했습니다. 다시 시도해 주세요.');
       setDetailPopupState(true);
@@ -99,7 +99,7 @@ const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
             text="이전"
             borderRadius="10px"
             onClick={() => {
-              onButtonClick(0);
+              onButtonClick(Step.STEP1);
             }}
           />
           <Button

@@ -1,6 +1,6 @@
 import Button from '@/app/components/common/Button';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { StepChangeHandler } from '@/app/record/page';
+import { Step, StepChangeHandler } from '@/app/record/page';
 import useInfoStore from '@/app/store/info/infoStore';
 
 import { colors } from '@/app/styles/colors.css';
@@ -13,7 +13,7 @@ const TimeButton = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
       alert('시간을 선택하세요');
       return;
     }
-    onButtonClick(2);
+    onButtonClick(Step.STEP3);
   };
 
   return (

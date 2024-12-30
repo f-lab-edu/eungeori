@@ -1,6 +1,6 @@
 import Button from '@/app/components/common/Button';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { StepChangeHandler } from '@/app/record/page';
+import { Step, StepChangeHandler } from '@/app/record/page';
 import { colors } from '@/app/styles/colors.css';
 
 const ShapeButton = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
@@ -11,7 +11,7 @@ const ShapeButton = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) =>
         height="59px"
         borderRadius="10px"
         onClick={() => {
-          onButtonClick(1);
+          onButtonClick(Step.STEP2);
         }}
       />
       <Button
@@ -22,7 +22,7 @@ const ShapeButton = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) =>
         color={colors.white}
         borderRadius="10px"
         onClick={() => {
-          onButtonClick(3);
+          onButtonClick(Step.STEP4);
         }}
       />
     </div>
