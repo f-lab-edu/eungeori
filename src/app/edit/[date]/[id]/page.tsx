@@ -18,8 +18,7 @@ const DetailEditPage = () => {
   const setRecordNoteState = useInfoStore((state) => state.setRecordNote);
 
   const editPopupState = usePopupStore((state) => state.openPopup);
-  const setEditPopupState = usePopupStore((state) => state.setIsPopup);
-  const editPopupMessageState = usePopupStore((state) => state.message);
+  const setEditPopupState = usePopupStore((state) => state.setOpenPopup);
   const setEditPopupMessageState = usePopupStore((state) => state.setMessage);
 
   const router = useRouter();
@@ -78,7 +77,7 @@ const DetailEditPage = () => {
   return (
     <>
       {editPopupState && (
-        <Popup text={editPopupMessageState}>
+        <Popup>
           <Button
             text="닫기"
             background={colors.primary}
@@ -98,7 +97,7 @@ const DetailEditPage = () => {
           </h3>
         </div>
 
-        <Memo onChange={(e) => setRecordNoteState(e.target.value)} text={recordNoteState} />
+        <Memo text={recordNoteState} />
 
         <div className={flexSprinklesFc({ gap: '16px', justifyContent: 'center' })}>
           <Button

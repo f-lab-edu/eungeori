@@ -120,6 +120,7 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
                 onDeleteClick={() => {
                   onDeleteClick(date.id);
                 }}
+                isReadOnly
               />
             );
           })}

@@ -17,7 +17,8 @@ import { supabaseClient } from '@/app/lib/supabaseClient';
 
 const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   const setRecordNoteState = useInfoStore((state) => state.setRecordNote);
-  const setDetailPopupState = usePopupStore((state) => state.setIsPopup);
+  const setDetailPopupState = usePopupStore((state) => state.setOpenPopup);
+  const detailPopupState = usePopupStore((state) => state.openPopup);
   const setDetailPopupMessageState = usePopupStore((state) => state.setMessage);
 
   const recordNoteState = useInfoStore((state) => state.recordNote);
@@ -50,48 +51,48 @@ const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
         return true;
       }
     } catch (e) {
-      setDetailPopupMessageState('기록에 실패했습니다.');
       setDetailPopupState(true);
+      setDetailPopupMessageState('기록에 실패했습니다.');
       return false;
     }
   };
 
   const onSaveClick = async () => {
     if (recordNoteState.length < 3) {
-      setDetailPopupMessageState('세 글자 이상 입력해 주세요.');
       setDetailPopupState(true);
+      setDetailPopupMessageState('세 글자 이상 입력해 주세요.');
       return;
     }
 
     if (recordNoteState.length > 250) {
-      setDetailPopupMessageState('최대 글자 수는 250자를 넘을 수 없습니다.');
       setDetailPopupState(true);
+      setDetailPopupMessageState('최대 글자 수는 250자를 넘을 수 없습니다.');
       return;
     }
 
     const saveSuccess = await handleSaveData();
 
     if (saveSuccess) {
-      setDetailPopupMessageState('기록 되었습니다.');
       setDetailPopupState(true);
+      setDetailPopupMessageState('기록 되었습니다.');
 
       setTimeout(() => {
         onButtonClick(Step.STEP1);
       }, 1000); // 팝업을 닫지 않아도 이동되게
     } else {
-      setDetailPopupMessageState('기록에 실패했습니다. 다시 시도해 주세요.');
       setDetailPopupState(true);
+      setDetailPopupMessageState('기록에 실패했습니다. 다시 시도해 주세요.');
     }
     setRecordNoteState('');
   };
 
   return (
     <>
-      <DetailPopup />
+      {detailPopupState && <DetailPopup />}
       <article className={infoContainer}>
         <TitleText />
 
-        <Memo onChange={(e) => setRecordNoteState(e.target.value)} text={recordNoteState} />
+        <Memo text={recordNoteState} />
 
         <div className={flexSprinklesFc({ gap: '16px', justifyContent: 'center' })}>
           <Button

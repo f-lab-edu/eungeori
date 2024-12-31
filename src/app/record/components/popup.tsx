@@ -13,7 +13,7 @@ type RecordPopupProps = {
 const RecordPopup = ({ message, onClose, onConfirm }: RecordPopupProps) => {
   return (
     <>
-      <Popup text={message}>
+      <Popup>
         <div className={`${flexSprinklesFc({ gap: '16px' })} ${pointer}`}>
           {message === '내용을 삭제하시겠습니까?' ? (
             <>
