@@ -133,6 +133,8 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
 
         <div
           className={plusIconBox}
+          role="button"
+          tabIndex={0}
           onClick={() => {
             onButtonClick(Step.STEP2);
           }}
