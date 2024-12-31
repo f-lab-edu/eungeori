@@ -16,12 +16,12 @@ import { useUserInfoStore } from '@/app/store/user/userStore';
 import { supabaseClient } from '@/app/lib/supabaseClient';
 
 const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
-  const setRecordNoteState = useInfoStore((state) => state.setRecordNote);
-  const setDetailPopupState = usePopupStore((state) => state.setOpenPopup);
   const detailPopupState = usePopupStore((state) => state.openPopup);
+  const setDetailPopupState = usePopupStore((state) => state.setOpenPopup);
   const setDetailPopupMessageState = usePopupStore((state) => state.setMessage);
 
   const recordNoteState = useInfoStore((state) => state.recordNote);
+  const setRecordNoteState = useInfoStore((state) => state.setRecordNote);
   const stoolAttributes = useInfoStore((state) => state.stoolAttributes);
   const userId = useUserInfoStore((state) => state.userInfo.id);
 

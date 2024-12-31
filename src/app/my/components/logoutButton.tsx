@@ -17,7 +17,7 @@ const LogoutButton = () => {
 
   const isPopupState = usePopupStore((state) => state.openPopup);
   const messageState = usePopupStore((state) => state.message);
-  const setOpenPopup = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
   const onClick = async () => {

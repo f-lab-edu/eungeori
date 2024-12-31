@@ -12,7 +12,7 @@ const UserGoalInput = () => {
 
   const userInfo = useUserInfoStore((state) => state.userInfo);
 
-  const setOpenPopup = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
   const onGoalSave = async (goal: string) => {

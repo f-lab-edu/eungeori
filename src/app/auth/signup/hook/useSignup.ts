@@ -24,7 +24,7 @@ const checkNicknameExists = async (nickname: string) => {
 };
 
 export const useSignup = () => {
-  const setOpenPopup = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
   const onSignupSubmit = async (data: z.infer<typeof signupSchema>) => {

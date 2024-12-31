@@ -6,7 +6,7 @@ import { useUserInfoStore, IMAGE_SRC } from '@/app/store/user/userStore';
 export const useUserProfile = () => {
   const userInfo = useUserInfoStore((state) => state.userInfo);
   const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
-  const setOpenPopup = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
   const { id } = userInfo;
 

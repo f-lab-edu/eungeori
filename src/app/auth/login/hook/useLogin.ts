@@ -8,7 +8,7 @@ import { z } from 'zod';
 export const useLogin = () => {
   const router = useRouter();
 
-  const setOpenPopup = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
   const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
