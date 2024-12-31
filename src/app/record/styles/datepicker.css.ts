@@ -1,7 +1,7 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { contentFont, paragraph, semiBold } from '@styles/font.css';
 
-export const datepickerWapper = style({
+export const datepickerWrapper = style({
   position: 'relative',
   fontFamily: contentFont,
   border: 'none',

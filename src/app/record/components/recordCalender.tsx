@@ -5,7 +5,7 @@ import { gray300 } from '@/app/styles/colors.css';
 import { caption2 } from '@/app/styles/font.css';
 import { recordDateSection } from '../styles/record.css';
 
-import { datepickerWapper } from '../styles/datepicker.css';
+import { datepickerWrapper } from '../styles/datepicker.css';
 
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
 import CalenderDropDown from './calenderDropDown';
@@ -57,7 +57,7 @@ const Calender = () => {
         <p className={`${caption2} ${gray300}`}>오늘 하루를 기록해 볼까요?</p>
       </article>
       <DatePicker
-        className={datepickerWapper}
+        className={datepickerWrapper}
         selected={startDateState}
         onChange={(date) => {
           if (date !== null) {
