@@ -23,7 +23,7 @@ const TimeButton = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
         height="59px"
         borderRadius="10px"
         onClick={() => {
-          onButtonClick(0);
+          onButtonClick(Step.STEP1);
         }}
       />
       <Button

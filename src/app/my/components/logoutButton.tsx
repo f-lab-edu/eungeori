@@ -90,6 +90,8 @@ const LogoutButton = () => {
             ) : (
               <Button
                 text="확인"
+                background={colors.primary}
+                color={colors.white}
                 onClick={() => {
                   setOpenPopup(false);
                   setMessageState('');

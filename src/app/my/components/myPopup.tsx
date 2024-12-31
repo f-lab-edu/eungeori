@@ -3,7 +3,6 @@ import Popup from '@/app/components/common/Popup';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { colors } from '@/app/styles/colors.css';
-
 const MyPopup = () => {
   const openPopup = usePopupStore((state) => state.openPopup);
   const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
