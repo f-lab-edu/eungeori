@@ -17,7 +17,7 @@ const UserGoalInput = () => {
 
   const onGoalSave = async (goal: string) => {
     try {
-      if (!userInfo.id || !goal.trim()) {
+      if (!userInfo?.id || !goal.trim()) {
         setMessageState('유효하지 않은 입력값입니다.');
         return;
       }
@@ -47,6 +47,8 @@ const UserGoalInput = () => {
 
   useEffect(() => {
     const getGoalData = async () => {
+      if (!userInfo?.id) return;
+
       try {
         const { data, error } = await supabaseClient
           .from('user_profile')
@@ -67,7 +69,7 @@ const UserGoalInput = () => {
     };
 
     getGoalData();
-  }, []);
+  }, [userInfo]);
 
   return (
     <div className={myTargetContainer}>
