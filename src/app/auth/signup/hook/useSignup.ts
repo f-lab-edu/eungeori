@@ -1,31 +1,66 @@
-import { usePopupStore } from "@/app/store/popup/PopupStore";
-import { LocalStorage } from "@/app/types/localStorageSchema";
-import { signupSchema } from "@/app/types/signupSchema";
-import { z } from "zod";
+import { supabaseClient } from '@/app/lib/supabaseClient';
+import { usePopupStore } from '@/app/store/popup/PopupStore';
+import { signupSchema } from '@/app/types/signupSchema';
+import { z } from 'zod';
+
+const checkEmailExists = async (email: string) => {
+  const { data, error } = await supabaseClient.rpc('check_email_exists', { email_input: email });
+
+  if (error) {
+    return false;
+  }
+
+  return data; // boolean
+};
+
+const checkNicknameExists = async (nickname: string) => {
+  const { data, error } = await supabaseClient.rpc('check_nickname_exists', { nickname });
+
+  if (error) {
+    return false;
+  }
+
+  return data; // boolean
+};
 
 export const useSignup = () => {
-  const setIsPopupState = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
-  const onSignupSubmit = (data: z.infer<typeof signupSchema>) => {
-    const signupStorage = new LocalStorage("signup");
+  const onSignupSubmit = async (data: z.infer<typeof signupSchema>) => {
+    try {
+      const isNicknameExists = await checkNicknameExists(data.nickname);
+      const isEmailExists = await checkEmailExists(data.email);
 
-    if (data.id === signupStorage.get()?.id) {
-      setIsPopupState(true);
-      setMessageState("이미 존재하는 회원입니다.");
-      return;
-    }
+      if (isEmailExists) {
+        setMessageState('이미 가입된 이메일입니다.');
+        return;
+      }
 
-    if (data.nickname === signupStorage.get()?.nickname) {
-      setIsPopupState(true);
-      setMessageState("이미 존재하는 닉네임입니다.");
-      return;
-    }
+      if (isNicknameExists) {
+        setMessageState('이미 존재하는 닉네임입니다.');
+        return;
+      }
 
-    if (data) {
-      setIsPopupState(true);
-      setMessageState("회원가입이 완료됐습니다.");
-      signupStorage.set(data);
+      const { data: userData, error } = await supabaseClient.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
+            nickname: data.nickname,
+          },
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      setMessageState('이메일 인증 후 로그인 해주세요.');
+    } catch (e) {
+      setMessageState('알 수 없는 오류가 발생했습니다.');
+    } finally {
+      setOpenPopup(true);
     }
   };
 

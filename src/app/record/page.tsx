@@ -1,44 +1,36 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { flexSprinklesFc } from "../components/common/utils/flex";
-import { plusIconBox, plusIcon } from "./styles/record.css";
-import "react-datepicker/dist/react-datepicker.css";
-import RecordCalender from "./components/recordCalender";
-import RecordPopup from "./components/popup";
+import { useState } from 'react';
+import RecordPage from '.';
+import TimePage from './(info)/time/page';
+import ShapePage from './(info)/shape/page';
+import DetailPage from './(info)/detail/page';
+import useConfirmPageLeave from '../hook/useConfirmPageLeave';
+
+export type StepChangeHandler = (newStep: number) => void;
+
+export enum Step {
+  STEP1 = 0,
+  STEP2,
+  STEP3,
+  STEP4,
+}
 
 const Page = () => {
-  const router = useRouter();
+  const [step, setStep] = useState<Step>(Step.STEP1);
+
+  const handleButtonClick = (step: Step) => {
+    setStep(step);
+  };
+
+  useConfirmPageLeave(step !== 0);
 
   return (
     <>
-      {/* <RecordPopup /> */}
-      <section>
-        <RecordCalender>
-          <RecordCalender.Calender />
-        </RecordCalender>
-
-        <article
-          className={`${flexSprinklesFc({
-            flexDirection: "column",
-            gap: "8px",
-          })}`}
-        >
-          {/* 메모 자리 */}
-        </article>
-
-        <div
-          className={plusIconBox}
-          onClick={() => {
-            router.push("/info/time");
-          }}
-        >
-          <div className={plusIcon}>
-            <Image src="/svgs/plus.svg" alt="add" width={10} height={10} />
-          </div>
-        </div>
-      </section>
+      {step === Step.STEP1 && <RecordPage onButtonClick={handleButtonClick} />}
+      {step === Step.STEP2 && <TimePage onButtonClick={handleButtonClick} />}
+      {step === Step.STEP3 && <ShapePage onButtonClick={handleButtonClick} />}
+      {step === Step.STEP4 && <DetailPage onButtonClick={handleButtonClick} />}
     </>
   );
 };

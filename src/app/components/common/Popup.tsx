@@ -1,13 +1,17 @@
-import { paragraph2, semiBold } from "@/app/styles/font.css";
-import { flexSprinklesFc } from "./utils/flex";
-import { popupContents, popupWrapper } from "./popup.css";
-import { MessageType } from "@/app/types/schemas";
+import { paragraph2, semiBold } from '@/app/styles/font.css';
+import { flexSprinklesFc } from './utils/flex';
+import { popupContents, popupWrapper } from './popup.css';
+import { usePopupStore } from '@/app/store/popup/PopupStore';
 
-const Popup = ({ text, children }: { text: MessageType; children: React.ReactNode }) => {
+const Popup = ({ children }: { children: React.ReactNode }) => {
+  const message = usePopupStore((state) => state.message);
+
   return (
     <section className={popupWrapper}>
-      <article className={`${popupContents} ${flexSprinklesFc({ flexDirection: "column", gap: "24px" })}`}>
-        <p className={`${paragraph2} ${semiBold}`}>{text}</p>
+      <article
+        className={`${popupContents} ${flexSprinklesFc({ flexDirection: 'column', gap: '24px' })}`}
+      >
+        <p className={`${paragraph2} ${semiBold}`}>{message}</p>
         {children}
       </article>
     </section>

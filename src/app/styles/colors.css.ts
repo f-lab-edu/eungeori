@@ -1,18 +1,18 @@
-import { style } from "@vanilla-extract/css";
+import { style } from '@vanilla-extract/css';
 
 export const colors = {
-  point: "#4FE786",
-  primary: "#141313",
-  line: "#F3F3F3",
-  white: "#ffffff",
-  white30: "#F5F5F5",
-  gray150: "#E3E3E3",
-  gray200: "#D9D9D9",
-  gray300: "#AEB0B2",
-  gray400: "#B8B8B8",
-  gray500: "#9B9B9B",
-  pink80: "#ee6a7b",
-  background: "#F5F5F5",
+  point: '#4FE786',
+  primary: '#141313',
+  line: '#F3F3F3',
+  white: '#ffffff',
+  white30: '#F5F5F5',
+  gray150: '#E3E3E3',
+  gray200: '#D9D9D9',
+  gray300: '#AEB0B2',
+  gray400: '#B8B8B8',
+  gray500: '#9B9B9B',
+  pink80: '#ee6a7b',
+  background: '#F5F5F5',
 };
 
 export const point = style({
