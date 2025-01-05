@@ -1,6 +1,5 @@
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { gray300 } from '@/app/styles/colors.css';
-import { semiBold, heading2, caption } from '@/app/styles/font.css';
+import { semiBold, heading2 } from '@/app/styles/font.css';
 
 const TitleText = () => {
   return (
@@ -10,7 +9,6 @@ const TitleText = () => {
         <br />
         내용이 있나요?
       </h3>
-      <p className={`${gray300} ${caption}`}>(선택) 기록하고 싶은 내용이 있다면 적어보세요</p>
     </div>
   );
 };

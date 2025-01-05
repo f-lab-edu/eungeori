@@ -1,7 +1,8 @@
 import Button from '@/app/components/common/Button';
 import Popup from '@/app/components/common/Popup';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { admin, supabaseClient } from '@/app/lib/supabaseClient';
+import { supabaseClient } from '@/app/lib/supabaseClient';
+import { supabaseAdmin } from '@/app/lib/supabaseAdmin';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { useUserInfoStore } from '@/app/store/user/userStore';
 import { colors, gray300 } from '@/app/styles/colors.css';
@@ -14,36 +15,35 @@ const LogoutButton = () => {
 
   const userInfo = useUserInfoStore((state) => state.userInfo);
 
-  const isPopupState = usePopupStore((state) => state.isPopup);
+  const isPopupState = usePopupStore((state) => state.openPopup);
   const messageState = usePopupStore((state) => state.message);
-  const setIsPopupState = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
   const onClick = async () => {
     try {
       const { error } = await supabaseClient.auth.signOut();
       if (error) {
-        throw new Error();
+        throw error;
       }
       router.push('/');
       return;
     } catch (e) {
       setMessageState('로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요');
-    } finally {
-      setIsPopupState(true);
+      setOpenPopup(true);
     }
   };
 
   const deleteConfirmationVisible = () => {
-    setIsPopupState(true);
+    setOpenPopup(true);
     setMessageState('정말 탈퇴하시겠습니까?');
   };
 
   const onDeleteAccount = async () => {
-    const { data, error } = await admin.auth.admin.deleteUser(userInfo.id);
+    const { data, error } = await supabaseAdmin.auth.admin.deleteUser(userInfo.id);
 
     if (error) {
-      throw new Error();
+      throw error;
     }
 
     try {
@@ -56,19 +56,19 @@ const LogoutButton = () => {
     } catch (e) {
       setMessageState('알 수 없는 오류가 발생했습니다.');
     } finally {
-      setIsPopupState(true);
+      setOpenPopup(true);
     }
   };
 
   const closePopup = () => {
-    setIsPopupState(false);
+    setOpenPopup(false);
     setMessageState('');
   };
 
   return (
     <>
       {isPopupState && (
-        <Popup text={messageState}>
+        <Popup>
           <div className={flexSprinklesFc({ gap: '4px' })}>
             {messageState === '정말 탈퇴하시겠습니까?' ? (
               <>
@@ -82,7 +82,7 @@ const LogoutButton = () => {
                   text="확인"
                   onClick={() => {
                     onDeleteAccount();
-                    setIsPopupState(false);
+                    setOpenPopup(false);
                     setMessageState('');
                   }}
                 />
@@ -90,8 +90,10 @@ const LogoutButton = () => {
             ) : (
               <Button
                 text="확인"
+                background={colors.primary}
+                color={colors.white}
                 onClick={() => {
-                  setIsPopupState(false);
+                  setOpenPopup(false);
                   setMessageState('');
                 }}
               />

@@ -8,7 +8,7 @@ import { z } from 'zod';
 export const useLogin = () => {
   const router = useRouter();
 
-  const setIsPopupState = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
   const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
@@ -42,10 +42,9 @@ export const useLogin = () => {
 
       return;
     } catch (e) {
+      setOpenPopup(true);
       setMessageState('알 수 없는 오류가 발생했습니다.');
       return;
-    } finally {
-      setIsPopupState(true);
     }
   };
 

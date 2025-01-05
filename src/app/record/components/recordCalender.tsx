@@ -1,15 +1,15 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ko } from 'date-fns/locale/ko';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
 import { gray300 } from '@/app/styles/colors.css';
 import { caption2 } from '@/app/styles/font.css';
 import { recordDateSection } from '../styles/record.css';
 
-import { datepickerWapper } from '../styles/datepicker.css';
-import { useRecordStore } from '@/app/store/record/recordStore';
+import { datepickerWrapper } from '../styles/datepicker.css';
+
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
 import CalenderDropDown from './calenderDropDown';
+import useInfoStore from '@/app/store/info/infoStore';
 
 type CalenderContext = {
   isShow: boolean;
@@ -22,8 +22,8 @@ const CalenderContext = createContext<CalenderContext | undefined>(undefined);
 
 const RecordCalender = ({ children }: { children: React.ReactNode }) => {
   const [isShow, setIsShow] = useState(false);
-  const startDateState = useRecordStore((state) => state.startDate);
-  const setStartDateState = useRecordStore((state) => state.setStartDate);
+  const startDateState = useInfoStore((state) => state.startDate);
+  const setStartDateState = useInfoStore((state) => state.setStartDate);
 
   return (
     <CalenderContext.Provider value={{ isShow, setIsShow, startDateState, setStartDateState }}>
@@ -44,6 +44,7 @@ const Calender = () => {
   const { startDateState, setStartDateState } = useCalenderContext();
 
   const startOfYear = new Date(startDateState.getFullYear(), 0, 1);
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
   return (
     <>
       <article
@@ -56,8 +57,7 @@ const Calender = () => {
         <p className={`${caption2} ${gray300}`}>오늘 하루를 기록해 볼까요?</p>
       </article>
       <DatePicker
-        className={datepickerWapper}
-        locale={ko}
+        className={datepickerWrapper}
         selected={startDateState}
         onChange={(date) => {
           if (date !== null) {
@@ -68,6 +68,18 @@ const Calender = () => {
         minDate={startOfYear}
         maxDate={new Date()}
         renderCustomHeader={() => <></>}
+        formatWeekDay={(nameOfDay) => {
+          const dayIndex = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+          ].indexOf(nameOfDay);
+          return days[dayIndex];
+        }}
       />
     </>
   );

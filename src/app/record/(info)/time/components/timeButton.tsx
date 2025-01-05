@@ -1,10 +1,20 @@
 import Button from '@/app/components/common/Button';
 import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { colors } from '@/app/styles/colors.css';
-import { useRouter } from 'next/navigation';
+import { Step, StepChangeHandler } from '@/app/record/page';
+import useInfoStore from '@/app/store/info/infoStore';
 
-const ShapeButton = () => {
-  const router = useRouter();
+import { colors } from '@/app/styles/colors.css';
+
+const TimeButton = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
+  const bowelTime = useInfoStore((state) => state.bowelTime);
+
+  const onNext = () => {
+    if (bowelTime.hour === 0 && bowelTime.minute === 0) {
+      alert('시간을 선택하세요');
+      return;
+    }
+    onButtonClick(Step.STEP3);
+  };
 
   return (
     <div className={flexSprinklesFc({ gap: '16px', justifyContent: 'center' })}>
@@ -13,7 +23,7 @@ const ShapeButton = () => {
         height="59px"
         borderRadius="10px"
         onClick={() => {
-          router.push('/info/time');
+          onButtonClick(Step.STEP1);
         }}
       />
       <Button
@@ -23,12 +33,10 @@ const ShapeButton = () => {
         background={colors.primary}
         color={colors.white}
         borderRadius="10px"
-        onClick={() => {
-          router.push('/info/detail');
-        }}
+        onClick={onNext}
       />
     </div>
   );
 };
 
-export default ShapeButton;
+export default TimeButton;

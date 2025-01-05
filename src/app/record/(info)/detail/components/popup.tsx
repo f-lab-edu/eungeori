@@ -3,20 +3,20 @@ import Popup from '@/app/components/common/Popup';
 import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { colors } from '@/app/styles/colors.css';
 
-const LoginPopup = () => {
-  const { setOpenPopup, setMessage } = usePopupStore();
-  const isLoginPopupState = usePopupStore((state) => state.openPopup);
+const DetailPopup = () => {
+  const detailPopupState = usePopupStore((state) => state.openPopup);
+  const setDetailPopupState = usePopupStore((state) => state.setOpenPopup);
+
   return (
     <>
-      {isLoginPopupState && (
+      {detailPopupState && (
         <Popup>
           <Button
-            text="확인"
+            text="닫기"
             background={colors.primary}
             color={colors.white}
             onClick={() => {
-              setOpenPopup(false);
-              setMessage('');
+              setDetailPopupState(false);
             }}
           />
         </Popup>
@@ -25,4 +25,4 @@ const LoginPopup = () => {
   );
 };
 
-export default LoginPopup;
+export default DetailPopup;

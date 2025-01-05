@@ -24,7 +24,7 @@ const checkNicknameExists = async (nickname: string) => {
 };
 
 export const useSignup = () => {
-  const setIsPopupState = usePopupStore((state) => state.setIsPopup);
+  const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
   const onSignupSubmit = async (data: z.infer<typeof signupSchema>) => {
@@ -53,14 +53,14 @@ export const useSignup = () => {
       });
 
       if (error) {
-        throw new Error();
+        throw error;
       }
 
       setMessageState('이메일 인증 후 로그인 해주세요.');
     } catch (e) {
       setMessageState('알 수 없는 오류가 발생했습니다.');
     } finally {
-      setIsPopupState(true);
+      setOpenPopup(true);
     }
   };
 
