@@ -35,7 +35,7 @@ const ClientProvider = ({ children }: { children: React.ReactNode }) => {
         }
 
         if (error || !data) {
-          throw new Error();
+          throw error;
         }
       } catch {
         resetUserInfo();

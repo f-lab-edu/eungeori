@@ -53,7 +53,7 @@ export const useSignup = () => {
       });
 
       if (error) {
-        throw new Error();
+        throw error;
       }
 
       setMessageState('이메일 인증 후 로그인 해주세요.');

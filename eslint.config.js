@@ -35,12 +35,22 @@ export default [
       prettier: eslintPluginPrettier,
       "@typescript-eslint": eslintPluginTypescript,
     },
+    extends: [
+      "eslint:recommended",
+      "plugin:react/recommended", 
+      "plugin:@typescript-eslint/recommended", 
+      "plugin:prettier/recommended", 
+    ],
     rules: {
       "react/react-in-jsx-scope": "off",
       "prettier/prettier": [
         "error",
         {
           endOfLine: "auto",
+          semi: true,
+          singleQuote: true,
+          trailingComma: "es5",
+          bracketSpacing: true,
         },
       ],
       "arrow-body-style": "off",
