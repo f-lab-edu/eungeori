@@ -11,80 +11,12 @@ import DetailPopup from './components/popup';
 import TitleText from './components/titleText';
 import { infoContainer } from '../common/common.css';
 import { Step, StepChangeHandler } from '../../page';
-import { formatToLocalISOString, formatToLocalYYYYMMDD } from '@/app/common/utils/date';
-import { useUserInfoStore } from '@/app/store/user/userStore';
-import { supabaseClient } from '@/app/lib/supabaseClient';
+import useDetailActions from './hook/useDetailActions';
 
 const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   const detailPopupState = usePopupStore((state) => state.openPopup);
-  const setDetailPopupState = usePopupStore((state) => state.setOpenPopup);
-  const setDetailPopupMessageState = usePopupStore((state) => state.setMessage);
-
   const recordNoteState = useInfoStore((state) => state.recordNote);
-  const setRecordNoteState = useInfoStore((state) => state.setRecordNote);
-  const stoolAttributes = useInfoStore((state) => state.stoolAttributes);
-  const userId = useUserInfoStore((state) => state.userInfo.id);
-
-  const bowelTime = useInfoStore((state) => state.bowelTime);
-  const startDate = useInfoStore((state) => state.startDate);
-  const time = formatToLocalISOString(bowelTime, formatToLocalYYYYMMDD(startDate));
-
-  const handleSaveData = async () => {
-    try {
-      const { data, error } = await supabaseClient
-        .from('bowel_attributes')
-        .insert([
-          {
-            bowel_time: time,
-            stool_attributes: stoolAttributes,
-            record_note: recordNoteState,
-            user_id: userId,
-          },
-        ])
-        .select('record_note');
-
-      if (error) {
-        throw error;
-      }
-
-      if (data) {
-        return true;
-      }
-    } catch (e) {
-      setDetailPopupState(true);
-      setDetailPopupMessageState('기록에 실패했습니다.');
-      return false;
-    }
-  };
-
-  const onSaveClick = async () => {
-    if (recordNoteState.length < 3) {
-      setDetailPopupState(true);
-      setDetailPopupMessageState('세 글자 이상 입력해 주세요.');
-      return;
-    }
-
-    if (recordNoteState.length > 250) {
-      setDetailPopupState(true);
-      setDetailPopupMessageState('최대 글자 수는 250자를 넘을 수 없습니다.');
-      return;
-    }
-
-    const saveSuccess = await handleSaveData();
-
-    if (saveSuccess) {
-      setDetailPopupState(true);
-      setDetailPopupMessageState('기록 되었습니다.');
-
-      setTimeout(() => {
-        onButtonClick(Step.STEP1);
-      }, 1000); // 팝업을 닫지 않아도 이동되게
-    } else {
-      setDetailPopupState(true);
-      setDetailPopupMessageState('기록에 실패했습니다. 다시 시도해 주세요.');
-    }
-    setRecordNoteState('');
-  };
+  const { onSaveClick } = useDetailActions(onButtonClick);
 
   return (
     <>

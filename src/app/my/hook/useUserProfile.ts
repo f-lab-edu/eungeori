@@ -35,10 +35,6 @@ export const useUserProfile = () => {
         .from(`${userProfile}`)
         .getPublicUrl(filePath);
 
-      if (!supabaseUrl?.publicUrl) {
-        throw error;
-      }
-
       const avatarUrl = `${supabaseUrl.publicUrl}?timestamp=${Date.now()}`;
 
       await saveUserProfile(avatarUrl);
