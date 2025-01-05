@@ -9,16 +9,21 @@ import RecordPopup from './components/popup';
 import RecordCalender from './components/recordCalender';
 import { plusIconBox, plusIcon } from './styles/record.css';
 import Image from 'next/image';
-import { StepChangeHandler } from './page';
+import { Step, StepChangeHandler } from './page';
 import { supabaseClient } from '../lib/supabaseClient';
 import { BowelAttributes } from '../types/bowelAttributesSchema';
 import { useUserInfoStore } from '../store/user/userStore';
+import { usePopupStore } from '../store/popup/PopupStore';
 
 const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   const [filteredData, setFilteredData] = useState<BowelAttributes[] | []>([]);
-  const [isShowPopup, setIsShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState('');
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+
+  const message = usePopupStore((state) => state.message);
+  const setMessage = usePopupStore((state) => state.setMessage);
+  const openPopup = usePopupStore((state) => state.openPopup);
+  const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
+
   const userInfo = useUserInfoStore((state) => state.userInfo);
 
   const router = useRouter();
@@ -45,9 +50,9 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
   }, [startDate]);
 
   const onDeleteClick = async (id: string) => {
-    setPopupMessage('내용을 삭제하시겠습니까?');
+    setMessage('내용을 삭제하시겠습니까?');
     setDeleteTargetId(id);
-    setIsShowPopup(true);
+    setOpenPopup(true);
   };
 
   const handleConfirmDelete = async () => {
@@ -62,17 +67,17 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
 
       if (error) throw error;
 
-      setPopupMessage('삭제되었습니다.');
+      setMessage('삭제되었습니다.');
       setFilteredData((prevData) => prevData.filter((item) => item.id !== deleteTargetId));
       setDeleteTargetId(null);
     } catch (e) {
-      setPopupMessage('삭제에 실패했습니다.');
+      setMessage('삭제에 실패했습니다.');
     }
   };
 
   const handleClosePopup = () => {
-    setIsShowPopup(false);
-    setPopupMessage('');
+    setOpenPopup(false);
+    setMessage('');
     setDeleteTargetId(null);
   };
 
@@ -84,12 +89,12 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
 
   return (
     <>
-      {isShowPopup && (
+      {openPopup && (
         <RecordPopup
-          message={popupMessage}
+          message={message ?? ''}
           onClose={handleClosePopup}
           onConfirm={
-            popupMessage === '내용을 삭제하시겠습니까?' ? handleConfirmDelete : handleClosePopup
+            message === '내용을 삭제하시겠습니까?' ? handleConfirmDelete : handleClosePopup
           }
         />
       )}
@@ -120,6 +125,7 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
                 onDeleteClick={() => {
                   onDeleteClick(date.id);
                 }}
+                isReadOnly
               />
             );
           })}
@@ -127,8 +133,10 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
 
         <div
           className={plusIconBox}
+          role="button"
+          tabIndex={0}
           onClick={() => {
-            onButtonClick(1);
+            onButtonClick(Step.STEP2);
           }}
         >
           <div className={plusIcon}>

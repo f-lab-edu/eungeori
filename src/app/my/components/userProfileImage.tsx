@@ -9,17 +9,10 @@ import { useUserProfile } from '../hook/useUserProfile';
 
 const UserProfileImage = () => {
   const userInfo = useUserInfoStore((state) => state.userInfo);
-  const fetchUserProfile = useUserProfile().fetchUserProfile;
 
   const { uploadUserProfile } = useUserProfile();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    if (!userInfo.id) {
-      fetchUserProfile();
-    }
-  }, []);
 
   const handleImageClick = () => {
     if (fileInputRef.current) {

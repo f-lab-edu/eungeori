@@ -4,14 +4,13 @@ import { usePopupStore } from '@/app/store/popup/PopupStore';
 import { colors } from '@/app/styles/colors.css';
 
 const DetailPopup = () => {
-  const detailPopupState = usePopupStore((state) => state.isPopup);
-  const setDetailPopupState = usePopupStore((state) => state.setIsPopup);
-  const detailPopupMessageState = usePopupStore((state) => state.message);
+  const detailPopupState = usePopupStore((state) => state.openPopup);
+  const setDetailPopupState = usePopupStore((state) => state.setOpenPopup);
 
   return (
     <>
       {detailPopupState && (
-        <Popup text={detailPopupMessageState}>
+        <Popup>
           <Button
             text="닫기"
             background={colors.primary}
