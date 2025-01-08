@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["node", "jest", "@testing-library/jest-dom"],
     "allowJs": true,
     "noEmit": true,
     "resolveJsonModule": true,
@@ -24,32 +21,13 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@hook/*": [
-        "src/app/components/common/hook/*"
-      ],
-      "@styles/*": [
-        "src/app/styles/*"
-      ],
-      "@image/*": [
-        "public/image/*"
-      ],
-      "@svgs/*": [
-        "public/svgs/*"
-      ]
+      "@/*": ["src/*"],
+      "@hook/*": ["src/app/components/common/hook/*"],
+      "@styles/*": ["src/app/styles/*"],
+      "@image/*": ["public/image/*"],
+      "@svgs/*": ["public/svgs/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", "build", "dist"]
 }
