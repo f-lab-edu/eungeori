@@ -14,13 +14,9 @@ const config: Config = {
 
   testEnvironment: 'jsdom',
 
-  moduleNameMapper: {
-    '\\.svg$': '<rootDir>/__mocks__/svgrMock.js',
-    '\\.css$': 'identity-obj-proxy',
-    '@/(.*)': '<rootDir>/src/$1',
+  transform: {
+    '\\.css\\.ts$': '@vanilla-extract/jest-transform',
   },
-
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };
 
 export default createJestConfig(config);

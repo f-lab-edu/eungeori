@@ -46,7 +46,7 @@ const LoginForm = () => {
           <FormInputUI
             text="비밀번호"
             type="password"
-            maxLegnth={12}
+            maxLength={12}
             register={register('password')}
             errorMessage={errors.password?.message}
           />
@@ -57,8 +57,9 @@ const LoginForm = () => {
       <p className={`${gray300} ${caption2}`}>
         <button className={`${pointer} ${buttonOutLine}`} onClick={handleSubmit(onLoginSubmit)}>
           로그인
-        </button>{' '}
-        |{' '}
+        </button>
+        {/* 띄어쓰기말고 gap으로 간격 넣어주기 / 폰트 사이즈마다 띄어쓰기는 달라짐 */}
+        &nbsp; &nbsp;
         <button
           className={`${pointer} ${buttonOutLine}`}
           onClick={() => {
