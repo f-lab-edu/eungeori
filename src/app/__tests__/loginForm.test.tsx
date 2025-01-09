@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import { screen, render } from '@testing-library/react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
