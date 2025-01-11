@@ -4,6 +4,7 @@ import { gray300 } from '@/app/styles/colors.css';
 import { flexSprinklesFc } from './utils/flex';
 import { memoBox } from './memo.css';
 import useInfoStore from '@/app/store/info/infoStore';
+import { useEffect, useRef } from 'react';
 
 type MemoProps = {
   onEditClick?: () => void;
@@ -24,16 +25,30 @@ const Memo = ({
   edit = false,
   isReadOnly = false,
 }: MemoProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const setRecordNote = useInfoStore((state) => state.setRecordNote);
+  const resetRecordNote = useInfoStore((state) => state.resetRecordNote);
+
+  const handleSubmit = () => {
+    if (inputRef.current && !isReadOnly) {
+      setRecordNote(inputRef.current.value);
+    }
+  };
+
+  useEffect(() => {
+    return resetRecordNote();
+  }, []);
+
   return (
     <div className={memoBox} style={{ height }}>
       <Image src="/svgs/comment.svg" alt="icon" width={20} height={19} />
       <div className={flexSprinklesFc({ flexDirection: 'column', gap: '24px' })}>
         {date && <p className={subFontStyle}>{date}</p>}
         <input
-          value={text ? text : ''}
+          ref={inputRef}
+          defaultValue={text}
           className={subFontStyle}
-          onChange={(e) => !isReadOnly && setRecordNote(e.target.value)}
+          onBlur={handleSubmit}
           readOnly={isReadOnly}
         />
       </div>

@@ -18,9 +18,14 @@ type BowelAttributesState = {
 
   recordNote: string;
   setRecordNote: (note: string) => void;
+  resetRecordNote: () => void;
 
   startDate: Date;
   setStartDate: (state: Date) => void;
+};
+
+const initialState = {
+  recordNote: '',
 };
 
 export const useInfoStore = create<BowelAttributesState>()(
@@ -48,6 +53,7 @@ export const useInfoStore = create<BowelAttributesState>()(
       set((draft) => {
         draft.recordNote = note;
       }),
+    resetRecordNote: () => set(initialState),
 
     startDate: new Date(),
     setStartDate: (state) => {
