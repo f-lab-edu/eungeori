@@ -1,5 +1,1 @@
-jest.mock('@vanilla-extract/css', () => ({
-  style: () => 'mocked-style',
-  createTheme: () => ['theme-class', {}],
-  globalStyle: () => {},
-}));
+import '@testing-library/jest-dom';

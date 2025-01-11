@@ -6,17 +6,15 @@ const createJestConfig = nextJest({
 });
 
 const config: Config = {
-  clearMocks: true,
-
-  moduleFileExtensions: ['js', 'mjs', 'cjs', 'jsx', 'ts', 'tsx', 'json', 'node'],
-
-  preset: 'ts-jest',
-
   testEnvironment: 'jsdom',
-
   transform: {
     '\\.css\\.ts$': '@vanilla-extract/jest-transform',
   },
+  moduleNameMapper: {
+    '\\.css\\.ts$': 'identity-obj-proxy',
+  },
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
 };
 
 export default createJestConfig(config);
