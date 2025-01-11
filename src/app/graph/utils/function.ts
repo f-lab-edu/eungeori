@@ -57,3 +57,11 @@ export const consistency = (data: TransformedBowelData[]): StoolAttributes['cons
 export const bowelShapeType = (data: TransformedBowelData[]): string[] => {
   return data.map((x) => x.stoolAttributes.shapeType);
 };
+
+export const consistencyCount = (
+  consistencyFn: (data: TransformedBowelData[]) => StoolAttributes['consistency'][],
+  type: StoolAttributes['consistency'],
+  bowelDate: TransformedBowelData[],
+): StoolAttributes['consistency'][] => {
+  return consistencyFn(bowelDate).filter((consistency) => consistency === type);
+};
