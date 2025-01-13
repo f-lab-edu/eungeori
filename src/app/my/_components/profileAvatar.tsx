@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import { useProfileState } from '../_hook/useUserProfile';
 
-const UserProfileImage = () => {
+const ProfileAvatar = () => {
   const userInfo = useUserInfoStore((state) => state.userInfo);
 
   const { uploadUserProfile } = useProfileState();
@@ -56,4 +56,4 @@ const UserProfileImage = () => {
   );
 };
 
-export default UserProfileImage;
+export default ProfileAvatar;

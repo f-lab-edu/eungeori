@@ -7,7 +7,7 @@ import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { supabaseClient } from '@/app/_lib/supabaseClient';
 import { useUserInfoStore } from '@/app/_store/user/userStore';
 
-const UserGoalInput = () => {
+const GoalField = () => {
   const [goal, setGoal] = useState<string>('');
 
   const userInfo = useUserInfoStore((state) => state.userInfo);
@@ -91,4 +91,4 @@ const UserGoalInput = () => {
   );
 };
 
-export default UserGoalInput;
+export default GoalField;

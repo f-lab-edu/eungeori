@@ -2,16 +2,16 @@
 
 import LogoutButton from './_components/logoutButton';
 import MyPopup from './_components/myPopup';
-import UserGoalInput from './_components/userGoalInput';
-import UserProfileImage from './_components/userProfileImage';
+import GoalField from './_components/goalField';
+import ProfileAvatar from './_components/profileAvatar';
 
 const MyPage = () => {
   return (
     <>
       <MyPopup />
       <div>
-        <UserProfileImage />
-        <UserGoalInput />
+        <ProfileAvatar />
+        <GoalField />
       </div>
 
       <LogoutButton />
