@@ -1,15 +1,15 @@
 'use client';
 
-import Button from '@/app/components/common/Button';
-import Memo from '@/app/components/common/Memo';
-import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { colors } from '@/app/styles/colors.css';
+import Button from '@/app/_components/common/Button';
+import Memo from '@/app/_components/common/Memo';
+import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
+import { colors } from '@/app/_styles/colors.css';
 
-import useInfoStore from '@/app/store/info/infoStore';
-import { usePopupStore } from '@/app/store/popup/PopupStore';
+import useInfoStore from '@/app/_store/info/infoStore';
+import { usePopupStore } from '@/app/_store/popup/PopupStore';
 import DetailPopup from './components/popup';
 import TitleText from './components/titleText';
-import { infoContainer } from '../common/common.css';
+import { infoContainer } from '../_common/common.css';
 import { Step, StepChangeHandler } from '../../page';
 import useDetailActions from './hook/useDetailActions';
 

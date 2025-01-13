@@ -1,7 +1,7 @@
-import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import useInfoStore, { StoolAttributes } from '@/app/store/info/infoStore';
-import { semiBold } from '@/app/styles/font.css';
-import { paddingSprinkles } from '@/app/styles/padding.css';
+import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
+import useInfoStore, { StoolAttributes } from '@/app/_store/info/infoStore';
+import { semiBold } from '@/app/_styles/font.css';
+import { paddingSprinkles } from '@/app/_styles/padding.css';
 import ShapeContentBox from './contentBox';
 
 const ShapeTypeBox = () => {

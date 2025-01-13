@@ -1,8 +1,8 @@
 'use client';
 
-import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { heading2, semiBold } from '@/app/styles/font.css';
-import { paddingSprinkles } from '@/app/styles/padding.css';
+import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
+import { heading2, semiBold } from '@/app/_styles/font.css';
+import { paddingSprinkles } from '@/app/_styles/padding.css';
 import ShapeButton from './components/shapeButton';
 import ConsistencyBox from './components/consistencyBox';
 import ShapeTypeBox from './components/shapeTypeBox';

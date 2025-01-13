@@ -5,7 +5,7 @@ import RecordPage from '.';
 import TimePage from './(info)/time/page';
 import ShapePage from './(info)/shape/page';
 import DetailPage from './(info)/detail/page';
-import useConfirmPageLeave from '../hook/useConfirmPageLeave';
+import useConfirmPageLeave from '../_hook/useConfirmPageLeave';
 
 export type StepChangeHandler = (newStep: number) => void;
 

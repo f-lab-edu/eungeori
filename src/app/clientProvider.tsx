@@ -1,6 +1,6 @@
 'use client';
 
-import useAuth from './hook/useAuth';
+import useAuth from './_hook/useAuth';
 
 const ClientProvider = ({ children }: { children: React.ReactNode }) => {
   useAuth();

@@ -1,9 +1,9 @@
 'use client';
 
-import UserProfileImage from './components/userProfileImage';
-import UserGoalInput from './components/userGoalInput';
-import LogoutButton from './components/logoutButton';
-import MyPopup from './components/myPopup';
+import UserProfileImage from './_components/userProfileImage';
+import UserGoalInput from './_components/userGoalInput';
+import LogoutButton from './_components/logoutButton';
+import MyPopup from './_components/myPopup';
 
 const Page = () => {
   return (

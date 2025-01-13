@@ -8,10 +8,10 @@ import {
   loginTextBox,
   loginHeading,
   loginCaption,
-} from './styles/login.css';
-import LoginForm from './components/loginForm';
-import LoginPopup from './components/loginPopup';
-import { flexSprinklesFc } from '@/app/components/common/utils/flex';
+} from './_styles/login.css';
+import LoginForm from './_components/loginForm';
+import LoginPopup from './_components/loginPopup';
+import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 
 export default function LoginPage() {
   const logoClassName = flexSprinklesFc({

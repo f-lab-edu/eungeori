@@ -1,19 +1,19 @@
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { formatDate, formatYYYYMMDD } from '../common/utils/date';
-import Memo from '../components/common/Memo';
-import { flexSprinklesFc } from '../components/common/utils/flex';
-import useInfoStore from '../store/info/infoStore';
+import { formatDate, formatYYYYMMDD } from '../_common/utils/date';
+import Memo from '../_components/common/Memo';
+import { flexSprinklesFc } from '../_components/common/utils/flex';
+import useInfoStore from '../_store/info/infoStore';
 
-import RecordPopup from './components/popup';
-import RecordCalender from './components/recordCalender';
-import { plusIconBox, plusIcon } from './styles/record.css';
+import RecordPopup from './_components/popup';
+import RecordCalender from './_components/recordCalender';
+import { plusIconBox, plusIcon } from './_styles/record.css';
 import Image from 'next/image';
 import { Step, StepChangeHandler } from './page';
-import { supabaseClient } from '../lib/supabaseClient';
-import { BowelAttributes } from '../types/bowelAttributesSchema';
-import { useUserInfoStore } from '../store/user/userStore';
-import { usePopupStore } from '../store/popup/PopupStore';
+import { supabaseClient } from '../_lib/supabaseClient';
+import { BowelAttributes } from '../_types/bowelAttributesSchema';
+import { useUserInfoStore } from '../_store/user/userStore';
+import { usePopupStore } from '../_store/popup/PopupStore';
 
 const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   const [filteredData, setFilteredData] = useState<BowelAttributes[] | []>([]);

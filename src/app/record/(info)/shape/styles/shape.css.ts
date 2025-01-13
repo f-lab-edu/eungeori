@@ -1,5 +1,5 @@
-import { colors } from '@/app/styles/colors.css';
-import { regular, caption } from '@/app/styles/font.css';
+import { colors } from '@/app/_styles/colors.css';
+import { regular, caption } from '@/app/_styles/font.css';
 import { style } from '@vanilla-extract/css';
 
 export const shapeContent = style({

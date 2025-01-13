@@ -1,7 +1,7 @@
-import Button from '@/app/components/common/Button';
-import Popup from '@/app/components/common/Popup';
-import { usePopupStore } from '@/app/store/popup/PopupStore';
-import { colors } from '@/app/styles/colors.css';
+import Button from '@/app/_components/common/Button';
+import Popup from '@/app/_components/common/Popup';
+import { usePopupStore } from '@/app/_store/popup/PopupStore';
+import { colors } from '@/app/_styles/colors.css';
 
 const DetailPopup = () => {
   const detailPopupState = usePopupStore((state) => state.openPopup);

@@ -1,10 +1,10 @@
-import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { semiBold } from '@/app/styles/font.css';
+import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
+import { semiBold } from '@/app/_styles/font.css';
 import { amPmText, hourText } from '../styles/timePicker.css';
-import { gray300 } from '@/app/styles/colors.css';
+import { gray300 } from '@/app/_styles/colors.css';
 import { useEffect, useState } from 'react';
-import useInfoStore from '@/app/store/info/infoStore';
-import useDebounce from '@/app/hook/useDebounce';
+import useInfoStore from '@/app/_store/info/infoStore';
+import useDebounce from '@/app/_hook/useDebounce';
 
 const TimePicker = () => {
   const now = new Date();

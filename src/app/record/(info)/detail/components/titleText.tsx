@@ -1,5 +1,5 @@
-import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { semiBold, heading2 } from '@/app/styles/font.css';
+import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
+import { semiBold, heading2 } from '@/app/_styles/font.css';
 
 const TitleText = () => {
   return (

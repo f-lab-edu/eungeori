@@ -1,9 +1,9 @@
-import Button from '@/app/components/common/Button';
-import { flexSprinklesFc } from '@/app/components/common/utils/flex';
+import Button from '@/app/_components/common/Button';
+import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 import { Step, StepChangeHandler } from '@/app/record/page';
-import useInfoStore from '@/app/store/info/infoStore';
+import useInfoStore from '@/app/_store/info/infoStore';
 
-import { colors } from '@/app/styles/colors.css';
+import { colors } from '@/app/_styles/colors.css';
 
 const TimeButton = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   const bowelTime = useInfoStore((state) => state.bowelTime);

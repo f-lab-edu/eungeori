@@ -1,6 +1,6 @@
-import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { gray300 } from '@/app/styles/colors.css';
-import { semiBold, heading2, caption } from '@/app/styles/font.css';
+import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
+import { gray300 } from '@/app/_styles/colors.css';
+import { semiBold, heading2, caption } from '@/app/_styles/font.css';
 
 const TimeTitle = () => {
   return (

@@ -1,5 +1,5 @@
-import Navigation from '../components/common/Navigation';
-import { graphContainer, graphWrapper } from './styles/graph.css';
+import Navigation from '../_components/common/Navigation';
+import { graphContainer, graphWrapper } from './_styles/graph.css';
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
