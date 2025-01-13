@@ -8,13 +8,9 @@ import {
   Tooltip,
   Legend,
   scales,
-  ScriptableContext,
-  ChartOptions,
-  Chart,
-  ChartData,
 } from 'chart.js';
 import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
-import { chartBg, filterWrapper, toggle, toggleActive } from '../_styles/graph.css';
+import { filterWrapper, toggle, toggleActive } from '../_styles/graph.css';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { caption, heading2, regular, semiBold } from '@/app/_styles/font.css';
@@ -22,11 +18,8 @@ import { pointer } from '@/app/_styles/global.css';
 import { paddingSprinkles } from '@/app/_styles/padding.css';
 import { supabaseClient } from '@/app/_lib/supabaseClient';
 import { transformBowelData, TransformedBowelData } from '../_utils';
-import { Line } from 'react-chartjs-2';
-import { CustomLineGraph } from '../_plugins/chart/CustomLineGraph';
-import PoopInfoBox from './PoopInfoBox';
-import { useBowelData } from '../_hook/useBowelData';
-import BowelChartContainer from './BowelChartContainer';
+import BowelChartContainer from './bowelChartContainer';
+import EmptyGraph from './emptyGraph';
 
 ChartJS.register(
   CategoryScale,
@@ -94,12 +87,7 @@ const DataGraph = () => {
         {hasData ? (
           <BowelChartContainer bowelDate={bowelDate} isToggleActive={isToggleActive} />
         ) : (
-          <>
-            <p className={paddingSprinkles({ paddingTop: 's28' })}>
-              {dateRange === 7 ? '일주일' : '한 달'} 동안의 배변 기록이 없습니다. 😥
-            </p>
-            <p>새로운 기록을 추가해보세요.</p>
-          </>
+          <EmptyGraph dateRange={dateRange} />
         )}
       </>
     </>
