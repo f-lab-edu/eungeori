@@ -6,34 +6,22 @@ import { useEffect, useState } from 'react';
 import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { supabaseClient } from '@/app/_lib/supabaseClient';
 import { useUserInfoStore } from '@/app/_store/user/userStore';
+import { fetchUserGoal, saveUserGoal } from '../_utils/goalUtils';
 
 const GoalField = () => {
   const [goal, setGoal] = useState<string>('');
 
-  const userInfo = useUserInfoStore((state) => state.userInfo);
-
   const setOpenPopup = usePopupStore((state) => state.setOpenPopup);
   const setMessageState = usePopupStore((state) => state.setMessage);
 
+  const userInfo = useUserInfoStore((state) => state.userInfo);
+
   const onGoalSave = async (goal: string) => {
     try {
-      if (!userInfo?.id || !goal.trim()) {
-        setMessageState('유효하지 않은 입력값입니다.');
-        return;
-      }
-
-      const { error } = await supabaseClient
-        .from('user_profile')
-        .upsert({ id: userInfo.id, nickname: userInfo.nickname, goal }, { onConflict: 'id' });
-
-      setMessageState('저장 되었습니다.');
-
-      if (error) {
-        throw error;
-      }
+      const message = await saveUserGoal(userInfo.id, userInfo.nickname, goal);
+      setMessageState(message);
     } catch (e) {
       setMessageState('알 수 없는 오류가 발생했습니다.');
-      return;
     } finally {
       setOpenPopup(true);
     }
@@ -47,25 +35,10 @@ const GoalField = () => {
 
   useEffect(() => {
     const getGoalData = async () => {
-      if (!userInfo?.id) return;
-
       try {
-        const { data, error } = await supabaseClient
-          .from('user_profile')
-          .select('goal')
-          .eq('id', userInfo.id)
-          .single();
-
-        if (data) {
-          setGoal(data.goal);
-        }
-
-        if (error) {
-          throw error;
-        }
-      } catch (e) {
-        console.log(e);
-      }
+        const goal = await fetchUserGoal(userInfo.id);
+        setGoal(goal);
+      } catch (e) {}
     };
 
     getGoalData();
