@@ -1,4 +1,4 @@
-import Button from '@/app/_components/common/Button';
+import Button from '@/app/_components/common/button';
 import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 import { Step, StepChangeHandler } from '@/app/record/page';
 import useInfoStore from '@/app/_store/info/infoStore';

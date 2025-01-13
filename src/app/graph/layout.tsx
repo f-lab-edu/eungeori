@@ -1,4 +1,4 @@
-import Navigation from '../_components/common/Navigation';
+import Navigation from '../_components/common/navigation';
 import { graphContainer, graphWrapper } from './_styles/graph.css';
 
 const layout = ({ children }: { children: React.ReactNode }) => {

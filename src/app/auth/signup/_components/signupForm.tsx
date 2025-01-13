@@ -1,4 +1,4 @@
-import Button from '@/app/_components/common/Button';
+import Button from '@/app/_components/common/button';
 import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 import { colors } from '@/app/_styles/colors.css';
 import { signupSchema } from '@/app/_types/signupSchema';

@@ -3,7 +3,7 @@ import { supabaseClient } from '@/app/_lib/supabaseClient';
 import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { useUserInfoStore, IMAGE_SRC } from '@/app/_store/user/userStore';
 
-export const useUserProfile = () => {
+export const useProfileState = () => {
   const userInfo = useUserInfoStore((state) => state.userInfo);
   const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
   const setOpenPopup = usePopupStore((state) => state.setOpenPopup);

@@ -1,5 +1,5 @@
-import Button from '@/app/_components/common/Button';
-import Popup from '@/app/_components/common/Popup';
+import Button from '@/app/_components/common/button';
+import Popup from '@/app/_components/common/popup';
 import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 import { supabaseClient } from '@/app/_lib/supabaseClient';
 import { supabaseAdmin } from '@/app/_lib/supabaseAdmin';

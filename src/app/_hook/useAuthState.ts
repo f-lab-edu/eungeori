@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from 'react';
 import { supabaseClient } from '../_lib/supabaseClient';
-import { useUserProfile } from '../my/_hook/useUserProfile';
 import { IMAGE_SRC, useUserInfoStore } from '../_store/user/userStore';
 import { Session } from '@supabase/supabase-js';
+import { useProfileState } from '../my/_hook/useUserProfile';
 
-const useAuth = () => {
+const useAuthState = () => {
   const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
   const resetUserInfo = useUserInfoStore((state) => state.resetUserInfo);
-  const fetchUserProfile = useUserProfile().fetchUserProfile;
+  const fetchUserProfile = useProfileState().fetchUserProfile;
 
   const getUserProfile = useCallback(async (userId: string) => {
     try {
@@ -70,4 +70,4 @@ const useAuth = () => {
   }, []);
 };
 
-export default useAuth;
+export default useAuthState;

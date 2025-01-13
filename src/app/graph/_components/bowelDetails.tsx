@@ -4,11 +4,11 @@ import { poopInfoText, poopBoxWrapper, poopBox } from '../_styles/graph.css';
 import { consistencyCount, consistency, TransformedBowelData } from '../_utils';
 import Image from 'next/image';
 
-type PoopInfoBoxProps = {
+type BowelDetailsProps = {
   bowelDate: TransformedBowelData[];
 };
 
-const PoopInfoBox = ({ bowelDate }: PoopInfoBoxProps) => {
+const BowelDetails = ({ bowelDate }: BowelDetailsProps) => {
   return (
     <>
       <div className={poopInfoText}>
@@ -34,4 +34,4 @@ const PoopInfoBox = ({ bowelDate }: PoopInfoBoxProps) => {
   );
 };
 
-export default PoopInfoBox;
+export default BowelDetails;

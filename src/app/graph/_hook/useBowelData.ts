@@ -11,7 +11,7 @@ interface CustomChartOptions extends ChartOptions<'line'> {
   } & ChartOptions<'line'>['plugins'];
 }
 
-export const useBowelData = (bowelDate: TransformedBowelData[], isToggleActive: boolean) => {
+export const useBowelState = (bowelDate: TransformedBowelData[], isToggleActive: boolean) => {
   const labels = Object.keys(bowelDateCount(bowelDate));
   const dataPoints = Object.values(bowelDateCount(bowelDate));
 

@@ -1,16 +1,16 @@
 'use client';
 
-import Button from '@/app/_components/common/Button';
+import Button from '@/app/_components/common/button';
 import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 import { heading2, semiBold } from '@/app/_styles/font.css';
 
 import { usePathname, useRouter } from 'next/navigation';
 import { infoContainer } from '@/app/record/(info)/_common/common.css';
-import Memo from '@/app/_components/common/Memo';
+import Memo from '@/app/_components/common/memo';
 import useInfoStore from '@/app/_store/info/infoStore';
 import { colors } from '@/app/_styles/colors.css';
 import { usePopupStore } from '@/app/_store/popup/popupStore';
-import Popup from '@/app/_components/common/Popup';
+import Popup from '@/app/_components/common/popup';
 import useRecordNote from '../../_hook/useRecordNote';
 
 const DetailEditPage = () => {

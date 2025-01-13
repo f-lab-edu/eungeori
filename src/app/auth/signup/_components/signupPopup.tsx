@@ -1,5 +1,5 @@
-import Button from '@/app/_components/common/Button';
-import Popup from '@/app/_components/common/Popup';
+import Button from '@/app/_components/common/button';
+import Popup from '@/app/_components/common/popup';
 import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { colors } from '@/app/_styles/colors.css';
 import { useRouter } from 'next/navigation';

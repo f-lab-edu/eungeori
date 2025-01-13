@@ -18,8 +18,8 @@ import { pointer } from '@/app/_styles/global.css';
 import { paddingSprinkles } from '@/app/_styles/padding.css';
 import { supabaseClient } from '@/app/_lib/supabaseClient';
 import { transformBowelData, TransformedBowelData } from '../_utils';
-import BowelChartContainer from './bowelChartContainer';
-import EmptyGraph from './emptyGraph';
+import BowelChartContainer from './bowelChart';
+import EmptyState from './emptyState';
 
 ChartJS.register(
   CategoryScale,
@@ -87,7 +87,7 @@ const DataGraph = () => {
         {hasData ? (
           <BowelChartContainer bowelDate={bowelDate} isToggleActive={isToggleActive} />
         ) : (
-          <EmptyGraph dateRange={dateRange} />
+          <EmptyState dateRange={dateRange} />
         )}
       </>
     </>

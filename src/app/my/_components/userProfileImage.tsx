@@ -5,12 +5,12 @@ import { pointer } from '@/app/_styles/global.css';
 import Image from 'next/image';
 
 import { useRef } from 'react';
-import { useUserProfile } from '../_hook/useUserProfile';
+import { useProfileState } from '../_hook/useUserProfile';
 
 const UserProfileImage = () => {
   const userInfo = useUserInfoStore((state) => state.userInfo);
 
-  const { uploadUserProfile } = useUserProfile();
+  const { uploadUserProfile } = useProfileState();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 

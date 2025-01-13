@@ -1,6 +1,6 @@
 import { paddingSprinkles } from '@/app/_styles/padding.css';
 
-const EmptyGraph = ({ dateRange }: { dateRange: number }) => {
+const EmptyState = ({ dateRange }: { dateRange: number }) => {
   return (
     <>
       <p className={paddingSprinkles({ paddingTop: 's28' })}>
@@ -11,4 +11,4 @@ const EmptyGraph = ({ dateRange }: { dateRange: number }) => {
   );
 };
 
-export default EmptyGraph;
+export default EmptyState;

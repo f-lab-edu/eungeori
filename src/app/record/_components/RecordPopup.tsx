@@ -1,5 +1,5 @@
-import Button from '@/app/_components/common/Button';
-import Popup from '@/app/_components/common/Popup';
+import Button from '@/app/_components/common/button';
+import Popup from '@/app/_components/common/popup';
 import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 import { colors } from '@/app/_styles/colors.css';
 import { pointer } from '@/app/_styles/global.css';

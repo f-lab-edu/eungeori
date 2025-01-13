@@ -9,7 +9,7 @@ import { datepickerWrapper } from '../_styles/datepicker.css';
 
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
 import useInfoStore from '@/app/_store/info/infoStore';
-import CalenderDropDown from './CalenderDropDown';
+import CalenderDropDown from './calenderDropDown';
 
 type CalenderContext = {
   isShow: boolean;

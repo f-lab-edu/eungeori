@@ -5,7 +5,7 @@ import RecordPage from '.';
 import TimePage from './(info)/time/page';
 import ShapePage from './(info)/shape/page';
 import DetailPage from './(info)/detail/page';
-import useConfirmPageLeave from '../_hook/useConfirmPageLeave';
+import usePageExitGuard from '../_hook/usePageExitGuard';
 
 export type StepChangeHandler = (newStep: number) => void;
 
@@ -23,7 +23,7 @@ const Page = () => {
     setStep(step);
   };
 
-  useConfirmPageLeave(step !== 0);
+  usePageExitGuard(step !== 0);
 
   return (
     <>
