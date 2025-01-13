@@ -2,7 +2,7 @@ import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 import useInfoStore, { StoolAttributes } from '@/app/_store/info/infoStore';
 import { semiBold } from '@/app/_styles/font.css';
 import { paddingSprinkles } from '@/app/_styles/padding.css';
-import ShapeContentBox from './contentBox';
+import ShapeContentBox from './ContentBox';
 
 const ShapeTypeBox = () => {
   const stoolAttributesState = useInfoStore((state) => state.stoolAttributes);

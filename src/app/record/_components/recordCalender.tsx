@@ -8,8 +8,8 @@ import { recordDateSection } from '../_styles/record.css';
 import { datepickerWrapper } from '../_styles/datepicker.css';
 
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
-import CalenderDropDown from './calenderDropDown';
 import useInfoStore from '@/app/_store/info/infoStore';
+import CalenderDropDown from './CalenderDropDown';
 
 type CalenderContext = {
   isShow: boolean;

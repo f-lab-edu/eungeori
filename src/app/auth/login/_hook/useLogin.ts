@@ -1,5 +1,5 @@
 import { supabaseClient } from '@/app/_lib/supabaseClient';
-import { usePopupStore } from '@/app/_store/popup/PopupStore';
+import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { useUserInfoStore } from '@/app/_store/user/userStore';
 import { signinSchema } from '@/app/_types/signinSchema';
 import { useRouter } from 'next/navigation';

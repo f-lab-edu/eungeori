@@ -1,6 +1,6 @@
 import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 import { semiBold } from '@/app/_styles/font.css';
-import { amPmText, hourText } from '../styles/timePicker.css';
+import { amPmText, hourText } from '../_styles/timePicker.css';
 import { gray300 } from '@/app/_styles/colors.css';
 import { useEffect, useState } from 'react';
 import useInfoStore from '@/app/_store/info/infoStore';

@@ -2,7 +2,7 @@ import { formatToLocalISOString, formatToLocalYYYYMMDD } from '@/app/_common/uti
 import { supabaseClient } from '@/app/_lib/supabaseClient';
 import { Step, StepChangeHandler } from '@/app/record/page';
 import useInfoStore from '@/app/_store/info/infoStore';
-import { usePopupStore } from '@/app/_store/popup/PopupStore';
+import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { useUserInfoStore } from '@/app/_store/user/userStore';
 
 const useDetailActions = (onButtonClick: StepChangeHandler) => {

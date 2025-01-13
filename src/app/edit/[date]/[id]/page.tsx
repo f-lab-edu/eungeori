@@ -9,7 +9,7 @@ import { infoContainer } from '@/app/record/(info)/_common/common.css';
 import Memo from '@/app/_components/common/Memo';
 import useInfoStore from '@/app/_store/info/infoStore';
 import { colors } from '@/app/_styles/colors.css';
-import { usePopupStore } from '@/app/_store/popup/PopupStore';
+import { usePopupStore } from '@/app/_store/popup/popupStore';
 import Popup from '@/app/_components/common/Popup';
 import useRecordNote from '../../_hook/useRecordNote';
 

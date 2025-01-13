@@ -1,7 +1,7 @@
 import { primary, gray300 } from '@/app/_styles/colors.css';
 import { pointer } from '@/app/_styles/global.css';
 import Image, { ImageProps } from 'next/image';
-import { shapeContentBoxWrapper, shapeContentBox, shapeContentBoxText } from '../styles/shape.css';
+import { shapeContentBoxWrapper, shapeContentBox, shapeContentBoxText } from '../_styles/shape.css';
 
 type ContentBoxProps = {
   src: string;

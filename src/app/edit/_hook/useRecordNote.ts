@@ -1,6 +1,6 @@
 import { supabaseClient } from '@/app/_lib/supabaseClient';
 import useInfoStore from '@/app/_store/info/infoStore';
-import { usePopupStore } from '@/app/_store/popup/PopupStore';
+import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 

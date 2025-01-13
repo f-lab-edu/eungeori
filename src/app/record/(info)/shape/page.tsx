@@ -3,10 +3,11 @@
 import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 import { heading2, semiBold } from '@/app/_styles/font.css';
 import { paddingSprinkles } from '@/app/_styles/padding.css';
-import ShapeButton from './components/shapeButton';
-import ConsistencyBox from './components/consistencyBox';
-import ShapeTypeBox from './components/shapeTypeBox';
+
 import { StepChangeHandler } from '../../page';
+import ConsistencyBox from './_components/consistencyBox';
+import ShapeButton from './_components/shapeButton';
+import ShapeTypeBox from './_components/shapeTypeBox';
 
 const ShapePage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   return (

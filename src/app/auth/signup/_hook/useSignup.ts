@@ -1,5 +1,5 @@
 import { supabaseClient } from '@/app/_lib/supabaseClient';
-import { usePopupStore } from '@/app/_store/popup/PopupStore';
+import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { signupSchema } from '@/app/_types/signupSchema';
 import { z } from 'zod';
 

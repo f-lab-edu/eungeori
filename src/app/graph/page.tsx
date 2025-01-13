@@ -1,9 +1,9 @@
 'use client';
 
-import DataGraph from './_components/dataGraph';
+import DataGraph from './_components/DataGraph';
 
-const Page = () => {
+const GraphPage = () => {
   return <DataGraph />;
 };
 
-export default Page;
+export default GraphPage;

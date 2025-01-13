@@ -6,7 +6,7 @@ import { pointer } from '@/app/_styles/global.css';
 import { paddingSprinkles } from '@/app/_styles/padding.css';
 import { infoWrapper } from './_common/common.css';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   return (
     <section className={infoWrapper}>
@@ -25,4 +25,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {children}
     </section>
   );
-}
+};
+
+export default Layout;

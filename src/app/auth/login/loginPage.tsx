@@ -13,7 +13,7 @@ import LoginForm from './_components/loginForm';
 import LoginPopup from './_components/loginPopup';
 import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 
-export default function LoginPage() {
+const LoginPage = () => {
   const logoClassName = flexSprinklesFc({
     flexDirection: 'column',
     justifyContent: 'center',
@@ -41,4 +41,6 @@ export default function LoginPage() {
       </section>
     </>
   );
-}
+};
+
+export default LoginPage;

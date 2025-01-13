@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import SignupPopup from './_components/signupPopup';
 import SignupForm from './_components/signupForm';
 
-const Page = () => {
+const SignupPage = () => {
   const router = useRouter();
 
   return (
@@ -45,4 +45,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default SignupPage;

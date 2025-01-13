@@ -3,7 +3,7 @@ import Popup from '@/app/_components/common/Popup';
 import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
 import { supabaseClient } from '@/app/_lib/supabaseClient';
 import { supabaseAdmin } from '@/app/_lib/supabaseAdmin';
-import { usePopupStore } from '@/app/_store/popup/PopupStore';
+import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { useUserInfoStore } from '@/app/_store/user/userStore';
 import { colors, gray300 } from '@/app/_styles/colors.css';
 import { caption } from '@/app/_styles/font.css';

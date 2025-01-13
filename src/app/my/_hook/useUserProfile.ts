@@ -1,6 +1,6 @@
 import { userProfile } from '@/app/_lib/supabase';
 import { supabaseClient } from '@/app/_lib/supabaseClient';
-import { usePopupStore } from '@/app/_store/popup/PopupStore';
+import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { useUserInfoStore, IMAGE_SRC } from '@/app/_store/user/userStore';
 
 export const useUserProfile = () => {

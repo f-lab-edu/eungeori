@@ -4,7 +4,7 @@ import { semiBold, paragraph } from '@/app/_styles/font.css';
 import { pointer } from '@/app/_styles/global.css';
 import Image from 'next/image';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useUserProfile } from '../_hook/useUserProfile';
 
 const UserProfileImage = () => {

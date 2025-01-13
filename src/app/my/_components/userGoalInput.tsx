@@ -3,7 +3,7 @@ import { caption, regular } from '@/app/_styles/font.css';
 import { paddingSprinkles } from '@/app/_styles/padding.css';
 import { myTargetContainer } from '../_my.css';
 import { useEffect, useState } from 'react';
-import { usePopupStore } from '@/app/_store/popup/PopupStore';
+import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { supabaseClient } from '@/app/_lib/supabaseClient';
 import { useUserInfoStore } from '@/app/_store/user/userStore';
 
