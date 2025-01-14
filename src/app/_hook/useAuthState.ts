@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { supabaseClient } from '../_lib/supabaseClient';
 import { useUserInfoStore } from '../_store/user/userStore';
 
