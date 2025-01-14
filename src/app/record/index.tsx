@@ -15,6 +15,7 @@ import { usePopupStore } from '../_store/popup/popupStore';
 
 import RecordPopup from './_components/recordPopup';
 import RecordCalender from './_components/recordCalender';
+import { fetchFilteredData, handleDelete } from './_utils/memoUtils';
 
 const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   const [filteredData, setFilteredData] = useState<BowelAttributes[] | []>([]);
@@ -32,20 +33,8 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
 
   useEffect(() => {
     const getMemoData = async () => {
-      try {
-        const { data, error } = await supabaseClient.from('bowel_attributes').select('*');
-
-        if (data) {
-          const date = data.filter(
-            (date) => formatYYYYMMDD(new Date(date.bowel_time)) === formatYYYYMMDD(startDate),
-          );
-          setFilteredData(date);
-        }
-
-        if (error) {
-          throw error;
-        }
-      } catch (e) {}
+      const filtered = await fetchFilteredData(startDate);
+      setFilteredData(filtered);
     };
     getMemoData();
   }, [startDate]);
@@ -59,21 +48,8 @@ const RecordPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => 
   const handleConfirmDelete = async () => {
     if (!deleteTargetId) return;
 
-    try {
-      const { data, error } = await supabaseClient
-        .from('bowel_attributes')
-        .delete()
-        .eq('id', deleteTargetId)
-        .eq('user_id', userInfo.id);
-
-      if (error) throw error;
-
-      setMessage('삭제되었습니다.');
-      setFilteredData((prevData) => prevData.filter((item) => item.id !== deleteTargetId));
-      setDeleteTargetId(null);
-    } catch (e) {
-      setMessage('삭제에 실패했습니다.');
-    }
+    await handleDelete(deleteTargetId, userInfo.id, setFilteredData);
+    setDeleteTargetId(null);
   };
 
   const handleClosePopup = () => {
