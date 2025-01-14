@@ -4,8 +4,6 @@ import { usePopupStore } from '@/app/_store/popup/popupStore';
 import { BowelAttributes } from '@/app/_types/bowelAttributesSchema';
 import { SetStateAction } from 'react';
 
-const setMessage = usePopupStore((state) => state.setMessage);
-
 export const fetchFilteredData = async (filterDate: Date) => {
   try {
     const { data, error } = await supabaseClient.from('bowel_attributes').select('*');
@@ -27,6 +25,8 @@ export const handleDelete = async (
   userId: string,
   setFilteredData: (value: SetStateAction<[] | BowelAttributes[]>) => void,
 ) => {
+  const setMessage = usePopupStore((state) => state.setMessage);
+
   try {
     const { data, error } = await supabaseClient
       .from('bowel_attributes')
