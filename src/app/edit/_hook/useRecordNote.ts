@@ -33,6 +33,7 @@ const useRecordNote = (id: string) => {
         throw error;
       }
     } catch (e) {
+      console.error(e);
       setEditPopupState(true);
       setEditPopupMessageState('수정에 실패했습니다.');
     }
@@ -54,7 +55,9 @@ const useRecordNote = (id: string) => {
         if (error) {
           throw error;
         }
-      } catch (e) {}
+      } catch (e) {
+        console.error(e);
+      }
     };
 
     getRecordData();

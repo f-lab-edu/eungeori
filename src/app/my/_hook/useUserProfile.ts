@@ -46,6 +46,7 @@ export const useProfileState = () => {
 
       setMessageState('프로필 이미지가 변경되었습니다.');
     } catch (e) {
+      console.error(e);
       setMessageState('알 수 없는 오류가 발생했습니다.');
     } finally {
       setOpenPopup(true);
@@ -69,6 +70,7 @@ export const useProfileState = () => {
 
       setMessageState('프로필 이미지가 성공적으로 저장되었습니다.');
     } catch (e) {
+      console.error(e);
       setMessageState('알 수 없는 오류가 발생했습니다.');
     } finally {
       setOpenPopup(true);
@@ -105,6 +107,7 @@ export const useProfileState = () => {
         avatarUrl: data.avatar_url,
       });
     } catch (e) {
+      console.error(e);
       setUserInfo({
         ...userInfo,
         avatarUrl: IMAGE_SRC,

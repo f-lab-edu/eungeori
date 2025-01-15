@@ -37,6 +37,7 @@ const useDetailActions = (onButtonClick: StepChangeHandler) => {
         return true;
       }
     } catch (e) {
+      console.error(e);
       setDetailPopupState(true);
       setDetailPopupMessageState('기록에 실패했습니다.');
       return false;

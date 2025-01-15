@@ -58,6 +58,7 @@ export const useSignup = () => {
 
       setMessageState('이메일 인증 후 로그인 해주세요.');
     } catch (e) {
+      console.error(e);
       setMessageState('알 수 없는 오류가 발생했습니다.');
     } finally {
       setOpenPopup(true);

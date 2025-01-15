@@ -21,6 +21,7 @@ const GoalField = () => {
       const message = await saveUserGoal(userInfo.id, userInfo.nickname, goal);
       setMessageState(message);
     } catch (e) {
+      console.error(e);
       setMessageState('알 수 없는 오류가 발생했습니다.');
     } finally {
       setOpenPopup(true);
@@ -38,7 +39,9 @@ const GoalField = () => {
       try {
         const goal = await fetchUserGoal(userInfo.id);
         setGoal(goal);
-      } catch (e) {}
+      } catch (e) {
+        console.error(e);
+      }
     };
 
     getGoalData();

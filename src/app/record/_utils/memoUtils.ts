@@ -16,6 +16,7 @@ export const fetchFilteredData = async (filterDate: Date) => {
       (item) => formatYYYYMMDD(new Date(item.bowel_time)) === formatYYYYMMDD(filterDate),
     );
   } catch (e) {
+    console.error(e);
     return [];
   }
 };
@@ -39,6 +40,7 @@ export const handleDelete = async (
     setMessage('삭제되었습니다.');
     setFilteredData((prevData) => prevData.filter((item) => item.id !== deleteTargetId));
   } catch (e) {
+    console.error(e);
     setMessage('삭제에 실패했습니다.');
   }
 };
