@@ -5,7 +5,7 @@ import { Line } from 'react-chartjs-2';
 
 import BowelDetails from './bowelDetails';
 import { CustomLineGraph } from '../_plugins/chart/customLineGraph';
-import { useBowelState } from '../_hook/useBowelData';
+import { getBowelData } from '../_utils/getBowelData';
 
 type BowelChartProps = {
   bowelDate: TransformedBowelData[];
@@ -13,7 +13,7 @@ type BowelChartProps = {
 };
 
 const BowelChart = ({ bowelDate, isToggleActive }: BowelChartProps) => {
-  const { chartData, options, chartAreaStyles } = useBowelState(bowelDate, isToggleActive);
+  const { chartData, options, chartAreaStyles } = getBowelData(bowelDate, isToggleActive);
 
   return (
     <div

@@ -1,6 +1,6 @@
 import { Chart, ChartData, ChartOptions, ScriptableContext } from 'chart.js';
-import { getColor } from '../_utils/color';
-import { bowelDateCount, TransformedBowelData } from '../_utils';
+import { getColor } from './color';
+import { bowelDateCount, TransformedBowelData } from '.';
 
 interface CustomChartOptions extends ChartOptions<'line'> {
   grouped?: boolean;
@@ -11,7 +11,7 @@ interface CustomChartOptions extends ChartOptions<'line'> {
   } & ChartOptions<'line'>['plugins'];
 }
 
-export const useBowelState = (bowelDate: TransformedBowelData[], isToggleActive: boolean) => {
+export const getBowelData = (bowelDate: TransformedBowelData[], isToggleActive: boolean) => {
   const labels = Object.keys(bowelDateCount(bowelDate));
   const dataPoints = Object.values(bowelDateCount(bowelDate));
 

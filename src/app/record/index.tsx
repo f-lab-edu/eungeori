@@ -8,7 +8,6 @@ import useInfoStore from '../_store/info/infoStore';
 import { plusIconBox, plusIcon } from './_styles/record.css';
 import Image from 'next/image';
 import { Step, StepChangeHandler } from './page';
-import { supabaseClient } from '../_lib/supabaseClient';
 import { BowelAttributes } from '../_types/bowelAttributesSchema';
 import { useUserInfoStore } from '../_store/user/userStore';
 import { usePopupStore } from '../_store/popup/popupStore';
