@@ -12,6 +12,7 @@ const config: Config = {
   },
   moduleNameMapper: {
     '\\.css\\.ts$': 'identity-obj-proxy',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
