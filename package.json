@@ -10,13 +10,13 @@
     "postinstall": "husky install",
     "format": "prettier --cache --write .",
     "lint": "eslint --cache .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "jest"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.46.1",
-    "@vanilla-extract/css": "^1.15.3",
     "@vanilla-extract/sprinkles": "^1.6.3",
     "chart.js": "^4.4.6",
     "classnames": "^2.5.1",
@@ -32,16 +32,24 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/jest": "^29.5.14",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
+    "@vanilla-extract/css": "^1.15.5",
+    "@vanilla-extract/jest-transform": "^1.1.12",
     "@vanilla-extract/next-plugin": "^2.4.5",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.10.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.2",
@@ -49,6 +57,11 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.12.0",
     "husky": "^9.1.7",
-    "prettier": "^3.4.1"
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "prettier": "^3.4.1",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   }
 }

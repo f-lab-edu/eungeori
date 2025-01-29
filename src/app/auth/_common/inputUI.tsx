@@ -8,12 +8,12 @@ import { UseFormRegister } from 'react-hook-form';
 type InputUiProps = {
   text: string;
   type?: HTMLInputTypeAttribute;
-  maxLegnth?: number;
+  maxLength?: number;
   register: ReturnType<UseFormRegister<any>>;
   errorMessage: string | undefined;
 };
 
-const FormInputUI = ({ text, type, maxLegnth, register, errorMessage }: InputUiProps) => {
+const FormInputUI = ({ text, type, maxLength, register, errorMessage }: InputUiProps) => {
   return (
     <div>
       <p className={`${caption} ${regular} ${paddingSprinkles({ paddingBottom: 's4' })}`}>
@@ -24,7 +24,7 @@ const FormInputUI = ({ text, type, maxLegnth, register, errorMessage }: InputUiP
         placeholder={text}
         className={inputStyle}
         {...register}
-        maxLength={maxLegnth}
+        maxLength={maxLength}
         type={type}
       />
 
