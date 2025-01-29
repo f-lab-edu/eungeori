@@ -1,17 +1,17 @@
 'use client';
 
-import Button from '@/app/components/common/Button';
-import Memo from '@/app/components/common/Memo';
-import { flexSprinklesFc } from '@/app/components/common/utils/flex';
-import { colors } from '@/app/styles/colors.css';
+import Button from '@/app/_components/common/button';
+import Memo from '@/app/_components/common/memo';
+import { flexSprinklesFc } from '@/app/_components/common/utils/flex';
+import { colors } from '@/app/_styles/colors.css';
 
-import useInfoStore from '@/app/store/info/infoStore';
-import { usePopupStore } from '@/app/store/popup/PopupStore';
-import DetailPopup from './components/popup';
-import TitleText from './components/titleText';
-import { infoContainer } from '../common/common.css';
+import useInfoStore from '@/app/_store/info/infoStore';
+import { usePopupStore } from '@/app/_store/popup/popupStore';
+import DetailPopup from './_components/detailPopup';
+import { infoContainer } from '../_common/common.css';
 import { Step, StepChangeHandler } from '../../page';
-import useDetailActions from './hook/useDetailActions';
+import useDetailActions from './_hook/useDetailActions';
+import TitleText from './_components/titleText';
 
 const DetailPage = ({ onButtonClick }: { onButtonClick: StepChangeHandler }) => {
   const detailPopupState = usePopupStore((state) => state.openPopup);

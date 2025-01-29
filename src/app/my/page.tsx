@@ -1,17 +1,17 @@
 'use client';
 
-import UserProfileImage from './components/userProfileImage';
-import UserGoalInput from './components/userGoalInput';
-import LogoutButton from './components/logoutButton';
-import MyPopup from './components/myPopup';
+import LogoutButton from './_components/logoutButton';
+import MyPopup from './_components/myPopup';
+import GoalField from './_components/goalField';
+import ProfileAvatar from './_components/profileAvatar';
 
-const Page = () => {
+const MyPage = () => {
   return (
     <>
       <MyPopup />
       <div>
-        <UserProfileImage />
-        <UserGoalInput />
+        <ProfileAvatar />
+        <GoalField />
       </div>
 
       <LogoutButton />
@@ -19,4 +19,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default MyPage;
