@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["node", "jest", "@testing-library/jest-dom"],
     "allowJs": true,
     "noEmit": true,
     "resolveJsonModule": true,
@@ -22,8 +21,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@hook/*": ["src/app/components/common/hook/*"],
-      "@styles/*": ["src/app/styles/*"],
+      "@hook/*": ["src/app/_components/common/hook/*"],
+      "@styles/*": ["src/app/_styles/*"],
       "@image/*": ["public/image/*"],
       "@svgs/*": ["public/svgs/*"]
     }

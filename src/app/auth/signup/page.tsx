@@ -1,15 +1,15 @@
 'use client';
 
-import { signupContainer, signupWrapper } from './styles/signup.css';
-import { heading2, semiBold } from '@/app/styles/font.css';
-import { paddingSprinkles } from '@/app/styles/padding.css';
+import { signupContainer, signupWrapper } from './_styles/signup.css';
+import { heading2, semiBold } from '@/app/_styles/font.css';
+import { paddingSprinkles } from '@/app/_styles/padding.css';
 import Image from 'next/image';
-import { pointer } from '@/app/styles/global.css';
+import { pointer } from '@/app/_styles/global.css';
 import { useRouter } from 'next/navigation';
-import SignupPopup from './components/signupPopup';
-import SignupForm from './components/signupForm';
+import SignupPopup from './_components/signupPopup';
+import SignupForm from './_components/signupForm';
 
-const Page = () => {
+const SignupPage = () => {
   const router = useRouter();
 
   return (
@@ -45,4 +45,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default SignupPage;
